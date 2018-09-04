@@ -4,7 +4,7 @@ immortal(X) :- god(X).
 
 demigod(X) :- god(X), human(X).
 
-falseIdol(X) :- god(X), fallible(X).
+falseIdol(X) :- god(X), fallible(X), not(demigod(X)).
 
 
 human(joe).
