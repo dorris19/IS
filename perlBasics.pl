@@ -12,7 +12,6 @@ use v5.16;
 my $house_color = "green";
 my $name = "Dylan";
 my ($address, $dorm) = ("1189 Beall Ave", "Brush Hall");
-
 #qq represents double quotes, removes need to exit quotes within 
 #content
 my $my_info = qq{$name lives at $address in $dorm.\n};
@@ -49,3 +48,19 @@ than you!";
 elsif($older_man eq "Jim"){
    say "Hello Jim, sorry about the mix up earlier."
 }
+
+#basic input
+say "Tell us what Phillip really thinks!";
+
+#chomp removes trailing characters from variable (in this case, new 
+#line)
+chomp (my $phillip_wells = <STDIN>);
+
+say qq{Phillip says "$phillip_wells!"};
+
+#double variable assignment, which I was explicitly told not to do
+#doesn't work quite as described, may look into for fun
+#my $gianni = "FTL";
+#my $FTL = 8;
+
+#say "$$gianni";
