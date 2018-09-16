@@ -1,3 +1,5 @@
+use v6;
+
 use Lingua::EN::NamedEntity;
 use Lingua::EN::Summarize;
 use Data::Dumper;
