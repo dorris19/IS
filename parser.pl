@@ -1,3 +1,22 @@
+lex(triangle, factBase).
+lex(angle, subject).
+lex(third, descriptor).
+
+lex(the, lang).
+lex(is, lang).
+lex(a, lang).
+lex(of, lang).
+lex(is, affirm).
+lex(that, lang).
+lex(isnt, disprove).
+lex(sideangle, theorem).
+lex(prove, impWord).
+lex(that, affirm).
+
+lex(mathStuff, fact).
+
+
+
 :- op(700, xfx, --->).
 
 
@@ -16,22 +35,7 @@ object		---> [lang, factBase].
 lang		---> [lang, lang].
 
 
-lex(triangle, factBase).
-lex(angle, subject).
-lex(third, descriptor).
 
-lex(the, lang).
-lex(is, lang).
-lex(a, lang).
-lex(of, lang).
-lex(is, affirm).
-lex(that, lang).
-lex(isnt, disprove).
-lex(sideangle, theorem).
-lex(prove, impWord).
-lex(that, affirm).
-
-lex(mathStuff, fact).
 
 
 %%% Chooses a rule with 'category' on the left hand side. Checks
