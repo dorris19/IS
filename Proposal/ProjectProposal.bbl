@@ -1,0 +1,32 @@
+\begin{thebibliography}{1}
+
+\bibitem{chowdhury2003natural}
+Gobinda~G Chowdhury.
+\newblock Natural language processing.
+\newblock {\em Annual review of information science and technology},
+  37(1):51--89, 2003.
+
+\bibitem{lytinen1986dynamically}
+Steven~L Lytinen.
+\newblock Dynamically combining syntax and semantics in natural language
+  processing.
+\newblock In {\em AAAI}, volume~86, pages 574--587, 1986.
+
+\bibitem{pustejovsky1993lexical}
+James Pustejovsky and Branimir Boguraev.
+\newblock Lexical knowledge representation and natural language processing.
+\newblock {\em Artificial Intelligence}, 63(1-2):193--223, 1993.
+
+\bibitem{resnik1999semantic}
+Philip Resnik.
+\newblock Semantic similarity in a taxonomy: An information-based measure and
+  its application to problems of ambiguity in natural language.
+\newblock {\em Journal of artificial intelligence research}, 11:95--130, 1999.
+
+\bibitem{smeaton1992progress}
+Alan~F Smeaton.
+\newblock Progress in the application of natural language processing to
+  information retrieval tasks.
+\newblock {\em The computer journal}, 35(3):268--278, 1992.
+
+\end{thebibliography}
