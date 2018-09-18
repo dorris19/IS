@@ -16,7 +16,6 @@ lex(that, affirm).
 lex(mathStuff, fact).
 
 
-
 :- op(700, xfx, --->).
 
 

@@ -25,6 +25,3 @@ while (my $result = $prolog->results) {
 }
 #if what we had was a valid question, we work with it
 #Will probably need a new database to do determinations of what axioms to use
-if($result eq 'True.'){
-	
-}
