@@ -5,14 +5,14 @@ The style file: annotate.bst
 Database file #1: Bibliography.bib
 You've used 5 entries,
             2588 wiz_defined-function locations,
-            603 strings with 7708 characters,
-and the built_in function-call counts, 1982 in all, are:
+            604 strings with 8775 characters,
+and the built_in function-call counts, 1984 in all, are:
 = -- 206
 > -- 51
 < -- 6
 + -- 14
 - -- 14
-* -- 140
+* -- 142
 := -- 308
 add.period$ -- 15
 call.type$ -- 5
