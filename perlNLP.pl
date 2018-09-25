@@ -1,4 +1,4 @@
-use v6;
+use v5.16;
 
 use Lingua::EN::NamedEntity;
 use Lingua::EN::Summarize;

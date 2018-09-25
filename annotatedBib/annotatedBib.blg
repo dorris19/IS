@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2018/Arch Linux)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: annotatedBib.aux
+The style file: annotate.bst
+Database file #1: Bibliography.bib
+You've used 5 entries,
+            2588 wiz_defined-function locations,
+            603 strings with 7708 characters,
+and the built_in function-call counts, 1982 in all, are:
+= -- 206
+> -- 51
+< -- 6
++ -- 14
+- -- 14
+* -- 140
+:= -- 308
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 26
+chr.to.int$ -- 5
+cite$ -- 5
+duplicate$ -- 86
+empty$ -- 166
+format.name$ -- 23
+if$ -- 411
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 5
+newline$ -- 32
+num.names$ -- 15
+pop$ -- 19
+preamble$ -- 1
+purify$ -- 31
+quote$ -- 0
+skip$ -- 72
+stack$ -- 0
+substring$ -- 158
+swap$ -- 16
+text.length$ -- 6
+text.prefix$ -- 4
+top$ -- 0
+type$ -- 40
+warning$ -- 0
+while$ -- 22
+width$ -- 6
+write$ -- 73
