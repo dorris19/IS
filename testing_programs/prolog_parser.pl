@@ -19,18 +19,18 @@ lex(mathStuff, fact).
 :- op(700, xfx, --->).
 
 
-s		---> [imp, claim].
-imp		---> [impWord, lang].
-claim		---> [target, goal].
-claim		---> [goal, indicator].
-goal		---> [theorem].
-goal		---> [affirm, fact].
-goal		---> [disprove, fact].
-target		---> [subobject, object].
-subobject 	---> [descriptor, subject].
-subobject	---> [lang, descriptor, subject].
-subobject 	---> [subject].
-object		---> [lang, factBase].
+s		---> [v_IMP, v_CLAIM].
+v_IMP		---> [impWord, lang].
+v_CLAIM		---> [v_TARGET, v_GOAL].
+v_CLAIM		---> [v_GOAL, indicator].
+v_GOAL		---> [theorem].
+v_GOAL		---> [affirm, fact].
+v_GOAL		---> [disprove, fact].
+v_TARGET	---> [v_SUBOBJECT, v_OBJECT].
+v_SUBOBJECT 	---> [descriptor, subject].
+v_SUBOBJECT	---> [lang, descriptor, subject].
+v_SUBOBJECT 	---> [subject].
+v_OBJECT	---> [lang, factBase].
 lang		---> [lang, lang].
 
 
