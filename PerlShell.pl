@@ -15,7 +15,7 @@ my $pass_through = join(',', @test_list);
 
 #Format string for shell use
 
-my $first_string = qq{swipl -g 'consult('parser')' -g 'recognize_topdown([};
+my $first_string = qq{swipl -g 'consult('prolog_parser')' -g 'recognize_topdown([};
 my $second_string = qq{])' -t halt 2> /dev/null};
 my $string_test = join "",$first_string, $pass_through, $second_string;
 
