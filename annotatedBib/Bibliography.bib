@@ -46,7 +46,11 @@
   journal={Journal of artificial intelligence research},
   volume={11},
   pages={95--130},
-  year={1999}
+  year={1999},
+  annotate={Resnik describes using measures other than edge-counting in order to classify semantic objects. In simple edge-counting, each word belongs to a category, which belongs to a super-category, and so on. Resnik cites the example of coinage, where a nickel would belong to the coin category, which falls under money, which in turn falls under methods of exchange, and so on. By using systems like this, a level of distinction between words can be found, with words requiring few edge transitions being considered closely related, while those with many jumps being distantly related. Resnik attempts to improve on this system by using a categorizer that takes many instances of words, and creates a percentage association with the word and a subsuming concept, which is referred to as WordNet. For example, nurse would have a high association with health professions, but would have a moderate connection with childcare, due to the term `wet nurse'.
+
+	    Resnik does encounter some difficulties, as certain words will be too closely related due to the consideration of slang terms. In one example, tobacco is more closely related to horse than alcohol. This is due to horse being a slang term for the narcotic heroin, thus placing them both in the same narcotic category.
+	    }
 }
 
 @article{smeaton1992progress,
@@ -57,6 +61,11 @@
   number={3},
   pages={268--278},
   year={1992},
-  publisher={The British Computer Society}
+  publisher={The British Computer Society},
+  annotate={Smeaton discusses the now reliable, robust, and efficient techniques in NLP which can be used in information retrieval in text. Previously, information retrieval used statistical methods with many limitations. Among goals that Smeaton places for NLP are the disregarding of 'semantic nonsense' which are sentences that, while syntactically correct, mean nothing. By understanding these sentences, NLP systems can reduce ambiguity in further readings, by recognizing that certain verbs and descriptions cannot be applied to possible domains.
+	  Smeaton also sets his eyes on discourse level analysis, where meaning is greatly tied to context. 
+
+		  Smeaton describes TSAs, tree-structured analytics. These differ from parser trees, as TSAs are `binary trees whcih encode rather than enumerate structural syntactic ambiguities as markers on non-leaf nodes'. Through using these trees, it is possible to identify instances where ambiguity occurs and maintain the ambiguity for further processing by the system, rather than accepting a faulty understanding. Smeaton ends with a reference to issues with improving NLP from the side of those who are retrieving information, as these groups, at least at the time, did not provide much of anything to the processors. They were simply regarded as a black box, with no updates made by the researchers using them for information retrieval, greatly slowing down NLP progression.
+	}
 }
 
