@@ -5,7 +5,49 @@ Gobinda~G Chowdhury.
 \newblock Natural language processing.
 \newblock {\em Annual review of information science and technology},
   37(1):51--89, 2003.
-
+ \begin{quotation}\noindent Chowdhury gives an overview of Natural Language
+  Processing and the many areas of its research. The aspects of his discussion
+  which relate to this project are information extraction and natural language
+  interface. Information extraction consists of many different methodologies,
+  with varying levels of success and ease of implementation. Chowdhury
+  discusses issues NLP has with feature tagging, co-reference resolution, and
+  discourse analysis. Feature tagging is finding the important features of
+  phrases, sentences, and paragraphs and indicating where they lie.
+  Co-reference resolution refers to the difficulty that NLP programs typical
+  have with multiple references to the same object, especially when done with
+  different wording. Discourse analysis is essentially the importance of
+  context to semantic meaning. Chowdhury discusses a method called `template
+  mining', in which a sort of template is implemented for the processed data
+  which can then quickly and accurately pull out important information. The
+  difficulty here is that different formats are needed for different fields, so
+  no universal template is truly feasible. However, for this project, template
+  mining could prove useful if claim statements (when properly made) only come
+  in certain structures. This would allow the analysis to first find the
+  structure of the statement by comparing it with several templates, and when a
+  match is found, rapidly pull out the necessary information for testing. This
+  would eliminate more conversational ways of requesting information, however.
+  Another issue for NLP is the ability to expand it to different realms. Many
+  processors which work wonderfully for tasks such as article summaries have
+  great difficulty when expanded to new domains with new, more varied word
+  choices. Chowdhury also discusses natural language interfaces, situations in
+  which a user interacts with the program with speech or conversational writing
+  to request information. Already in 2003, with simple questions, programs
+  could deliver the correct answer over 60\% of the time. Most issues with
+  understanding human dialogue comes from difficulties with discourse analysis
+  and a lack of user models. User models create an interesting question for
+  this project; should it allow the less mathematically able to query it just
+  as effectively? Ideally the answer is of course yes, but this will require
+  greater interpretive power, as language will be less precise and more
+  ambiguous. It may be possible to create links between common phrases and
+  their proper references, such as a question like `Computer, please prove FOIL
+  for me'. Here, we must know that the user is referencing First Outside Inside
+  Last, a common saying when referring to distributive multiplication. By
+  understanding the different ways users will phrase questions, we can expect a
+  more compelling program and better responses. Memory also becomes an
+  important part of the program, as it should be able to respond to requests
+  such as `Show me how \textit{x} step works'. The program must then find what
+  it labelled as the \text{x}th step in the proof, and then display the axioms
+  and other pertinent information to the user. \end{quotation}
 
 \bibitem[Lyt86]{lytinen1986dynamically}
 Steven~L Lytinen.
@@ -69,13 +111,49 @@ Philip Resnik.
 \newblock Semantic similarity in a taxonomy: An information-based measure and
   its application to problems of ambiguity in natural language.
 \newblock {\em Journal of artificial intelligence research}, 11:95--130, 1999.
-
+ \begin{quotation}\noindent Resnik describes using measures other than
+  edge-counting in order to classify semantic objects. In simple edge-counting,
+  each word belongs to a category, which belongs to a super-category, and so
+  on. Resnik cites the example of coinage, where a nickel would belong to the
+  coin category, which falls under money, which in turn falls under methods of
+  exchange, and so on. By using systems like this, a level of distinction
+  between words can be found, with words requiring few edge transitions being
+  considered closely related, while those with many jumps being distantly
+  related. Resnik attempts to improve on this system by using a categorizer
+  that takes many instances of words, and creates a percentage association with
+  the word and a subsuming concept, which is referred to as WordNet. For
+  example, nurse would have a high association with health professions, but
+  would have a moderate connection with childcare, due to the term `wet nurse'.
+  Resnik does encounter some difficulties, as certain words will be too closely
+  related due to the consideration of slang terms. In one example, tobacco is
+  more closely related to horse than alcohol. This is due to horse being a
+  slang term for the narcotic heroin, thus placing them both in the same
+  narcotic category. \end{quotation}
 
 \bibitem[Sme92]{smeaton1992progress}
 Alan~F Smeaton.
 \newblock Progress in the application of natural language processing to
   information retrieval tasks.
 \newblock {\em The computer journal}, 35(3):268--278, 1992.
-
+ \begin{quotation}\noindent Smeaton discusses the now reliable, robust, and
+  efficient techniques in NLP which can be used in information retrieval in
+  text. Previously, information retrieval used statistical methods with many
+  limitations. Among goals that Smeaton places for NLP are the disregarding of
+  'semantic nonsense' which are sentences that, while syntactically correct,
+  mean nothing. By understanding these sentences, NLP systems can reduce
+  ambiguity in further readings, by recognizing that certain verbs and
+  descriptions cannot be applied to possible domains. Smeaton also sets his
+  eyes on discourse level analysis, where meaning is greatly tied to context.
+  Smeaton describes TSAs, tree-structured analytics. These differ from parser
+  trees, as TSAs are `binary trees whcih encode rather than enumerate
+  structural syntactic ambiguities as markers on non-leaf nodes'. Through using
+  these trees, it is possible to identify instances where ambiguity occurs and
+  maintain the ambiguity for further processing by the system, rather than
+  accepting a faulty understanding. Smeaton ends with a reference to issues
+  with improving NLP from the side of those who are retrieving information, as
+  these groups, at least at the time, did not provide much of anything to the
+  processors. They were simply regarded as a black box, with no updates made by
+  the researchers using them for information retrieval, greatly slowing down
+  NLP progression. \end{quotation}
 
 \end{thebibliography}

@@ -37,7 +37,18 @@
   number={1},
   pages={51--89},
   year={2003},
-  publisher={Wiley Online Library}
+  publisher={Wiley Online Library},
+  annotate={
+		Chowdhury gives an overview of Natural Language Processing and the many areas of its research. The aspects of his discussion which relate to this project are information extraction and natural language interface.
+
+		Information extraction consists of many different methodologies, with varying levels of success and ease of implementation. Chowdhury discusses issues NLP has with feature tagging, co-reference resolution, and discourse analysis. Feature tagging is finding the important features of phrases, sentences, and paragraphs and indicating where they lie. Co-reference resolution refers to the difficulty that NLP programs typical have with multiple references to the same object, especially when done with different wording. Discourse analysis is essentially the importance of context to semantic meaning.
+
+		Chowdhury discusses a method called `template mining', in which a sort of template is implemented for the processed data which can then quickly and accurately pull out important information. The difficulty here is that different formats are needed for different fields, so no universal template is truly feasible. However, for this project, template mining could prove useful if claim statements (when properly made) only come in certain structures. This would allow the analysis to first find the structure of the statement by comparing it with several templates, and when a match is found, rapidly pull out the necessary information for testing. This would eliminate more conversational ways of requesting information, however.
+
+		Another issue for NLP is the ability to expand it to different realms. Many processors which work wonderfully for tasks such as article summaries have great difficulty when expanded to new domains with new, more varied word choices.
+
+		Chowdhury also discusses natural language interfaces, situations in which a user interacts with the program with speech or conversational writing to request information. Already in 2003, with simple questions, programs could deliver the correct answer over 60\% of the time. Most issues with understanding human dialogue comes from difficulties with discourse analysis and a lack of user models. User models create an interesting question for this project; should it allow the less mathematically able to query it just as effectively? Ideally the answer is of course yes, but this will require greater interpretive power, as language will be less precise and more ambiguous. It may be possible to create links between common phrases and their proper references, such as a question like `Computer, please prove FOIL for me'. Here, we must know that the user is referencing First Outside Inside Last, a common saying when referring to distributive multiplication. By understanding the different ways users will phrase questions, we can expect a more compelling program and better responses. Memory also becomes an important part of the program, as it should be able to respond to requests such as `Show me how \textit{x} step works'. The program must then find what it labelled as the \text{x}th step in the proof, and then display the axioms and other pertinent information to the user.
+	}
 }
 
 @article{resnik1999semantic,
