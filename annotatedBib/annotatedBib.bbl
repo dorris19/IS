@@ -1,5 +1,19 @@
 \begin{thebibliography}{Sme92}
 
+\bibitem[BL04]{bird2004nltk}
+Steven Bird and Edward Loper.
+\newblock Nltk: the natural language toolkit.
+\newblock In {\em Proceedings of the ACL 2004 on Interactive poster and
+  demonstration sessions}, page~31. Association for Computational Linguistics,
+  2004.
+ \begin{quotation}\noindent This article discusses the goals of the Natural
+  Language Toolkit (NLTK), a system implemented in Python meant for use in
+  computational linguistics courses. The toolkit aims to make the creation of
+  NLP systems simpler for amateur coders and linguists, who are able to then
+  focus on what they are doing (the actual act of parsing) rather than being
+  bogged down in learning languages - Perl and Prolog are explicitly mentioned
+  here. The toolkit has many modules, including some for mapping mathematical
+  functions. \end{quotation}
 \bibitem[Cho03]{chowdhury2003natural}
 Gobinda~G Chowdhury.
 \newblock Natural language processing.
@@ -86,6 +100,22 @@ Steven~L Lytinen.
   bases in a single claim would currently break my parser, so this article was
   useful in seeing an effective way of dealing with the ambiguity which may
   arise in these situations. \end{quotation}
+\bibitem[MD08]{madnani2008combining}
+Nitin Madnani and Bonnie~J Dorr.
+\newblock Combining open-source with research to re-engineer a hands-on
+  introductory nlp course.
+\newblock In {\em Proceedings of the Third Workshop on Issues in Teaching
+  Computational Linguistics}, pages 71--79. Association for Computational
+  Linguistics, 2008.
+ \begin{quotation}\noindent This article discusses the use of NLTK (described
+  in a separate source) in an introductory computational linguistics course and
+  its effectiveness. The article indicates that the toolkit allows for much
+  better understanding of natural language processing and its intricacies, and
+  allowing for complex task implementation, without requiring knowledge of
+  several languages or several libraries. Students compare NLTK favorably to
+  the previous course system, which used several programs in addition to coding
+  in C or C++, depending on the task. NLTK is also open source, allowing for
+  easy modification for other uses. \end{quotation}
 \bibitem[PB93]{pustejovsky1993lexical}
 James Pustejovsky and Branimir Boguraev.
 \newblock Lexical knowledge representation and natural language processing.

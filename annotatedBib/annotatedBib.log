@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2018.9.20)  1 OCT 2018 21:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2018.9.20)  13 OCT 2018 22:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -45,7 +45,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 (./annotatedBib.bbl
 ! Undefined control sequence.
-l.49   it labelled as the \text
+l.63   it labelled as the \text
                                {x}th step in the proof, and then display the...
 
 ? 
@@ -54,19 +54,19 @@ l.49   it labelled as the \text
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]) [5]
 (./annotatedBib.aux) ) 
 Here is how much of TeX's memory you used:
- 236 strings out of 492642
- 2611 string characters out of 6135566
- 67000 words of memory out of 5000000
- 4195 multiletter control sequences out of 15000+600000
+ 238 strings out of 492642
+ 2647 string characters out of 6135566
+ 69000 words of memory out of 5000000
+ 4197 multiletter control sequences out of 15000+600000
  7626 words of font info for 27 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 23i,6n,17p,137b,271s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 23i,6n,17p,137b,273s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
 x12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/s
 hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmti10.pfb>
-Output written on annotatedBib.pdf (5 pages, 77084 bytes).
+Output written on annotatedBib.pdf (5 pages, 81374 bytes).
 PDF statistics:
  40 PDF objects out of 1000 (max. 8388607)
  27 compressed objects within 1 object stream

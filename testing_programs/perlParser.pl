@@ -1,3 +1,4 @@
+use lib 'home/usr/perl5';
 use strict;
 use warnings;
 use AI::Prolog;
