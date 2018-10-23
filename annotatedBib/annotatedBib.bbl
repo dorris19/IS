@@ -1,4 +1,4 @@
-\begin{thebibliography}{Sme92}
+\begin{thebibliography}{Win71}
 
 \bibitem[BL04]{bird2004nltk}
 Steven Bird and Edward Loper.
@@ -14,6 +14,10 @@ Steven Bird and Edward Loper.
   bogged down in learning languages - Perl and Prolog are explicitly mentioned
   here. The toolkit has many modules, including some for mapping mathematical
   functions. \end{quotation}
+\bibitem[can18]{canalys}
+Global smart speaker shipments grew 187\% year on year in q2 2018, with china
+  the fastest-growing market, Aug 2018.
+
 \bibitem[Cho03]{chowdhury2003natural}
 Gobinda~G Chowdhury.
 \newblock Natural language processing.
@@ -62,6 +66,12 @@ Gobinda~G Chowdhury.
   such as `Show me how \textit{x} step works'. The program must then find what
   it labelled as the \text{x}th step in the proof, and then display the axioms
   and other pertinent information to the user. \end{quotation}
+
+\bibitem[JH04]{Hutchins}
+W~John~Hutchins.
+\newblock The georgetown-ibm experiment demonstrated in january 1954.
+\newblock 3265:102--114, 09 2004.
+
 
 \bibitem[Lyt86]{lytinen1986dynamically}
 Steven~L Lytinen.
@@ -185,5 +195,12 @@ Alan~F Smeaton.
   processors. They were simply regarded as a black box, with no updates made by
   the researchers using them for information retrieval, greatly slowing down
   NLP progression. \end{quotation}
+
+\bibitem[Win71]{winograd}
+Terry Winograd.
+\newblock Procedures as a representation for data in a computer program for
+  understanding natural language.
+\newblock Technical report, MASSACHUSETTS INST OF TECH CAMBRIDGE PROJECT MAC,
+  1971.
 
 \end{thebibliography}

@@ -1,0 +1,9 @@
+[0] Config.pm:302> INFO - This is Biber 2.11
+[0] Config.pm:305> INFO - Logfile is 'roughDraft.blg'
+[26] biber:313> INFO - === Tue Oct 23, 2018, 09:34:44
+[45] Biber.pm:371> INFO - Reading 'roughDraft.bcf'
+[102] Biber.pm:857> INFO - Found 3 citekeys in bib section 0
+[115] Biber.pm:3976> INFO - Processing section 0
+[125] Biber.pm:4136> INFO - Looking for bibtex format file '\nobreakspace {}/IS/roughDraft/Bibliography.bib' for section 0
+[169] Utils.pm:209> ERROR - Cannot find '\nobreakspace {}/IS/roughDraft/Bibliography.bib'!
+[170] Biber.pm:114> INFO - ERRORS: 1
