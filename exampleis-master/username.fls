@@ -309,6 +309,15 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/pxfonts/rpxb.tfm
 INPUT /usr/share/texmf-dist/fonts/vf/public/pxfonts/p1xr.vf
 INPUT /usr/share/texmf-dist/fonts/tfm/public/pxfonts/rpxpplr.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/pxfonts/rpxr.tfm
+INPUT ./figures/SHRDLU_World.png
+INPUT ./figures/SHRDLU_World.png
+INPUT ./figures/SHRDLU_World.png
+INPUT ./figures/SHRDLU_Flow.png
+INPUT ./figures/SHRDLU_Flow.png
+INPUT ./figures/SHRDLU_Flow.png
+INPUT ./figures/SHRDLU_World_Changed.png
+INPUT ./figures/SHRDLU_World_Changed.png
+INPUT ./figures/SHRDLU_World_Changed.png
 INPUT ./figures/ELIZA.png
 INPUT ./figures/ELIZA.png
 INPUT ./figures/ELIZA.png

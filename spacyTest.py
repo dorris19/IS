@@ -18,8 +18,12 @@ def parseGenerator(ListTokens, pos):
 
 
 nlp = spacy.load('en')
+<<<<<<< HEAD
 #inpString=input()
 inpString = "Prove that 2 + 2 = 4"
+=======
+inpString='Prove that the third side of a triangle can be determined by the other two sides and the known angle.'
+>>>>>>> 19e85d944d13ed6f9fdd5891eb71968dd88e4fc9
 doc = nlp(inpString)
 #displacy.serve(doc, style='dep')
 
