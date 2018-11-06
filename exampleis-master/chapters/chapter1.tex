@@ -1,0 +1,93 @@
+%!TEX root = ../username.tex
+\chapter{Previous Work in Natural Language Processor}\label{text}                                                                   
+\section{Context Free Grammars}
+
+To understand the functioning of NLP systems, context free grammars (CFGs) should first be described. CFGs are a set of rules which describe all strings which can possibly be produced within a grammar. Here, string simply means a sequence of words, such as ``The man walked down the road'' and grammar refers to the possible words which may be included in these strings. There are two basic elements of a CFG -- variables and terminals. A variable is a part of the grammar which will be modified by continuing to follow the production rules which are described by the grammar. When we refer to a variable, it will be within the `<' and `>' characters. A terminal is a word, such as ``the'', which is in its most basic form and undergoes no further changes. 
+
+This is most easily seen through an example. Consider the following two figures:
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+	$<A> \rightarrow <B>$
+	
+	$<B> \rightarrow \text{Dog | Pig}$
+  \captionof{figure}{A production rule which produces a variable}	
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+	$<A> \rightarrow \text{Cat}$
+  \captionof{figure}{A production rule which produces a terminal}	
+\end{minipage}
+\end{figure}
+
+In each of the cases, we have the variable $<A>$ on the left of the arrow. To the right of the arrow is what will replace $<A>$, which is another variable $<B>$ in Figure 1, and a terminal (``Cat'') in Figure 2. Notice that in Figure 1, the second variable has two terminals on the right of the arrow with `|' between them. This indicates that $<B>$ may be replaced by ``Dog'' or ``Pig''. Variables may follow rules which are:
+
+\begin{itemize}
+	\item one-to-one, where the variable is replaced by a single other variable or terminal.
+	\item one-to-many, where the variable has several variables or terminals which may replace it.
+	\item one-to-none, where the variable is replaced by nothing (blank space).
+\end{itemize}
+
+
+
+\section{Early Years}
+
+Natural language processing has been an area of interest in computer science for the past 60 years. Initially, the subject was limited to machine translation, with the Georgetown experiment in 1954 being an early foray into the field. In this experiment over sixty Russian sentences were translated to English entirely automatically. The results were promising enough that the researchers anticipated automatic translation being solved within the next five years. \cite{Hutchins} Progress was, obviously, much slower than this.             
+
+ 
+Funding was cut when the program had run twice as long as promised, and progress in the field slowed. Two successful systems were created in the 1960s, SHRDLU and ELIZA.
+                                                                                          
+\subsection{SHRDLU}                                                                    
+SHRDLU was a querying system which created a small ``Blocks World'' which was populated by cones, spheres, cubes, and other geometric shapes of various sizes and colors. \cite{winograd} The user was able to instruct SHRDLU on how to move these objects around simply by specifying the shape in addition to its color or size. SHRDLU also had a simple memory system, allowing for reference to recently interacted with objects. This memory also allowed for SHRDLU to be queried on what she had previously done. SHRDLU's world contained basic physics, allowing for the program to describe what was possible in the world and what was not. The final major feature was to remember the name a user gave an object or collection of objects. From this, it was possible to more easily instruct SHRDLU.                      
+                                                                                          
+\subsection{ELIZA}                                                                     
+                                                                                          
+ELIZA is an early language based program which took user input and responded much like a Rogerian psychologist \cite{Weizenbaum}. She was created by Joseph Weizenbaum around 1965 at MIT, using pattern matching and substitution to give an illusion of understanding. While ELIZA has only a very small vocabulary, she convinced many users that she was truly intelligent through the use of these techniques, despite being completely unable to go into detail on almost all subjects.
+
+ELIZA uses NLP in a very different way from SHRDLU -- rather than attempting to understand what the user is inputting, she instead uses the context surrounding phrases, such as ``I feel'' or ``I am'' to insert the phrase properly into previously constructed sentence types.
+
+
+
+\begin{figure}[!ht]                                                                                        
+\begin{center}                                                                                             
+\woopic{ELIZA.png}{.5}                                                                                      
+\end{center}                                                                                               
+\caption{Sample ELIZA dialogue and Basic Flowchart}\label{ELIZA}                                                                                     
+\end{figure}                                                                                               
+
+
+
+\section{The 1970s and 1980s}
+Come the 1970s, William Woods introduced augmented transition networks (ATNs) as a method to represent language input, rather than phrase structure rules \cite{Woods}. Phrase structure rules are typically known as context free grammars (CFGs), and are structured as follows:
+
+
+\begin{figure}
+\begin{center}
+
+\begin{itemize}
+
+\item $<S> \rightarrow <NP> \text{ } <VP>$
+\item $<NP> \rightarrow <DET> \text{ } <N>$
+\item $<VP> \rightarrow (<ADVB>) \text{ } <VB>$
+\item $<N> \rightarrow \text{Dog}$
+\item $<DET> \rightarrow \text{The | A}$
+\item $<VB> \rightarrow \text{Runs | Jumps}$
+\item $<ADVB> \rightarrow \text{Excitedly}$
+
+\end{itemize}
+\end{center}
+\caption{Sample Context Free Grammar}
+\end{figure}
+
+
+Here, we have a simple grammar which breaks a sentence into noun and verb phrases, which then break into a determiner and a noun, and a possible adverb and verb, respectively. Once these variables are reached, they lead to terminals, which here are the English words which are represented. In this grammar, the sentence ``The dog excitedly runs'' is valid, while ``The dog happily jumps'' is not. The second sentence is not incorrect due to any issues with the English grammar, but rather due to the given grammar not accounting for the terminal `happily'.
+
+ATNs use finite state machines in order to parse sentences. Woods claimed that, by adding a recursive mechanism to finite state models, it was possible to parse much more efficiently. The system builds a set of finite state automata, which have transition states between them. Should a sentence reach a final state, the sentence is valid. These systems have advantages, including the delaying of ambiguity. Rather than simply guessing a path as some systems will, the ambiguity may be delayed until more of the sentence has been parsed, allowing for greater information to be used in resolving said ambiguity. Additionally, they effectively capture the regular nature of languages, allowing for ease of processing \cite{ATN}.
+
+The 1980s, with the introduction of machine learning algorithms, led to immense changes. No longer were parsers built based on complex rules formed by the programmer, instead, algorithms like decision trees began to make the classification rules. Eventually, this change led to the use of modern statistical models, which assign probabilities to words for part-of-sentence identification, rather than rigid if-then rule sets \cite{1980}.
+
+\subsection{Syntax and Semantics}
+
+

@@ -13,14 +13,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % use this declaration for a draft  version of your IS
-\documentclass[10pt,palatino,code,picins,kaukecopyright,openright,woolshort,dropcaps,verbatim,index,euler]{woosterthesis}
+%\documentclass[10pt,palatino,code,picins,kaukecopyright,openright,woolshort,dropcaps,verbatim,index,euler]{woosterthesis}
 %\documentclass[10pt,code,picins,kaukecopyright,openright,woolshort,dropcaps,verbatim,euler,index,colophon,blacklinks,twoside]{woosterthesis}
 % note that you can specify the woosterchicago option to use Chicago citation style and achemso to use the American Chemical Society citation format
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % use this declaration for the print version of your IS
-%\documentclass[12pt,code,palatino,picins,blacklinks,kaukecopyright,openright,twoside]{woosterthesis} % probably what most students would use
+\documentclass[12pt,code,palatino,picins,blacklinks,kaukecopyright,openright,twoside]{woosterthesis} % probably what most students would use
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -75,7 +75,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\title{Conversational Proofs}
+\title{Conversational Mathematics}
 \thesistype{Independent Study Thesis} % you should make this Independent Study Thesis
 \author{Dylan Orris}
 %\presentdegrees{Ph.D.} % you should comment this line
@@ -83,12 +83,12 @@
 \presentschool{The College of Wooster}
 \academicprogram{Mathematics and Computer Science}
 \gradyear{2019}
-\advisor{Dr. Nathan Fox}
+\advisor{Dr. Fox (Mathematics and Computer Science)}
 %\secondadvisor{Second Advisor}
 %\reader{Reader}
 \copyrighted   
 %\copyrightdate{}                  
-\makeindex % comment this line if you do not have an index
+%\makeindex % comment this line if you do not have an index
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -138,7 +138,7 @@ Include a short summary of your thesis, including any pertinent results.  This s
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{acknowl}  
-I would like to work on these acknowledgments in the future.
+I would like to acknowledge Prof. Lowell Boone in the Physics Department for his suggestions and code.
 \end{acknowl}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -147,7 +147,7 @@ I would like to work on these acknowledgments in the future.
 %                                                                                       
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- 
+%\begin{vita} 
 % You talk about yourself and how you got to where you are now. There is a structured form for the Vita that can be used if you want, but I don't encourage it.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -177,6 +177,8 @@ I would like to work on these acknowledgments in the future.
 %
 %%%This is for any publications you might have.%%%%%
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %  We now create the contents page and if necessary the list of figures and list of tables.
@@ -195,6 +197,7 @@ I would like to work on these acknowledgments in the future.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%\input{chapters/preface} % most theses do not have a preface so this should be commented
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
@@ -211,10 +214,10 @@ I would like to work on these acknowledgments in the future.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\input{chapters/Introduction}
-\input{chapters/PreviousWork}
-\input{chapters/Software}
-\input{chapters/Conclusions}
+\input{chapters/introduction}
+\input{chapters/chapter1}
+%\input{chapters/chapter2}
+%\input{chapters/chapter3}
 %\input{chapters/chapter4}
 %\input{chapters/chapter5}
 %\input{chapters/chapter6}
@@ -230,10 +233,10 @@ I would like to work on these acknowledgments in the future.
 
 \backmatter
 
-\input{appendices/math}
-\input{appendices/java}
-\input{appendices/cpp}
-\input{appendices/afterword}
+%\input{appendices/math}
+%\input{appendices/java}
+%\input{appendices/cpp}
+%\input{appendices/afterword}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %

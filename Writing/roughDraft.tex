@@ -1,4 +1,7 @@
 \documentclass[12pt]{article}
+\usepackage{biblatex}
+\usepackage{url}
+\bibliography{~/IS/roughDraft/Bibliography}
 \begin{document}
 \title{Translating English to Math}
 \author{Dylan Orris}
@@ -6,45 +9,54 @@
 \tableofcontents
 \pagebreak
 \section{Introduction}
-Over the past decade, natural language processors have become more and more commonplace. In late 2011, Apple introduced their digital assistant, Siri, to iOS. Siri was the successor to voice control, an iOS feature that allowed the user to interact with their phone using their voice, though in both an extremely limited fashion and rather unreliably. Siri was powered by a much better voice recognition model, and not only could process many commands into action, but could even ask for clarification based on context. Since this time, Google introduced the Google Assistant to its Android and ChromeOS platforms, Amazon released smarthome products powered by Alexa, and Siri has been ported to MacOS and WatchOS. All of these digital assistants rely on understanding the commands of users to be useful, and the only way this is possible is through natural language processing. 
+Over the past decade, natural language processors have become more and more commonplace. In late 2011, Apple introduced their digital assistant, Siri, to iOS. Siri was the successor to voice control, an iOS feature that allowed the user to interact with their phone using their voice, though in both an extremely limited fashion and rather unreliably. Siri was powered by a much better voice recognition model. Not only could it process many commands into actions, but it could even ask for clarification based on context. Since then, Google introduced the Google Assistant to its Android and ChromeOS platforms, Amazon released smart home products powered by Alexa, and Siri has been ported to MacOS and WatchOS. All of these digital assistants rely on understanding the commands of users, and the only way this is possible is through natural language processing. 
 
-From Q2 2017 to Q2 2018, smart speakers, the quintessential aspect of the smarthome to many, had shipments grow 187\%. %https://www.canalys.com/newsroom/global-smart-speaker-shipments-grew-187-year-on-year-in-q2-2018-with-china-the-fastest-growing-market  
-This growth is expected to continue in the coming years, with smart speakers and the smarthome technology they may control becoming an enormous industry. As this industry expands, there will be greater and greater access to these systems among the general population. What if it was possible for a student to ask their smart screen why a mathematical claim was true, and that system could respond by displaying the proof? Smart devices offer more than simply convenience, they could become an amazing source of educational opportunities which are not otherwise available for many.
+From Q2 2017 to Q2 2018, smart speakers, the quintessential aspect of the smart home to many, had shipments grow 187\%. \cite{canalys} %https://www.canalys.com/newsroom/global-smart-speaker-shipments-grew-187-year-on-year-in-q2-2018-with-china-the-fastest-growing-market  
+This growth is expected to continue in the coming years, with smart speakers and other smart home technologies becoming an enormous industry. As this industry expands, there will be greater and greater access to these systems among the general population. Smart devices offer more than simply convenience, they could become an amazing source of educational opportunities which are not otherwise available for many. For example, what if it was possible for a student to ask their smart screen why a mathematical claim was true, and that system could respond by displaying the proof? 
 
-While we will not be using smart devices in this project, we will be creating a front end interface for students to more easily investigate mathematical questions, without the barrier of language.
+While smart devices do not appear in this project, we have created a front end interface for students to more easily investigate mathematical questions, without the barrier of technical language.
 
 \subsection{Problem Statement}
-Automated theorem proving systems are a powerful tool which can allow a student to check their work or a researcher to prove a claim which could be extremely time consuming if done by hand. Unfortunately, these systems are not trivial to use, with the use of any such system requiring the user to learn the proper method for input, which will also differ between different such systems. As a result of this, it can be easy to be put off of these systems, and once one learns one such system, it is easy to be stuck using what is already known, even if better options may be available. A wonderful solution to this problem would be leveraging computational power to convert a human language request, i.e. ``Prove that the length of the third side of a triangle is determined by the two other sides and the angle between them'' into a language the proving system will understand.
+Automated theorem proving systems are a powerful tool which can allow a student to check their work or a researcher to prove a claim which could be extremely time consuming if done by hand. Unfortunately, these systems are not trivial to use, with the use of any such system requiring the user to learn the proper method for input to that system. As a result, these systems are quite intimidating to learn, and once one learns one such system, it is easy to be stuck using what is already known, even if better options may be available. A wonderful solution to this problem is leveraging computational power to convert a human language request, e.g. ``Prove that the length of the third side of a triangle is determined by the two other sides and the angle between them'' into a language the proving system understands.
 
 
 \subsection{Project Aims}
-This project has two separate but interconnected goals; the production of a natural language processor, and the creation of a basic automated prover. The processor will:
+This project has two separate but interconnected goals; the production of a natural language processor, and the creation of a basic automated prover. The processor:
 \begin{itemize}
-\item{Serve as a front end for any automated prover.}
-\item{Be fully functional without any understanding of symbolic notation or programming}
-\item{Be modular enough to become the front end of any automated proving system.}
-\item{Accurately translate standard English to symbolic notation.}
+\item{Serves as a front end for any automated prover.}
+\item{Is usable without any understanding of symbolic notation or programming.}
+\item{Is modular enough to become the front-end to any automated proving system.}
+\item{Accurately translates standard English to symbolic notation.}
 \end{itemize}
 
-The prover will have far more modest aims:
+The prover had far more modest aims:
 \begin{itemize}
 \item{Understand basic questions in a limited scope, such as geometry or arithmetic.}
 \item{Take symbolic input, and return the truth value of said statement.}
 \item{Display the steps of the proof to the end user.}
 \end{itemize}
 
-As the two pieces are separate, the processor will not be limited by the prover, and may instead be joined with a more robust system by specifying what said system is. This will be necessary to convert the request properly, so that the processor will know which symbolic language to translate to.
+As the two pieces are separate, the processor is not limited by the prover, and may instead be joined with a more robust system by specifying what said system is. This is necessary to convert the request properly, so that the processor knows which symbolic language to translate to.
 \subsubsection{Natural Language Processor}
-The processor will take a user's input in English, and determine the goal of the user based on the content of that input. The user will not be required to know anything, other than that the system is intended for mathematical queries and will be able to do nothing else. Once the input has been analyzed, the processor will convert it to the proper symbolic language for the automated prover.
+The processor will takes a user's input in English, and determines the goal of the user based on the content of that input. The user is not required to know anything, other than that the system is intended for mathematical queries and will be able to do nothing else. Once the input is analyzed, the processor converts it to the proper symbolic language for the automated prover.
 \subsubsection{Automated Theorem Prover}
 
-The prover will take a mathematical claim, in a symbolic notation, and apply axioms, theorems, and other knowledge as necessary to prove or disprove the claim. If the prover is able to use theorems in its proofs, it will be barred from using them in such a way as to give the appearance of circular logic. For example, when a user asks for a proof of the Pythagorean Theorem, the prover will be disallowed from using the Pythagorean Theorem as its justification for the truth of the theorem. %We can do this by preventing the prover from using single step proofs except in the case of an appeal to an axiom! 
-Should the user ask for a proof of an axiom, it will be permissible to simply point to the axiom. The prover should not and will not be expected to explain an axiom to a user.
+The prover takes a mathematical claim, in a symbolic notation, and applies axioms, theorems, and other knowledge as necessary to prove or disprove the claim. If the prover is able to use theorems in its proofs, it is barred from using them in such a way as to give the appearance of circular logic. For example, when a user asks for a proof of the Pythagorean Theorem, the prover may not use the Pythagorean Theorem as its justification for the truth of the theorem. %We can do this by preventing the prover from using single step proofs except in the case of an appeal to an axiom! 
+Should the user ask for a proof of an axiom, it is permissible to simply point to the axiom. The prover is not expected to explain an axiom to a user.
 
 
 \section{Previous Work}
 \subsection{Natural Language Processors}
+Natural language processing has been an area of interest in computer science for the past 60 years. Initially, the subject was limited to machine translation, with the Georgetown experiment in 1954 being an early foray into the field. In this experiment over sixty Russian sentences were translated to English entirely automatically. The results were promising enough that the researchers anticipated automatic translation being solved within the next five years. \cite{Hutchins} Progress was, obviously, much slower than this.
 
+Funding was cut when the program ran over a decade, and progress in the field slowed. Two successful systems were created in the 1960s, SHRDLU and ELIZA.
+
+\subsubsection{SHRDLU}
+SHRDLU was a querying system which created a small ``Blocks World'' which was populated by cones, spheres, cubes, and other geometric shapes of various sizes and colors. \cite{winograd} The user was able to instruct SHRDLU on how to move these objects around simply by specifying the shape in addition to its color or size. SHRDLU also had a simple memory system, allowing for reference to recently interacted with objects. This memory also allowed for SHRDLU to be queried on what she had previously done. SHRDLU's world contained basic physics, allowing for the program to describe what was possible in the world and what was not. The final major feature was to remember the name a user gave an object or collection of objects. From this, it was possible to more easily instruct SHRDLU.
+
+\subsubsection{ELIZA}
+
+\huge{Include a sample dialogue, and a flowchart of ELIZA's function}
 
 \subsubsection{Syntax and Semantics}
 \subsubsection{Use in Information Retrieval}
@@ -60,5 +72,7 @@ Should the user ask for a proof of an axiom, it will be permissible to simply po
 
 \section{Conclusions}
 \subsection{Future Work}
+\bibliographystyle{acm}
+
 
 \end{document}
