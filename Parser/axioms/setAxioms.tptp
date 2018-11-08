@@ -1,0 +1,9 @@
+fof(extensionality, axiom,((
+	! [A, X, Y]:
+	(member(A,X))
+	& (member(A,Y)))
+	=> X = Y)).
+
+fof(union, axiom,((
+	! [A, X, Y]:
+
