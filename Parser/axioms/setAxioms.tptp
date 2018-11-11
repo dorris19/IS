@@ -9,3 +9,9 @@ fof(transitive, axiom,((
 	(subset(X, Y))
 	& (subset(Y, Z)))
 	=> subset(X,Z))).
+
+fof(subsetDef, axiom,((
+	! [X, Y, A]:
+	(subset(X, Y))
+	& (member(A, X)))
+	=> member(A, Y))).

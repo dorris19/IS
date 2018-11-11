@@ -59,16 +59,23 @@ for i in range(1, len(output)-1):
             j+=1;
         #Add the string we found to the list of subjects
         subjectList.append(strings)
+    if(output[i] == ord('R') and output[i+1] == ord('B') and output[i+3]!=ord('t')):
+        #Found RB, so we have not in operator
+        subjectList.append('~member')
 
+
+for i in subjectList:
+    print(i)
 
 
 #Decorate each pair of three subjects
+
 for i in range(int(len(subjectList)/3)):
     vampString = vampDecorator(subjectList[3*i],subjectList[(3*i)+1],subjectList[(3*i)+2])
     varMethodList.append(vampString)
 
-#for i in varMethodList:
-#    print(i)
+for i in varMethodList:
+    print(i)
 #Convert our formatted text to a full conjecture
 vampText=vampFileFormat(varMethodList, subjectList)
 print(vampText)
