@@ -18,10 +18,10 @@ $ java -mx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer \
 
 When the automated theorem prover is to be used:
 
-'''
+```
 git clone https://github.com/vprover/vampire.git
 
 cd vampire
 
 make vampire_rel
-'''
+```
