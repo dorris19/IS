@@ -1,5 +1,0 @@
-fof(thm1,conjecture,((
-($hypotenuse(length,triangle)))
-=>$ squares(sum, legs))).fof(thm1,conjecture,((
-(hypotenuse(length,triangle)))
-=> squares(sum, legs))).
