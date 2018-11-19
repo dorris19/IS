@@ -1,17 +1,17 @@
 fof(extensionality, axiom,((
-	! [A, X, Y]:
+
 	(member(A,X))
-	& (member(A,Y)))
-	=> X = Y)).
+	& (member(A,Y))
+	=> X = Y))).
 
 fof(transitive, axiom,((
-	! [X, Y, Z]:
+
 	(subset(X, Y))
-	& (subset(Y, Z)))
-	=> subset(X,Z))).
+	& (subset(Y, Z))
+	=> subset(X,Z)))).
 
 fof(subsetDef, axiom,((
-	! [X, Y, A]:
+
 	(subset(X, Y))
-	& (member(A, X)))
-	=> member(A, Y))).
+	& (member(A, X))
+	=> member(A, Y)))).

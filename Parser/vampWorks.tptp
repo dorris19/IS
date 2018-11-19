@@ -1,0 +1,23 @@
+cnf(commutativity, axiom, f(X,Y)=f(Y,X)).
+cnf(identity,axiom,f(i,X)=X).
+
+fof(extensionality, axiom,((
+	(member(A,X))
+	& (member(A,Y))
+	=> X = Y))).
+
+fof(transitive, axiom,((
+	(subset(X, Y))
+	& (subset(Y, Z))
+	=> subset(X,Z)))).
+
+fof(subsetDef, axiom,((
+	(subset(X, Y))
+	& (member(A, X))
+	=> member(A, Y)))).
+
+
+
+
+fof(c, conjecture, (subset(X, Y) & subset(Y, Z) => subset(Z, X))).
+%fof(c, conjecture,(![X]:f(j,X)=X)=>j=X).

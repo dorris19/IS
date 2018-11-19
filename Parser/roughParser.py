@@ -21,16 +21,16 @@ def forAllDecorator(lst):
 
 #Takes a list of strings, and creates a conjecture named thm1 to insert in a TPTP file
 #for Vampire to read
-def vampFileFormat(lst, lst2):
+def vampFileFormat(lst):
     initString='fof(thm1,conjecture,((\n'
-    initString+=forAllDecorator(lst2)
+    #initString+=forAllDecorator(lst2)
     for i in range(len(lst)-1):
         initString+='('+lst[i]+')'
         if(i < len(lst)-2):
             initString+='\n&'
         else:
-            initString+=')\n'
-    initString+='=>'+lst[-1]+')).'
+            initString+='\n'
+    initString+='=>'+lst[-1]+'))).'
     return initString
 
 
@@ -44,7 +44,7 @@ output = output[:-2]
 #Initialize lists for future use
 subjectList = []
 varMethodList = []
-forAlls = []
+#forAlls = []
 
 #Loop through the string produced by the Stanford parser
 for i in range(1, len(output)-1):
@@ -64,8 +64,8 @@ for i in range(1, len(output)-1):
         subjectList.append('~member')
 
 
-for i in subjectList:
-    print(i)
+#for i in subjectList:
+#    print(i)
 
 
 #Decorate each pair of three subjects
@@ -74,11 +74,11 @@ for i in range(int(len(subjectList)/3)):
     vampString = vampDecorator(subjectList[3*i],subjectList[(3*i)+1],subjectList[(3*i)+2])
     varMethodList.append(vampString)
 
-for i in varMethodList:
-    print(i)
+#for i in varMethodList:
+#    print(i)
 #Convert our formatted text to a full conjecture
-vampText=vampFileFormat(varMethodList, subjectList)
-print(vampText)
+vampText=vampFileFormat(varMethodList)
+print(vampText + '\n')
 
 vampFile = open('vampRead.tptp', 'a')
 axioms = open('axioms/setAxioms.tptp', 'r')
