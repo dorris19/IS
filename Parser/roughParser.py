@@ -4,6 +4,8 @@ import subprocess
 def vampDecorator(str1, str2, str3):
     return ''+str2+'('+str1+','+str3+')'
 
+#Currently unused
+#Takes all variables and places them into a 'for all' TPTP definition block
 def forAllDecorator(lst): 
     presenceDict={}
     keyCount = 0
@@ -33,6 +35,42 @@ def vampFileFormat(lst):
     initString+='=>'+lst[-1]+'))).'
     return initString
 
+#Forms the list of subjects within the sentence
+def findSubject(byteString):
+    #Loop through the string produced by the Stanford parser
+    notFound = False
+    ownershipClaim = False
+    ownershipCount = 0
+    subjectList=[]
+    for i in range(1, len(output)-1):
+        j = 3
+        strings = ''
+        #If we find the term 'NN' in our tree, we have either something to perform or a variable
+        if(output[i] == ord('N') and output[i+1] == ord('N')):
+            #We look through the string, copying down characters until we reach a closing parens
+            while(output[i+j] != ord(')')):
+                #print(chr(output[i+j]))
+                strings+=chr(output[i+j])
+                j+=1;
+            #Add the string we found to the list of subjects
+            if(notFound is True):
+                subjectList.append('~'+strings)
+                notFound = False
+            else:
+                subjectList.append(strings)
+            if ownershipClaim is True and ownershipCount == 1:
+                ownershipCount = 0
+                ownershipClaim = False
+                subjectList[-1], subjectList[-3] = subjectList[-3], subjectList[-1]
+            elif ownershipClaim is True:
+                ownershipCount += 1
+        elif(output[i] == ord('R') and output[i+1] == ord('B') and output[i+3]!=ord('t')):
+            #Found RB, so we have not in operator
+            notFound = True 
+        elif(output[i] == ord('h') and output[i+1] == ord('a') and output[i+2] == ord('s')):
+            ownershipClaim = True
+    return subjectList
+
 
 
 #Takes the argument we would like to test, then passes through using the Stanford parser
@@ -42,27 +80,11 @@ output = subprocess.check_output(["python", "stanfordParse.py", passArg])
 output = output[:-2]
 #print(output)
 #Initialize lists for future use
-subjectList = []
+
 varMethodList = []
 #forAlls = []
 
-#Loop through the string produced by the Stanford parser
-for i in range(1, len(output)-1):
-    j = 3
-    strings = ''
-    #If we find the term 'NN' in our tree, we have either something to perform or a variable
-    if(output[i] == ord('N') and output[i+1] == ord('N')):
-        #We look through the string, copying down characters until we reach a closing parens
-        while(output[i+j] != ord(')')):
-            #print(chr(output[i+j]))
-            strings+=chr(output[i+j])
-            j+=1;
-        #Add the string we found to the list of subjects
-        subjectList.append(strings)
-    if(output[i] == ord('R') and output[i+1] == ord('B') and output[i+3]!=ord('t')):
-        #Found RB, so we have not in operator
-        subjectList.append('~member')
-
+subjectList = findSubject(output)
 
 #for i in subjectList:
 #    print(i)
