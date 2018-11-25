@@ -1,253 +1,34 @@
 %!TEX root = ../username.tex
-\chapter{Working with figures and tables}\label{graphics}
+\chapter{Background on Automated Theorem Proving}
 
-\section{Getting a simple figure in the document}
-In this chapter we want to talk about including figures and tables in the document. To insert a simple figure you can enter something like
-\begin{singlespace}\small
-\begin{verbatim}
-\begin{figure}[!ht]
-\begin{center}
-\woopic{picture3}{.8}
-\end{center}
-\caption{Our first
- picture}\label{first}
-\end{figure}
-\end{verbatim}
-\end{singlespace}
-\vspace{-2 in}
-\begin{figure}[!ht]
-\rightline{
-\begin{minipage}{.5\textwidth}
-\begin{center}
-\woopic{picture3}{.8}
-\vspace{-.5 in}
-\caption{Our first picture}\label{first}
-\end{center}
-\end{minipage}
-}
-\end{figure}
+\section{Decidability, Incompleteness, and First Order Logic}
+\subsection{Decidability}
+In order to understand automated theorem proving (ATP) and some of the difficulties faced by it, we will first discuss decidability. Decidability, as the name implies, describes the ability of a claim to be proven. Note that this is not describing the truth value that would be returned after being proven -- it describes if the question can even be proven. 
 
-The \verb|!ht| tell \LaTeX{} to try and place the figure here no matter what or at the top of the next page. The \verb|\woopic| command takes the name of the picture as the first argument and the scaling factor as the second argument. The scaling factor must be between zero and one and the figure name must have \emph{no spaces}. Your figures can be in one of three formats: jpg, tif, or pdf. Captions are placed below the figure and your label should be placed after the caption.
+Decidability features heavily in computational theory. Problems can be loosely divided into two categories, decidable and undecidable, with the decidable category further divided into P and NP. While further distinctions exist, we will not focus on them here. It is important to note that while an NP problem may take billions of years to solve, it remains decidable -- at the end of the time period, a truth value will be returned for the claim. Undecidable claims can be given infinite computing power and infinite time, but will still be unable to return a truth value.
 
-In the next example we are using the woosterthesis option \verb|picins|\index{woosterthesis options!picins} to typeset a picture inside a paragraph and have the text wrap around the figure. This option loads the \ip{wrapfig} package. One thing to note is that the figures placed in this manner do not float with the other figures and as such numbering could get out of sequence. Keep an eye out for such behavior.  This technique should be used sparingly in your thesis.
+The typical example of an undecidable problem is what is known as the halting problem. This problem seeks to create a program which, when passed a function, will determine if that program will ever halt, or cease execution. While this program may seem possible to create, it is not.
 
-\begin{singlespace}\small
-\begin{verbatim}
-\newcommand{\sample}{Some text that is reused over and over
- again in the example. }
-\begin{wrapfigure}{r}{2.2in}
-\woopic{picture2}{.4}
-\caption{Conchoid.}
-\end{wrapfigure}
-\sample\sample\sample\sample
-\end{verbatim}
-\end{singlespace}
+\begin{proof}
+Let us consider a program \textit{h} which determines if a program passed to it will halt. Let us consider a second program, \textit{p} which takes \textit{h} as an input and passes itself to \textit{h}. This program is then able to see the output of \textit{h}, as \textit{h} will return its value for reading by \textit{p}. From this, \textit{p} reads this input, and performs the opposite of what was predicted by \textit{h}. If it was predicted to halt, it will run forever, and if it was predicted to run forever, it will halt. As \textit{p} uses its knowledge of what \textit{h} will return to determine its behaviour, there is no way for \textit{h} to properly predict the behaviour, and thus no program \textit{h} is possible.
+\end{proof}
 
-\newcommand{\sample}{Some text that is reused over and over again in the example. }
-\begin{wrapfigure}{r}{2.2in}
-\woopic{picture2}{.4}
-\caption{Conchoid.}
-\end{wrapfigure}
-\sample\sample\sample\sample\sample\sample\sample\sample\sample
+\subsection{Incompleteness and First Order Logic}
+This worry of decidability relates to mathematics through G\"odel's incompleteness theorem. Put simply, the theorem states that ``no consistent system of axioms whose theorems can be listed by an algorithm is capable of proving all truths about the arithmetic of the natural numbers '' \cite{Godel}. Though this formulation limits the theorem to the natural numbers, this is true of any system defined by axioms. What this means is that a set of axioms within a system will not be sufficient to prove consistency within the system, where consistency means that a statement and its negation cannot both be proven from the axioms.
+
+Knowing this about incompleteness and decidability, we now examine the language of automated theorem provers -- first order logic. First order logic is a system used in linguistics, mathematics, computer science, and philosophy in order to logically describe claims and statements. For example, rather than state ``The person reading this sentence understands English'' we instead state ``There exists X such that X is reading sentence Y and X understands English''. The ``first'' indicates that the statements made utilize variables, such as X in the previous sentence, but functions are not used as arguments. First order logic dictates the axiomatization of mathematics. This project uses first order logic axioms for each of the question domains, such as set theory or algebraic arithmetic, in order to define the systems concisely.
+
+As first order logic produces systems which cannot be proven fully based on their axioms, we give a program a set of axioms which may or may not be able to prove our claim, and this program may or may not ever halt. With this in mind, we can see why a system could not simply be allowed to work undisturbed for years to verify a claim. While a theorem prover will be able to become more efficient over time, there will always be problems which cannot be proven just from the axioms for a system.
+
+\section{Historical Development}
+
+While the main additions to mathematics from computational development previously came from automation of basic operational calculations, in the 1950s new potentials arose. With artificial intelligence beginning to be developed, the first attempts were made to automate reasoning, and mathematical understanding along with it.
+
+\textbf{Insert more background here}
+
+This early work into automated theorem proving divided academia into two camps -- the logicists and proceduralists. Logicists argued for a system using purely logic based inferences, and were also known as ``neats'' as they did not want the actual details of problems dirtying the logic. Rather than work from an understanding of the input material, a logicist's prover would look only at the underlying predicate logic. If the logic was deemed valid, the claim would be considered to be verified. The proceduralists, or ``scruffies'', instead believed that knowledge should be considered procedural, rather than axiomatic. The example given by one such proceduralist was that of checking to see if it was safe to cross the road. This, like a proof, will return a truth value. However, it does not seem correct to use the logicist's method in this case. A better understanding of the task is to check each direction, and if no car is seen, consider the road safe to cross. As the proceduralist states, the logicist would be left attempting to prove that no car was coming using logic, rather than this procedure!
 
 
-\subsection{Minipages}
 
-You can also create minipages in your documents to accomplish more complicated formatting. For example you could try the following which produces Figure~\ref{Fig2}.
-\begin{singlespace}\small
-\begin{verbatim}
-\begin{minipage}[t][3 in][t]{1 in}
-This is a minipage which is 3 in tall and 1 in wide.
- Top Text Text Text Text.\end{minipage}\hfill
-\begin{minipage}[t][3 in][c]{1 in}
-This is a minipage which is 3 in tall and 1 in wide.
- Center Text Text Text Text.\end{minipage}\hfill
-\begin{minipage}[t][3 in][b]{1 in}
-This is a minipage which is 3 in tall and 1 in wide.
- Bottom Text Text Text Text.\end{minipage}
-\end{verbatim}
-\end{singlespace}
-
-\begin{figure}[!htb]
-\begin{minipage}[t][3 in][t]{1 in}
-This is a minipage which is 3 in tall and 1 in wide. Top Text Text Text Text.
-\end{minipage}
-\hfill
-\begin{minipage}[t][3 in][c]{1 in} This is a minipage which is 3 in tall and 1 in wide. Center Text Text Text Text.
-\end{minipage}
-\hfill
-\begin{minipage}[t][3 in][b]{1 in}
-This is a minipage which is 3 in tall and 1 in wide. Bottom Text Text Text Text.
-\end{minipage}
-\caption{Minipage example}\label{Fig2}
-\end{figure}
-
-In the example above, the syntax \verb|\begin{minipage}[t][3 in][t]{1 in}| follows the convention \linebreak\verb|\begin{minipage}[minipageposition][height][textposition]{width}|\index{minipage}
-
-\subsubsection[Two pictures in one figure]{How to get more than one picture in the same figure}
-
-You can use minipages to put more than one picture in a figure. Here is an example of how to do this.
-\begin{singlespace}\small
-\begin{verbatim}
-\begin{minipage}[!ht]{6cm}
-\woopic{picture1}{.4}
-\par
-\caption[What goes in the List of Figures]{Left}
-\end{minipage}
-\hfill
-\begin{minipage}[!ht]{6cm}
-\woopic{picture2}{.4}
-\end{picture}\par
-\caption{Right}
-\end{minipage}
-\end{verbatim}
-\end{singlespace}
-\begin{figure}[!ht]
-\begin{minipage}[!ht]{6cm}
-\woopic{picture1}{.4}
-\par
-\caption[What goes in the List of Figures]{Left}
-\end{minipage}
-\hfill
-\begin{minipage}[!ht]{6cm}
-\woopic{picture2}{.4}
-\par
-\caption{Right}
-\end{minipage}
-\end{figure}
-
-You can also use the \ip{subfigure} package to do this.
-
-\begin{singlespace}\small
-\begin{verbatim}
-\begin{figure}[!ht]\centering
-\subfigure[What goes in the List][Large conchoid]
-{\woopic{picture1}{.4}\label{fig3:left}}
-\qquad
-\subfigure[What goes in the List][Small conchoid]
-{\woopic{picture2}{.4}\label{fig3:right}}
-\caption{Two pictures in one figure}\label{fig3}
-\end{figure}
-\end{verbatim}
-\end{singlespace}
-\begin{figure}[!ht]\centering
-\subfigure[What goes in the List][Large conchoid]
-{\woopic{picture1}{.4}\label{fig3:left}}
-\qquad
-\subfigure[What goes in the List][Small conchoid]
-{\woopic{picture2}{.4}\label{fig3:right}}
-\caption{Two pictures in one figure}\label{fig3}
-\end{figure}
-
-We should now be able to refer to either Figure~\ref{fig3}~\subref{fig3:left} or Figure~\ref{fig3}~\subref{fig3:right} using the labels we gave to the left and right images.
-
-The reader is referred to Chapters 8, 9, and 16 of \citet{kd03} or to Chapters 6 and 10 of \citet{mgbcr04} for a complete discussion of figures and graphics.
-
-\section{Tables}
-
-Tables are fairly easy to set up. Here is a simple table
-\begin{singlespace}\small
-\begin{verbatim}
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{r l}
-  $\underline{\textnormal{District}}$ &  
-  $\underline{\textnormal{Population}}$\\
-   Applewood & 8280 \\
-   Boxwood & 4600  \\
-   Central & 5220
-   \end{tabular}\caption{Our first table}
-   \end{center}
-\end{table}
-\end{verbatim}
-\end{singlespace}
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{r l}
-  $\underline{\textnormal{District}}$ &
-    $\underline{\textnormal{Population}}$\\
-   Applewood & 8280 \\
-   Boxwood & 4600  \\
-   Central & 5220
-   \end{tabular}\caption{Our first table}
-   \end{center}
-\end{table}
-
-In \verb|\begin{tabular}{r l}| the two ``r'' and ``l'' indicate that we have two columns with right and left aligned entries and no lines dividing cells or around the table. I can make the table look more like a spreadsheet by doing
-\begin{singlespace}\small
-\begin{verbatim}
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{|r|l|}
-\hline
-  {\textnormal{District}} &  
-  {\textnormal{Population}}\\ \hline
-   Applewood & 8280 \\ \hline
-   Boxwood & 4600  \\ \hline
-   Central & 5220\\ \hline
-   \end{tabular}\caption{Our first table again}
-   \end{center}
-\end{table}
-\end{verbatim}
-\end{singlespace}
-\begin{table}[!ht]
-\begin{center}
-\begin{tabular}{|r|l|}
-\hline
-  {\textnormal{District}} &  
-  {\textnormal{Population}}\\ \hline
-   Applewood & 8280 \\ \hline
-   Boxwood & 4600  \\ \hline
-   Central & 5220\\ \hline
-   \end{tabular}\caption{Our first table again}
-   \end{center}
-\end{table}
-
-Here is a more complicated example of a table.
-\begin{singlespace}\small
-\begin{verbatim}
-\begin{table}[!ht]
-\centerline{
-\begin{tabular}{|l||r|r|r|r|} \hline
-\emph{Reprojection} & \multicolumn{3}{|c|}{\emph{Largest
- Reduction of Curvature}}
-  & \emph{Average} \\ \cline{2-4}
-\emph{Method} & \emph{Original} & \emph{Reprojected} &
- \emph{at} & 
-  \emph{Reduction} \\ 
- & \emph{Curvature} & \emph{Curvature} &
-  \emph{Rotation} & \emph{of Curvature} \\ 
-  \hline \hline
-ZEEL & 0.0358 & 0.0245 &
- $\degree{45}$ & 0.0050 \\ \hline
-ZEEL ext.\ & 0.0358 & 0.0245 &
- $\degree{45}$ & 0.0059 \\ \hline
-Regridding & 0.0428 & 0.0166 &
- $\degree{75}$ & 0.0159 \\ \hline
-Block & 0.0358 & 0.0103 &
- $\degree{45}$ & 0.0163 \\ \hline
-\end{tabular}}
-\caption{Reduction of curvature by each
- reprojection method\label{tbl:kreduce}}
-\end{table}
-\end{verbatim}
-\end{singlespace}
-\begin{table}[!ht]
-\centerline{
-\begin{tabular}{|l||r|r|r|r|} \hline
-\emph{Reprojection} & \multicolumn{3}{|c|}{\emph{Largest Reduction of Curvature}} 
-  & \emph{Average} \\ \cline{2-4}
-\emph{Method} & \emph{Original} & \emph{Reprojected} & \emph{at} & 
-  \emph{Reduction} \\ 
- & \emph{Curvature} & \emph{Curvature} & \emph{Rotation} & \emph{of Curvature} \\ 
-  \hline \hline
-ZEEL & 0.0358 & 0.0245 & $\degree{45}$ & 0.0050 \\ \hline
-ZEEL ext.\ & 0.0358 & 0.0245 & $\degree{45}$ & 0.0059 \\ \hline
-Regridding & 0.0428 & 0.0166 & $\degree{75}$ & 0.0159 \\ \hline
-Block & 0.0358 & 0.0103 & $\degree{45}$ & 0.0163 \\ \hline
-\end{tabular}}
-\caption{Reduction of curvature by each reprojection method\label{tbl:kreduce}}
-\end{table}
-
-Please refer to Chapter 6 of \citet{kd03} for a complete discussion of tables and tabular environments.
+\section{Vampire}
 
