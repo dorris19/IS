@@ -15,3 +15,13 @@ fof(subsetDef, axiom,((
 	(subset(X, Y))
 	& (member(A, X))
 	=> member(A, Y)))).
+
+fof(extensionality, axiom,((
+	(X = Y)
+	& member(B, Y)
+	=>
+	member(B, X)))).
+
+fof(regularity, axiom,((
+	member(X, Y)
+	=> ~(X = Y)))).

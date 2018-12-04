@@ -352,8 +352,6 @@ INPUT ./figures/ELIZA.png
 INPUT ./figures/ELIZA.png
 INPUT /usr/share/texmf-dist/fonts/tfm/public/pxfonts/p1xr.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/pxfonts/p1xr.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/pxfonts/p1xb.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/pxfonts/p1xb.tfm
 INPUT chapters/chapter2.tex
 INPUT chapters/chapter2.tex
 INPUT username.bbl

@@ -1,0 +1,35 @@
+fof(reflexive, axiom, ((
+	equals(X, X))).
+
+fof(symmetric, axiom, ((
+	equals(X, Y)
+	=> equals(Y, X)))).
+
+fof(transitive, axiom, ((
+	equals(A, B)
+	& equals(B, C)
+	=> equals(A, C)))).
+
+fof(additive, axiom, ((
+	equals(A, B)
+	& equals(C, D)
+	=> equals(sum(A, C), sum(B, D))))).
+
+fof(multiplicative, axiom, ((
+	equals(A, B)
+	& equals(C, D)
+	=> equals(product(A, C), product(B,D))))).
+
+fof(multIdentity, axiom, ((
+	product(_1,X)=X))).	
+
+fof(addIdentity, axiom, ((
+	sum(_0,X)=X))).
+
+fof(addSymm, axiom, ((
+	sum(X, Y)
+	=> sum(Y, X)))).
+
+fof(multSymm, axiom, ((
+	product(X, Y)
+	=> product(Y, X)))).

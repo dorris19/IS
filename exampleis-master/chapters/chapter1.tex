@@ -26,14 +26,14 @@ SHRDLU was a querying system which created a small ``Blocks World'' which was po
 	\begin{center}
 		\woopic{SHRDLU_Flow.png}{.75}
 	\end{center}
-	\caption{Flowchart for $\ref{SHRDLU_Convo}$}\label{SHRDLU_Flow}
+	\caption{Flowchart for Figure $\ref{SHRDLU_Convo}$}\label{SHRDLU_Flow}
 \end{figure}
 
 \begin{figure}[!ht]
 	\begin{center}
 		\woopic{SHRDLU_Changed.png}{.5}
 	\end{center}
-	\caption{SHRDLU world after $\ref{SHRDLU_Convo}$}\label{SHRDLU_Changed}
+	\caption{SHRDLU world after Figure $\ref{SHRDLU_Convo}$}\label{SHRDLU_Changed}
 \end{figure}
 
 SHRDLU would remember changes in the environment until reset after use. From this simple technique, it became much easier to consider SHRDLU to inhabit a real world, as locations were consistent and basic physics were the same as reality. While SHRDLU's domain was small, effective code and good design helped making for a convincing approximation of both a world and an intelligent entity which allowed interaction with that world.
@@ -63,7 +63,7 @@ ELIZA uses NLP in a very different way from SHRDLU -- rather than attempting to 
 \section{Advancments of the Twentieth Century}
 \subsection{Context Free Grammars}
 
-To understand the functioning of NLP systems, context free grammars (CFGs) should first be described. CFGs are a set of rules, known as \textit{production rules} which describe all strings which can possibly be produced within a grammar. Here, string simply means a sequence of words, such as, ``The man walked down the road'' and grammar refers to the possible structure of strings, and to the words which may be included in these strings. There are two basic elements of a CFG -- variables and terminals. A variable is a part of the grammar which will be modified by continuing to follow the production rules which are described by the grammar. We denote variables by enclosing them in angle brackets (`<' and `>'). A terminal is a word, such as ``the'', which is in its most basic form and undergoes no further changes. 
+To understand the functioning of NLP systems, context free grammars (CFGs) should first be described. CFGs, sometimes referred to as phrase structure rules, are a set of rules, known as \textit{production rules} which describe all strings which can possibly be produced within a grammar. Here, string simply means a sequence of words, such as, ``The man walked down the road'' and grammar refers to the possible structure of strings and to the words which may be included in these strings. There are two basic elements of a CFG -- variables and terminals. A variable is a part of the grammar which will be modified by continuing to follow the production rules which are described by the grammar. We denote variables by enclosing them in angle brackets (`<' and `>'). A terminal is a word, such as ``the'', which is in its most basic form and undergoes no further changes. 
 
 This is most easily seen through an example. Consider the following two figures:
 
@@ -82,11 +82,11 @@ This is most easily seen through an example. Consider the following two figures:
   \centering
 	$<S> \rightarrow \text{Cat}$
   \captionof{figure}{A production rule which produces a terminal}
-\end{minipage}
 \label{fig:cat}
+\end{minipage}
 \end{figure}
 
-In each of the cases, we have the variable $<S>$ on the left of the arrow. To the right of the arrow is what will replace $<S>$, which is another variable $<B>$ in $\ref{fig:dog}$, and a terminal (``Cat'') in $\ref{fig:cat}$. Notice that in $\ref{fig:dog}$, the second variable has two terminals on the right of the arrow with `|' between them. This indicates that $<B>$ may be replaced by ``Dog'' or ``Pig''. Variables may follow rules which are:
+In each of the cases, we have the variable $<S>$ on the left of the arrow. To the right of the arrow is what will replace $<S>$, which is another variable $<B>$ in Figure $\ref{fig:dog}$, and a terminal (``Cat'') in Figure $\ref{fig:cat}$. Notice that in Figure $\ref{fig:dog}$, the second variable has two terminals on the right of the arrow with `|' between them. This indicates that $<B>$ may be replaced by ``Dog'' or ``Pig''. Variables may follow rules which are:
 
 \begin{itemize}
 	\item one-to-one, where the variable is replaced by a single other variable or terminal.
@@ -94,11 +94,9 @@ In each of the cases, we have the variable $<S>$ on the left of the arrow. To th
 	\item one-to-none, where the variable is replaced by nothing (blank space).
 \end{itemize}
 
-The first variable used for a CFG is $<S>$, which stands for ``start''. In language processing, $<S>$ will typically produce a noun-phrase ($<NP>$) and verb-phrase ($<VP>$), which then produce many possible sentences by defining the location of parts of speech. Each variable serves as a part-of-speech tag, such as noun, verb, or adjective. For this reason, CFGs are an effective way of capturing the inherent structure of language. A valid sentence always contains a noun and a verb, for example, and the CFG will be unable to produce a sentence without a noun or a verb, assuming it is constructed properly. Thus an incorrect sentence such as ``Jumped.'' will not be produced by our grammar. This allows for a somewhat simple checking of proper English sentences - if we know the parts of speech of each word, we can either work our way up from the sentence to see if $<S>$ could have produced it, or work our way down and see if the sentence structure appears.
+The first variable used for a CFG is $<S>$, which stands for ``start''. In language processing, $<S>$ will typically produce a noun-phrase ($<NP>$) and verb-phrase ($<VP>$), which then produce many possible sentences by defining the location of parts of speech. Each variable serves as a part-of-speech tag, such as noun, verb, or adjective. For this reason, CFGs are an effective way of capturing the inherent structure of language. A valid sentence always contains a noun and a verb, for example, and the CFG will be unable to produce a sentence without a noun or a verb, assuming it is constructed properly. Thus an incorrect sentence such as ``Jumped.'' will not be produced by our grammar. This allows for a somewhat simple checking of proper English sentences -- if we know the parts of speech of each word, we can either work our way up from the sentence to see if $<S>$ could have produced it, or work our way down and see if the sentence structure appears.
 
-\subsection{Advancements of the 1970s and 1980s}
-
-Come the 1970s, William Woods introduced augmented transition networks (ATNs) as a method to represent language input, rather than phrase structure rules \cite{Woods}. Phrase structure rules are typically known as CFGs. Let us consider a CFG structured as follows:
+Let us consider a CFG structured as follows:
 
 \begin{center}
 \begin{figure}[H]
@@ -123,17 +121,21 @@ Come the 1970s, William Woods introduced augmented transition networks (ATNs) as
 
 Here, we have a simple grammar which breaks a sentence into noun and verb phrases, which then break into a determiner and a noun, and a possible adverb and verb, respectively. Once these variables are reached, they lead to terminals, which here are the English words which are represented. In this grammar, the sentence ``The dog excitedly runs'' is valid, while ``The dog happily jumps'' is not. The second sentence is not incorrect due to any issues with the English grammar, but rather due to the given grammar not accounting for the terminal `happily'.
 
-ATNs use finite state machines in order to parse sentences. Woods claimed that, by adding a recursive mechanism to finite state models, it was possible to parse much more efficiently. The system builds a set of finite state automata, which have transition states between them. Should a sentence reach a final state, the sentence is valid. These systems have advantages, including the delaying of ambiguity. Rather than simply guessing a path as some systems will, the ambiguity may be delayed until more of the sentence has been parsed, allowing for greater information to be used in resolving said ambiguity. Additionally, they effectively capture the structure of languages, allowing for ease of processing \cite{ATN}.
+
+
+\subsection{Advancements of the 1970s and 1980s}
+
+Come the 1970s, William Woods introduced augmented transition networks (ATNs) as a method to represent language input, rather than phrase structure rules \cite{Woods}. ATNs use finite state machines in order to parse sentences. Woods claimed that, by adding a recursive mechanism to finite state models, it was possible to parse much more efficiently. The system builds a set of finite state automata, which have transition states between them. Should a sentence reach a final state, the sentence is valid. These systems have advantages, including the delaying of ambiguity. Rather than simply guessing a path as some systems will, the ambiguity may be delayed until more of the sentence has been parsed, allowing for greater information to be used in resolving said ambiguity. Additionally, they effectively capture the structure of languages, allowing for ease of processing \cite{ATN}.
 
 The 1980s, with the introduction of machine learning algorithms, led to immense changes. No longer were parsers built based on complex rules formed by the programmer, instead, algorithms like decision trees began to make the classification rules. Eventually, this change led to the use of modern statistical models, which assign probabilities to words for part-of-sentence identification, rather than rigid if-then rule sets \cite{1980}.
 
 \section{Syntax and Semantics}
 
-When examining natural language, meaning is found through an analysis of both syntax and semantics. Syntax consists of the rules which determine the structure of sentences in a language, for example, English requires a verb and subject for a sentence to be grammatically correct. Semantics refers to the meaning of words within the language, such as the word `dog' referring to a four-legged, furry animal which descends from wolves and was domesticated by humans. Early implementations of natural language processors typically focused on one of these aspects of language to the detriment of the other \cite{}.
+When examining natural language, meaning is found through an analysis of both syntax and semantics. Syntax consists of the rules which determine the structure of sentences in a language. For example, English requires a verb and subject for a sentence to be grammatically correct. Semantics refers to the meaning of words within the language, such as the word `dog' referring to a four-legged, furry animal which descends from wolves and was domesticated by humans. Early implementations of natural language processors typically focused on one of these aspects of language to the detriment of the other \cite{}.
 
-Certain camps believed that, by simply knowing the definition of each word in a sentence, their relationship to one another would be determinable. Others saw syntax as the defining feature to study, so broke sentences down based purely on anticipated structures of sentences, fitting the sentences into some hypothetical structure which could be determined by a CFG.
+Certain camps believed that, by simply knowing the definition of each word in a sentence, their relationship to one another would be determinable. Others saw syntax as the defining feature to study, so they broke sentences down based purely on anticipated structures of sentences, fitting the sentences into some hypothetical structure which could be determined by a CFG.
 
-Let us first examine the issues with a purely semantic analysis of a sentence. Consider `The dog ran to the man who owned him.' Each word can easily be defined, but the meaning of the sentence becomes extremely unclear. In this situation, it is clear that the final three words `who owned him' refer to a relationship between the man and dog. However, we may not examine the structure of the sentence, as it was regarded as unnecessary. The `him' in this context has an unclear referent without examining previously discussed entities.
+Let us first examine the issues with a purely semantic analysis of a sentence. Consider ``The dog ran to the man who owned him.'' Each word can easily be defined, but the meaning of the sentence becomes extremely unclear. In this situation, it is clear that the final three words ``who owned him'' refer to a relationship between the man and dog. However, we may not examine the structure of the sentence, as it was regarded as unnecessary. The ``him'' in this context has an unclear referent without examining previously discussed entities.
 
 \begin{center}
 \begin{figure}[H]
@@ -157,25 +159,25 @@ Let us first examine the issues with a purely semantic analysis of a sentence. C
 \end{figure}
 \end{center}
 
-Even disregarding this issue, a hypothetical system using this methodology would be completely powerless to even attempt to understand a sentence containing a word it did not already have the definition of. The system, assuming parsing completed, would return a description of each word other than the unknown. Without understanding the meaning of this region, the meaning of the sentence becomes unintelligible. This system can also never attempt to determine potential meaning, as relationships between words are completely ignored.
+Even disregarding this issue, a hypothetical system using this methodology would be completely powerless to even attempt to understand a sentence containing a word it did not already have the definition of. The system, assuming parsing completed, would return a description of each word other than the unknown. Parsing refers to the analysis of a string by conversion to variables in the language in order to test its conformity. A string parsed successfully is in the language given, while one in which the parsing fails is not. Without understanding the meaning of this region, the meaning of the sentence becomes unintelligible. This system can also never attempt to determine potential meaning, as relationships between words are completely ignored.
 
-With some issues of purely semantic analysis discussed, let us now move on to the issues facing a purely syntactic analysis. First, consider the possible shapes of every sentence in English. While they look different from one another in more than simply word count when we understand that a noun follows an article, a linking verb comes between two nouns, and so on. By seeing how each component comes together, we can easily match sentences to their derivation from a CFG. However, by purely examining syntax, we cannot see the part-of-speech of the component words. What we are left doing is taking an $n$-word sentence, and applying to it the structure of every possible $n$-word archetype.
+With some issues of purely semantic analysis discussed, let us now move on to the issues facing a purely syntactic analysis. First, consider the possible shapes of every sentence in English. When we understand the meaning of words in a sentence, it is trivial to see the difference between two sentences of the same length and structure, say ``Timothy ran to his crying father'' and ``Sparky bit at the panicking neighbor''. By seeing how each component comes together, we can easily match sentences to their derivation from a CFG. However, by purely examining syntax, we cannot see the part-of-speech of the component words. What we are left doing is taking an $n$-word sentence, and applying to it the structure of every possible $n$-word archetype.
 
-The introduction of syntactic analysis brings ambiguity into our parser as well. When the meaning of a word is known to the parser, ambiguity can often be resolved. As natural language is full of ambiguity, this is not always true, but understanding the meaning can resolve situations such as ``The man walked down the road wearing a hat''.
+The introduction of syntactic analysis brings ambiguity into our parser as well. Ambiguity is the scenario when a single string can be parsed in two different ways. Consider a sentence such as ``The man gave a dollar to his friend who was wearing his hat.'' In this sentence, it is not clear who the ``his'' refers to -- we could parse it such that the friend is wearing the man's hat while receiving a dollar, or the man is giving a dollar to a friend, who is in a hat he owns. When the meaning of a word is known to the parser, ambiguity can often be resolved. As natural language is full of ambiguity, this is not always true, but understanding the meaning can resolve situations such as ``The man walked down the road wearing a hat''.
 
 \textit{Insert Example Parse Trees Here}
 
-When we don't understand what a `road' and `hat' are, we find ourselves unsure which noun is wearing the hat. The sentence could be parsed either way, and would be valid. The best way to resolve these issues is to consider syntax and semantics simultaneously.
+When we don't understand what a `road' and `hat' are, we find ourselves unsure which noun is wearing the hat. The sentence could be parsed either way, and either would be valid. The best way to resolve these issues is to consider syntax and semantics simultaneously.
 
 A semantic consideration need not be of the definition of the word, but can instead consist of part-of-speech tagging, or a way of indicating what types of actions it can take. In the \textbf{Whatever the Man in Hat Example Figure is} example, simply knowing that roads, hats, and men are nouns will not help to resolve the ambiguity. However, if we know that men have a property such as \textit{can wear apparel} and the hat is part of a class \textit{apparel}, we know that the man wearing a hat is valid. Inspecting the road, we will see it has no \textit{can wear apparel} property, and thus, the sentence in which the road wears the hat is invalid. Recognition of word position and relations between words allows semantic analysis to provide a far better description of the content of each word.
 
 \subsection{Pragmatics}
-Primarily, natural language processing relies on syntax and semantics to determine the meaning of a given string. In the scenarios which human beings use language, pragmatics is also a concern. Where syntax comes from the structure of a sentence, and semantics the words used, pragmatics stems from the context in which it is used. For example, if one was going on a date to a horror movie, and their partner said ``I'm glad you picked such a relaxing movie for our date,'' this would clearly be a sarcastic comment. Horror movies are meant to not be relaxing, so the meaning of the sentence completely changes with that knowledge.
+Primarily, natural language processing relies on syntax and semantics to determine the meaning of a given string. In the scenarios which human beings use language, pragmatics is also a concern. Where syntax comes from the structure of a sentence, and semantics from the words used, pragmatics stems from the context in which it is used. For example, if one were going on a date to a horror movie, and their partner said ``I'm glad you picked such a relaxing movie for our date,'' this would clearly be a sarcastic comment. Horror movies are meant to not be relaxing, so the meaning of the sentence completely changes with that knowledge.
 
 Some pieces of general knowledge like this are possible for a NLP system to pick up. If we consider a digital assistant which has access to the location data of users, when queried ``Who is the president?'' the assistant can assume that the user is asking for the president of the nation they reside in. Previously, we saw SHRDLU, a system which created its own world to work in. As SHRDLU knew everything about the world, it was possible to refer to objects such as ``the blue one,'' assuming there was only a single blue object.
 
-One piece of pragmatic information which NLP systems are currently oblivious to is tone of voice. As humans, we are able to interpret changes in voice, whether as an indicator of sarcasm or a marking of a change in mood which could change the meaning of the sentence. This is a very difficult problem to solve -- consider using a text based communication service with a friend. You believe that they are acting a little odd, so ask them if they are okay. They respond ``I'm fine''. Were you face to face with the person, you could use body language or vocal cues to determine if the statement was an accurate representation of their emotional state, or if it was a social nicety so as not to worry you. Without this, we have only two words which could take, at minimum, two different meanings.
+One piece of pragmatic information which NLP systems are currently oblivious to is tone of voice. As humans, we are able to interpret changes in voice, whether as an indicator of sarcasm or a marking of a change in mood which could change the meaning of the sentence. This is a very difficult problem to solve with computing, consider using a text based communication service with a friend. You believe that they are acting a little odd, so ask them if they are okay. They respond ``I'm fine.'' Were you face to face with the person, you could use body language or vocal cues to determine if the statement was an accurate representation of their emotional state, or if it was a social nicety so as not to worry you. Without this, we have a sentence of only two words which could take, at minimum, two different meanings.
 
-Of course, we don't expect to have friendly conversations with our computers, so this may seem a moot point. However, a good NLP system should make conversation easy, and with easy conversation comes slipping into habits which one uses in real life. Maintaining clarity is important with a NLP system, to ensure understanding on the ends of both the user and the system.
+Of course, we do not expect to have friendly conversations with our computers, so this may seem a moot point. However, a good NLP system should make conversation easy, and with easy conversation comes slipping into habits which one uses in real life. Maintaining clarity is important with a NLP system, to ensure understanding on the ends of both the user and the system.
 
 
