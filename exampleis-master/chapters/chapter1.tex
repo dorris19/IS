@@ -71,16 +71,16 @@ This is most easily seen through an example. Consider the following two figures:
 \centering
 \begin{minipage}{.5\textwidth}
   \centering
-	$<S> \rightarrow <B>$
+	$\left<A\right> \rightarrow \left<B\right>$
 	
-	$<B> \rightarrow \text{Dog | Pig}$
+	$\left<B\right> \rightarrow \text{Dog | Pig}$
 
   \captionof{figure}{Two production rules, one of which produces a variable and one of which produces a terminal}	
   \label{fig:dog}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
-	$<S> \rightarrow \text{Cat}$
+	$\left<S\right> \rightarrow \text{Cat}$
   \captionof{figure}{A production rule which produces a terminal}
 \label{fig:cat}
 \end{minipage}
@@ -94,7 +94,7 @@ In each of the cases, we have the variable $<S>$ on the left of the arrow. To th
 	\item one-to-none, where the variable is replaced by nothing (blank space).
 \end{itemize}
 
-The first variable used for a CFG is $<S>$, which stands for ``start''. In language processing, $<S>$ will typically produce a noun-phrase ($<NP>$) and verb-phrase ($<VP>$), which then produce many possible sentences by defining the location of parts of speech. Each variable serves as a part-of-speech tag, such as noun, verb, or adjective. For this reason, CFGs are an effective way of capturing the inherent structure of language. A valid sentence always contains a noun and a verb, for example, and the CFG will be unable to produce a sentence without a noun or a verb, assuming it is constructed properly. Thus an incorrect sentence such as ``Jumped.'' will not be produced by our grammar. This allows for a somewhat simple checking of proper English sentences -- if we know the parts of speech of each word, we can either work our way up from the sentence to see if $<S>$ could have produced it, or work our way down and see if the sentence structure appears.
+The first variable used for a CFG is $\left<S\right>$, which stands for ``start''. In language processing, $\left<S\right>$ will typically produce a noun-phrase ($\left<NP\right>$) and verb-phrase ($\left<VP\right>$), which then produce many possible sentences by defining the location of parts of speech. Each variable serves as a part-of-speech tag, such as noun, verb, or adjective. For this reason, CFGs are an effective way of capturing the inherent structure of language. A valid sentence always contains a noun and a verb, for example, and the CFG will be unable to produce a sentence without a noun or a verb, assuming it is constructed properly. Thus an incorrect sentence such as ``Jumped.'' will not be produced by our grammar. This allows for a somewhat simple checking of proper English sentences -- if we know the parts of speech of each word, we can either work our way up from the sentence to see if $\left<S\right>$ could have produced it, or work our way down and see if the sentence structure appears.
 
 Let us consider a CFG structured as follows:
 
@@ -104,13 +104,13 @@ Let us consider a CFG structured as follows:
 
 \begin{itemize}
 
-	\item $<S> \rightarrow <NP> \text{ } <VP>$
-	\item $<NP> \rightarrow <DET> \text{ } <N>$
-	\item $<VP> \rightarrow (<ADVB>) \text{ } <VB>$
-	\item $<N> \rightarrow \text{Dog}$
-	\item $<DET> \rightarrow \text{The | A}$
-	\item $<VB> \rightarrow \text{Runs | Jumps}$
-	\item $<ADVB> \rightarrow \text{Excitedly}$
+	\item $\left<S\right> \rightarrow \left< NP \right> <VP\right>$
+	\item $\left<NP\right> \rightarrow \left<DET\right> \left<\N\right>$
+	\item $\left<VP\right> \rightarrow (\left<ADVB\right>) \left<VB\right>$
+	\item $\left<N\right> \rightarrow \text{Dog}$
+	\item $\left<DET\right> \rightarrow \text{The | A}$
+	\item $\left<VB\right> \rightarrow \text{Runs | Jumps}$
+	\item $\left<ADVB\right> \rightarrow \text{Excitedly}$
 
 \end{itemize}
 \end{center}

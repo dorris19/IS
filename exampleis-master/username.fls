@@ -356,6 +356,9 @@ INPUT chapters/chapter2.tex
 INPUT chapters/chapter2.tex
 INPUT username.bbl
 INPUT username.bbl
+INPUT /usr/share/texmf-dist/tex/latex/pxfonts/t1pxtt.fd
+INPUT /usr/share/texmf-dist/tex/latex/pxfonts/t1pxtt.fd
+INPUT /usr/share/texmf-dist/fonts/tfm/public/txfonts/t1xtt.tfm
 INPUT username.aux
 INPUT ./username.out
 INPUT ./username.out
@@ -365,6 +368,7 @@ INPUT /usr/share/texmf-dist/fonts/type1/public/pxfonts/pxsya.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/pxfonts/rpxmi.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/pxfonts/rpxr.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/pxfonts/rpxsc.pfb
+INPUT /usr/share/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb
