@@ -103,7 +103,7 @@ vampText=vampFileFormat(varMethodList)
 print(vampText + '\n')
 
 vampFile = open('vampRead.tptp', 'a')
-axioms = open('axioms/setAxioms.tptp', 'r')
+axioms = open('axioms/algebraAxioms.tptp', 'r')
 for line in axioms:
     vampFile.write(line)
 axioms.close()

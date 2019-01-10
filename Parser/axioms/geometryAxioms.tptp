@@ -1,0 +1,34 @@
+fof(incidence1, axiom,((
+	point(A)
+	& point(B)
+	& line(C)
+	=> on_line(A,B,C)))).
+
+fof(incidence2, axiom,((
+	line(C)
+	& line(D)
+	& on_line(A,B,C)
+	& on_line(A,B,D)
+	=> equals(C,D)))).
+
+%fof(incidence3, axiom,((
+%Not sure how to say 'at least 2' or 'at least 3'	
+%	=> C = D))).
+
+fof(incidence4, axiom,((
+	line(D)
+	& plane(E)
+	& on_line(A, B, D)
+	& ~on_line(B, C, D)
+	=> on_plane(A, B, C, E)))).
+
+fof(incidence5, axiom,((
+	line(D)
+	& plane(E)
+	& plane(F)
+	& on_line(A, B, D)
+	& ~on_line(B, C, D)
+	& on_plane(A, B, C, E)
+	& on_plane(A, B, C, F)
+	=> equals(E,F)))).
+
