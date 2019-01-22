@@ -46,10 +46,95 @@ Knowing this about incompleteness and decidability, we now examine the language 
 
 As first order logic produces systems which cannot be proven fully based on their axioms, we give a program a set of axioms which may or may not be able to prove our claim, and this program may or may not ever halt. With this in mind, we can see why a system could not simply be allowed to work undisturbed for years to verify a claim. While a theorem prover will be able to become more efficient over time, there will always be problems which cannot be proven just from the axioms for a system.
 
+\section{Automated Proving Theory}
+
+Before going into the theory and methodology of modern theorem provers, we will first describe what these provers are not. Proof assistants are a type of theorem prover which analyzes input from a user, whether that be a potential next step in a proof which the computer will investigate, or the next step the user wishes to take which the computer determines the validity of. These systems, though useful, require a much greater amount of interaction than was intended in this project. The program produced as part of this study was to be interaction free, following the user providing axioms and a conjecture to prove. This allowed for a user to be unsure how a proof needed to progress while still being able to see a result.
+
+\subsection{Herbrand Universe}
+The basic theory of automated proving begins with Herbrand and the Herbrand universe of S. Rather than seeking to prove that a claim is unsatisfiable in every universe, Herbrand devised a universe in which the negation of a conjecture being unsatisfiable meant that it would be so in all universes. By doing this, rather than having infinitely many universes to test a claim and thus never being able to absolutely prove a claim, the universes requiring testing dropped to just one. 
+
+\begin{definition}
+
+	\textbf{The Herbrand Universe of S}: Let $H_0$ be the set of constants which appear in $S$. If no constant appears in $S$, then $H_0$ is to consist of a single constant, $H_0 = {a}$. For $i = 0, 1, 2, \ldots $, let $H_{i+1}$ be the union of $H_i$ and the set of all terms of the form $f^n(t_1, \ldots t_n)$ for all $n$-place functions $f^n$ occuring in $S$, where $t_j$, $j=1, 2, \ldots , n$, are members of the set $H_i$. Then, each $H_i$ is called the \textit{i-level constant set} of $S$, and $H_{\inf} $ is called the \textit{Herbrand universe of S} \cite{changLee}.
+
+
+\end{definition}
+To place all of our claims within the Herbrand universe, we must convert them from clauses to \textbf{ground instances}. To do this, the variables within our clauses must be replaced with members of the universe we seek to use. We use the term ``clause'' here rather than claim, as we now refer to a conjunction of one or more disjunctions. While this system brings us to a single universe for testing, it unfortunately experiences rapid growth as we attempt to convert all of the axioms and claims which we know to ground instances.
+
+\subsection{Resolution} 
+
+To solve this issue, first-order resolution is used. First described by Davis and Putnam in 1960, it was refined to its current form in 1965 due to Robinson's syntactical unification algorithm. This technique is relatively straight-forward,
+
+First, the claim to be proven is negated. Then, we must have the axioms and this negation be conjunctively connected, which simply means that there are shared literals and clauses between members of the set. At this point, the negation is conerted to conjunctive normal form, meaning it is a conjunction of one or more clauses.
+
+At this point, setting up for the algorithm has completed, and application is ready to begin. A \textbf{resolution rule} is applied to all possible pairs of clauses which contain complimentary literals. When we say ``complimentary'' to refer to two variables which are the negation of one another.
+
+\subsubsection{The Resolution Rule}
+
+The resolution rule is applied until no new clauses may be created through its application. This results in one of two scenarios -- either the production of the empty clause, or one or more clauses which are not complimentary. In the event that the empty clause is produced, the negation provided is unsatisfiable, and thus, the claim that is being tested must follow from the axioms. If the empty clause is not the only result, the negation has not been shown to be unsatisfiable, so the original conjecture is invalid.
+
+\subsection{Superposition}
+
+By combining first-order resolution with Herbrand universes, we reach what the majority of modern automated theorem proving systems use - superposition. Superposition is essentially a refutationally complete calculus for equational first-order logic. As long as the strategies given are fair and resources unlimited, a system which uses computational superposition is guaranteed to derive any unsatisfiable claim.
+
+While primarily based on logical resolution, elements of ordering based equality handling are important to its implementation, specifically, an unfailing Knuth-Bendix Completion Algorithm.
+
+\subsubsection{Knuth-Bendix Completion Algorithm}
+
+The Knuth-Bendix Completion Algorithm is what is known as a semi-decision algorithm, which transforms a set of equations into a confluent term rewriting system. Semi-decision indicates that the algorithm may or may not halt, depending on the input. As we previously stated that superposition is based on an unfailing algorithm, we ignore discussion of non-halting results here.
+
+By rewriting equations in terms of a confluent term system, a translated result is essentially solved for the given domain. A description of the algorithm, and an example of how it functions, follows. Descriptions of new terms will be within the example, as explanations of the terms are very unclear without seeing them in action.
+
+\begin{enumerate}
+	\item Let $T=(L,\Gamma)$ be a theorem in which $\Gamma$ is a finite set of axioms.
+	\item A set of initial rules, $R$, are constructed using members of $\Gamma$ according to reduction order.
+	\item More reductions are performed in order to eliminate potential exceptions of confluence.
+	\item Should confluence fail at any point, the reduction matrix $max(r_1$,$r_2)=min(r_1$,$r_2)$ is added to $R$.
+	\item Any rules in $R$ which have reducible left sides are removed.
+	\item The process repeats until all overlapping left sides have been checked.
+\end{enumerate}
+
+\begin{example}
+	Consider the monoid $\left<x,y|x^3=y^3=(xy)^3=1\right>$. The first three reductions are very clear, and are determined entirely by the presence of an atom having an equivalence to a numeric value.
+	\begin{enumerate}
+		\item $x^3 \rightarrow 1$
+		\item $y^3 \rightarrow 1$
+		\item $(xy)^3 \rightarrow 1$
+	\end{enumerate}
+	We will now look at reductions 1 and 3. Expanding expansion 3 produces $xyxyxy$, which shares a variable in its prefix in common with the sufix of the expanded reduction 1, $xxx$, which is $x$. Thus, we consider $x^3yxyxy$, which through application of the first production rule produces 
+	\begin{enumerate}
+		\setcounter{enumi}{3}
+		\item $yxyxy \rightarrow x^2$
+	\end{enumerate}
+	We see the same holds true with reductions 2 and 3, with the $y$ simply being a suffix in this case for reduction 3.
+	\begin{enumerate}
+		\setcounter{enumi}{4}
+		\item $xyxyx \rightarrow y^2$
+	\end{enumerate}
+	Reduction 3 is obsoleted by reductions 4 and 5, and thus is removed from our list of reduction rules. Obsoleted simply means that the rule may be simplified. We desire all reduction rules to be in their simplest form which can be produced by the application of overlapping rules.
+
+	Now, we can consider the strings $x^3yxyx$ and $xyxyx^3$ with an overlapping of reductions 1 and 5, resulting in
+	\begin{enumerate}
+		\setcounter{enumi}{5}
+		\item $yxyx \rightarrow x^2y^2$
+		\item $y^2x^2 \rightarrow xyxy$
+	\end{enumerate}
+	Together, these two rules obsolete reductions 4 and 5.	
+
+	We are left with the following reduction rules:
+	\begin{enumerate}
+		\item $x^3 \rightarrow 1$
+		\item $y^3 \rightarrow 1$
+		\item $yxyx \rightarrow x^2y^2$
+		\item $y^2x^2 \rightarrow xyxy$
+	\end{enumerate}
+
+\end{example}
+
 \section{Vampire}
 
 Vampire is a first order theorem prover which started development in the late 1990s at the University of Manchester. The system takes input in \textit{Thousands of Problems for Thousands of Provers} (TPTP) format, with the user providing a file which contains axioms based on the domain of the problem, as well as a single conjecture at the end of the file.
 
 First, Vampire takes the conjecture given by the user and negates it. For example, if it had been given a statement of the form $p \text{ and } q \text{ implies } r$, it would convert it to $\sim p \text{ and } \sim q \text{ and } \sim r$ before performing further analysis. Following this, Vampire then uses the provided axioms to attempt to find a contradiction. In the event that a contradiction is found, the original claim will be true. If in the time Vampire is given to run no contradiction can be found, it is not necessarily the case that the original claim is false. Vampire may also find that the negated claim is logically valid with the axioms, and will output that the axioms and the negated conjecture are satisifiable, in which case the original claim was false.
 
-Over the past two decades, Vampire has won many awards at the CADE ATP System Competition's top division, winning first in 1999 and then every year from 2001-2010.
+Over the past two decades, Vampire has won many awards at the CADE ATP System Competition's top division, winning first in 1999 and then every year from 2001--2010.
