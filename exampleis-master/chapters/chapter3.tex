@@ -17,5 +17,8 @@ edu.stanford.nlp.pipeline.StanfordCoreNLPServer
 -port 9000 -timeout 15000
 \end{verbatim}
 
-
 which will set a timeout of 15000 milliseconds for processing of any statement sent to it.
+
+\section{How to Use the Program}
+
+To run the program, simply place the Vampire executable in the same directory as the program. Then, run the main python file and provide a statement to test when prompted. The sentence will then be processed and converted to TPTP format behind the scenes, returning the output from Vampire when running the input claim with the proper domain of axioms. It is important to remember here that a refutation returned by Vampire indicates a true conjecture, while any other output means no contradiction was found between the negated conjecture and provided axioms.

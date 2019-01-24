@@ -1,5 +1,4 @@
 fof(extensionality, axiom,((
-
 	(member(A,X))
 	& (member(A,Y))
 	=> X = Y))).

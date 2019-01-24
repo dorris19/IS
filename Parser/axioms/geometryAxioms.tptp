@@ -11,10 +11,6 @@ fof(incidence2, axiom,((
 	& on_line(A,B,D)
 	=> equals(C,D)))).
 
-%fof(incidence3, axiom,((
-%Not sure how to say 'at least 2' or 'at least 3'	
-%	=> C = D))).
-
 fof(incidence4, axiom,((
 	line(D)
 	& plane(E)
@@ -40,10 +36,31 @@ fof(incidence6, axiom,((
 	& on_plane(A,B,X,E)
 	=> on_plane(L,M,X,E)))).
 
-%Same as incidence3
-%fof(incidence7, axiom,((
 
-%At least rears its head again
-%fof(incidence8, axiom,((
+fof(incidence7, axiom,((
+	plane(A)
+	& plane(B)
+	& on_plane(C, D, E)
+	& on_plane(C, F, G)
+	=> equals(D, F)))).
 
+fof(order1, axiom,((
+	point(A)
+	& point(B)
+	& point(C)
+	& line(D)
+	& between(B, A, C)
+	=> between(B, C, A)
+	& on_line(B, C, D)
+	& on_line(A, C, D)))).
+
+fof(order2, axiom,((
+	point(A)
+	& point(B)
+	& point(C)
+	& line(D)
+	& on_line(A,C,D)
+	=> between(B,A,C)
+	& on_line(A,B,D)
+	& on_line(B,C,D)))).
 
