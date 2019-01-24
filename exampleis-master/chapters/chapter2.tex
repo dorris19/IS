@@ -65,13 +65,32 @@ To place all of our claims within the Herbrand universe, we must convert them fr
 
 To solve this issue, first-order resolution is used. First described by Davis and Putnam in 1960, it was refined to its current form in 1965 due to Robinson's syntactical unification algorithm. This technique is relatively straight-forward,
 
-First, the claim to be proven is negated. Then, we must have the axioms and this negation be conjunctively connected, which simply means that there are shared literals and clauses between members of the set. At this point, the negation is conerted to conjunctive normal form, meaning it is a conjunction of one or more clauses.
-
-At this point, setting up for the algorithm has completed, and application is ready to begin. A \textbf{resolution rule} is applied to all possible pairs of clauses which contain complimentary literals. When we say ``complimentary'' to refer to two variables which are the negation of one another.
+First, the claim to be proven is negated. Then, we must have the axioms and this negation be conjunctively connected, which simply means that there are shared literals and clauses between members of the set. At this point, the negation is conerted to conjunctive normal form, meaning it is a conjunction of one or more clauses. At this point, setting up for the algorithm has completed, and application is ready to begin.
 
 \subsubsection{The Resolution Rule}
 
+The resolution rule is a single inference rule which produces a single clause from two clauses which contain at least some complimentary literals. The term ``complimentary'' is used here to indicate that the two literals are the negation of one another, for example, $c$ and $~c$. The clause which results contains all literals from each of the component clauses which did not contain a compliment in the other clause. This resulting clause is known as the resolvent. 
+
 The resolution rule is applied until no new clauses may be created through its application. This results in one of two scenarios -- either the production of the empty clause, or one or more clauses which are not complimentary. In the event that the empty clause is produced, the negation provided is unsatisfiable, and thus, the claim that is being tested must follow from the axioms. If the empty clause is not the only result, the negation has not been shown to be unsatisfiable, so the original conjecture is invalid.
+
+\subsubsection{The Resolution Technique}
+
+When used in conjunction with a search algorithm, the resolution rule produces an algorithm which decides the satisfiability of a propositional formula. The technique uses proof by contradiction and that any sentence in propositional logic may be transformed into a conjunctive normal sentence without loss of meaning.
+
+\begin{enumerate}
+	\item All axioms of the domain, as well as the negation of the conjecture, are conjunctively connected.
+	\item The resolvent is converted to conjunctive normal form with conjuncts as elements in a set of clauses.
+	\item The resolution rule is applied to all pairs of clauses with complimentary literals. Repeated literals are removed after each use of the rule to reduce the size of the set.
+		\begin{enumerate}
+			\item If the resolvent contains complimentary literals, it is not added to the set.
+			\item If it does not contain complimentary literals and is not already in the set, it is added and becomes eligible for further application of the resolution rule.
+		\end{enumerate}
+	\item When it is no longer possible to apply the resolution rule:
+		\begin{enumerate}
+			\item The empty clause is derived, and thus the negation of our conjecture is a contradiction. This indicates that the original conjecture was valid.
+			\item The empty clause cannot be derived, and thus the negation of our conjecture has not been shown to be false. This indicates that the original conjecture is incorrect.
+		\end{enumerate}
+\end{enumerate}
 
 \subsection{Superposition}
 

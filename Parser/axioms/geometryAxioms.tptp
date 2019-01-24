@@ -32,3 +32,18 @@ fof(incidence5, axiom,((
 	& on_plane(A, B, C, F)
 	=> equals(E,F)))).
 
+fof(incidence6, axiom,((
+	line(D)
+	& plane(E)
+	& on_line(A,B,D)
+	& on_line(L,M)
+	& on_plane(A,B,X,E)
+	=> on_plane(L,M,X,E)))).
+
+%Same as incidence3
+%fof(incidence7, axiom,((
+
+%At least rears its head again
+%fof(incidence8, axiom,((
+
+
