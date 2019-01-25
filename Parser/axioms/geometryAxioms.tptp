@@ -64,3 +64,59 @@ fof(order2, axiom,((
 	& on_line(A,B,D)
 	& on_line(B,C,D)))).
 
+fof(congruence1, axiom,((
+	point(A)
+	& point(_A)
+	& point(B)
+	& point(_B)
+	& line(C)
+	& on_line(A,B,C)
+	& on_line(A,_A,C)
+	=> equals(dist(A,B),dist(_A,_B))))).
+
+fof(congruence2, axiom,((
+	dist(A,B)
+	=> dist(B,A)))).
+
+fof(congruence3, axiom,((
+	point(A)
+	& point(B)
+	& point(C)
+	& point(D)
+	& point(E)
+	& point(F)
+	& equals(dist(A,B),dist(C,D))
+	& equals(dist(C,D),dist(E,F))
+	=> equals(dist(A,B),dist(C,D))))).
+
+fof(congruence4, axiom,((
+	point(H)
+	& point(K)
+	& angle(H,K)
+	=> angle(K,H)))).
+
+fof(congruenceFor3, axiom,((
+	point(H)
+	& point(K)
+	& point(J)
+	& angle(H,K,J)
+	=> angle(J,K,H)))).
+
+fof(congruence5, axiom,((
+	point(H)
+	& point(K)
+	& point(J)
+	& point(L)
+	& point(Q)
+	& point(R)
+	& equals(angle(H,K),angle(J,L))
+	& equals(angle(J,L),angle(Q,R))
+	=> equals(angle(H,K),angle(Q,R))))).
+
+fof(congruence6, axiom,((
+	triangle(A,B,C)
+	& triangle(_A,_B,_C)
+	& equals(dist(A,B),dist(_A,_B))
+	& equals(dist(A,C),dist(_A,_C))
+	& equals(angle(B,A,C),angle(_B,_A,_C))
+	=> equals(angle(A,B,C),angle(_A,_B,_C))))).
