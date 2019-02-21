@@ -2,13 +2,13 @@
 \chapter{Background on Natural Language Processing}\label{text}                                                                   
 \section{Early Years}
 
-Natural language processing has been an area of interest in computer science for the past 60 years. Initially, the subject was limited to machine translation, with the Georgetown experiment in 1954 being an early foray into the field. In this experiment over sixty Russian sentences were translated to English entirely automatically. The results were promising enough that the researchers anticipated automatic translation being solved within the next five years. \cite{Hutchins} Progress was, obviously, much slower than this.             
+Natural language processing has been an area of interest in computer science for the past 60 years. Initially, the subject was limited to machine translation, with the Georgetown experiment in 1954 being an early foray into the field. In this experiment over sixty Russian sentences were translated to English entirely automatically. The results were promising enough that the researchers anticipated automatic translation being solved within the next five years \cite{Hutchins}. Progress was, obviously, much slower than this.             
 
  
 Funding was cut when the program had run twice as long as promised, and progress in the field slowed. Two successful systems were created in the 1960s, SHRDLU and ELIZA.
                                                                                           
 \subsection{SHRDLU}                                                                    
-SHRDLU was a querying system which created a small ``Blocks World'' which was populated by cones, spheres, cubes, and other geometric shapes of various sizes and colors. \cite{winograd} The user was able to instruct SHRDLU on how to move these objects around simply by specifying the shape in addition to its color or size. SHRDLU also had a simple memory system, allowing for reference to objects recently interacted with. This memory also allowed for SHRDLU to be queried on what she had previously done. SHRDLU's world contained basic physics, allowing for the program to describe what was possible in the world and what was not. The final major feature was to remember the name a user gave an object or collection of objects. From this, it was possible to more easily instruct SHRDLU.                      
+SHRDLU was a querying system which created a small ``Blocks World'' which was populated by cones, spheres, cubes, and other geometric shapes of various sizes and colors \cite{winograd}. The user was able to instruct SHRDLU on how to move these objects around simply by specifying the shape in addition to its color or size. SHRDLU also had a simple memory system, allowing for reference to objects recently interacted with. This memory also allowed for SHRDLU to be queried on what she had previously done. SHRDLU's world contained basic physics, allowing for the program to describe what was possible in the world and what was not. The final major feature was to remember the name a user gave an object or collection of objects. From this, it was possible to more easily instruct SHRDLU.                      
                                                                                           
 \begin{figure}[!ht]
 	\begin{center}
@@ -40,7 +40,7 @@ SHRDLU would remember changes in the environment until reset after use. From thi
 
 \subsection{ELIZA}                                                                     
                                                                                           
-ELIZA is an early language based program which took user input and responded much like a Rogerian psychologist \cite{Weizenbaum}. She was created by Joseph Weizenbaum around 1965 at MIT, using pattern matching and substitution to give an illusion of understanding. While ELIZA has only a very small vocabulary, she convinced many users that she was truly intelligent through the use of these techniques, despite being completely unable to go into detail on almost all subjects.
+ELIZA was an early language-based program which took user input and responded much like a Rogerian psychologist \cite{Weizenbaum}. She was created by Joseph Weizenbaum around 1965 at MIT, using pattern matching and substitution to give an illusion of understanding. While ELIZA has only a very small vocabulary, she convinced many users that she was truly intelligent through the use of these techniques, despite being completely unable to go into detail on almost all subjects.
 
 ELIZA uses NLP in a very different way from SHRDLU -- rather than attempting to understand what the user is inputting, she instead uses the context surrounding phrases, such as ``I feel'' or ``I am'' to insert the phrase properly into previously constructed sentence types.
 
@@ -63,7 +63,7 @@ ELIZA uses NLP in a very different way from SHRDLU -- rather than attempting to 
 \section{Advancments of the Twentieth Century}
 \subsection{Context Free Grammars}
 
-To understand the functioning of NLP systems, context free grammars (CFGs) should first be described. CFGs, sometimes referred to as phrase structure rules, are a set of rules, known as \textit{production rules} which describe all strings which can possibly be produced within a grammar. Here, string simply means a sequence of words, such as, ``The man walked down the road'' and grammar refers to the possible structure of strings and to the words which may be included in these strings. There are two basic elements of a CFG -- variables and terminals. A variable is a part of the grammar which will be modified by continuing to follow the production rules which are described by the grammar. We denote variables by enclosing them in angle brackets (`<' and `>'). A terminal is a word, such as ``the'', which is in its most basic form and undergoes no further changes. 
+To understand the functioning of NLP systems, context free grammars (CFGs) should first be described. CFGs, sometimes referred to as phrase structure rules, are a set of rules, known as \textit{production rules} which describe all strings which can possibly be produced within a language. Here, string simply means a sequence of words, such as, ``The man walked down the road'' and grammar refers to the possible structure of strings and to the words which may be included in these strings. There are two basic elements of a CFG -- variables and terminals. A variable is a part of the grammar which will be modified by continuing to follow the production rules which are described by the grammar. We denote variables by enclosing them in angle brackets (`<' and `>'). A terminal is a word, such as ``the,'' which is in its most basic form and undergoes no further changes. 
 
 This is most easily seen through an example. Consider the following two figures:
 
@@ -71,11 +71,11 @@ This is most easily seen through an example. Consider the following two figures:
 \centering
 \begin{minipage}{.5\textwidth}
   \centering
-	$\left<A\right> \rightarrow \left<B\right>$
+	$\left<S\right> \rightarrow \left<B\right>$
 	
 	$\left<B\right> \rightarrow \text{Dog | Pig}$
 
-  \captionof{figure}{Two production rules, one of which produces a variable and one of which produces a terminal}	
+  \captionof{figure}{Three production rules, one of which produces a variable and two of which produce a terminal}	
   \label{fig:dog}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
@@ -90,7 +90,7 @@ In each of the cases, we have the variable $\left<S\right>$ on the left of the a
 
 \begin{itemize}
 	\item one-to-one, where the variable is replaced by a single other variable or terminal.
-	\item one-to-many, where the variable has several variables or terminals which may replace it.
+	\item one-to-many, where the variable has several possible variables or terminals which may replace it, but only one of which is selected.
 	\item one-to-none, where the variable is replaced by nothing (blank space).
 \end{itemize}
 
@@ -106,7 +106,7 @@ Let us consider a CFG structured as follows:
 
 	\item $\left<S\right> \rightarrow \left< NP \right> \left<VP\right>$
 	\item $\left<NP\right> \rightarrow \left<DET\right> \left<N\right>$
-	\item $\left<VP\right> \rightarrow (\left<ADVB\right>) \left<VB\right>$
+	\item $\left<VP\right> \rightarrow \left<ADVB\right> \left<VB\right> | \left<VB\right>$
 	\item $\left<N\right> \rightarrow \text{Dog}$
 	\item $\left<DET\right> \rightarrow \text{The | A}$
 	\item $\left<VB\right> \rightarrow \text{Runs | Jumps}$
@@ -125,9 +125,9 @@ Here, we have a simple grammar which breaks a sentence into noun and verb phrase
 
 \subsection{Advancements of the 1970s and 1980s}
 
-Come the 1970s, William Woods introduced augmented transition networks (ATNs) as a method to represent language input, rather than phrase structure rules \cite{Woods}. ATNs use finite state machines in order to parse sentences. Woods claimed that, by adding a recursive mechanism to finite state models, it was possible to parse much more efficiently. The system builds a set of finite state automata, which have transition states between them. Should a sentence reach a final state, the sentence is valid. These systems have advantages, including the delaying of ambiguity. Rather than simply guessing a path as some systems will, the ambiguity may be delayed until more of the sentence has been parsed, allowing for greater information to be used in resolving said ambiguity. Additionally, they effectively capture the structure of languages, allowing for ease of processing \cite{Woods}.
+Come the 1970s, William Woods introduced augmented transition networks (ATNs) as a method to represent language input, rather than phrase structure rules \cite{Woods}. ATNs use finite state machines in order to parse sentences. Woods claimed that, by adding a recursive mechanism to finite state models, it was possible to parse much more efficiently. The system builds a set of finite state automata, which have transition states between them. Should a sentence reach a final state, the sentence is valid. These systems have advantages, including the delaying of ambiguity (see page \pageref{issues}). Rather than simply guessing a path as some systems will, the ambiguity may be delayed until more of the sentence has been parsed, allowing for greater information to be used in resolving said ambiguity. Additionally, they effectively capture the structure of languages, allowing for ease of processing \cite{Woods}.
 
-The 1980s, with the introduction of machine learning algorithms, led to immense changes. No longer were parsers built based on complex rules formed by the programmer, instead, algorithms like decision trees began to make the classification rules. Eventually, this change led to the use of modern statistical models, which assign probabilities to words for part-of-sentence identification, rather than rigid if-then rule sets \cite{1980}.
+The 1980s, the introduction of machine learning algorithms, led to immense changes. No longer were parsers built based on complex rules formed by the programmer; instead, algorithms like decision trees began to make the classification rules. Eventually, this change led to the use of modern statistical models, which assign probabilities to words for part-of-sentence identification, rather than rigid if-then rule sets \cite{1980}.
 
 \section{Syntax and Semantics}
 
@@ -135,7 +135,7 @@ When examining natural language, meaning is found through an analysis of both sy
 
 Certain camps believed that, by simply knowing the definition of each word in a sentence, their relationship to one another would be determinable. Others saw syntax as the defining feature to study, so they broke sentences down based purely on anticipated structures of sentences, fitting the sentences into some hypothetical structure which could be determined by a CFG \cite{lytinen}.
 
-Let us first examine the issues with a purely semantic analysis of a sentence. Consider ``The dog ran to the man who owned him.'' Each word can easily be defined, but the meaning of the sentence becomes extremely unclear. In this situation, it is clear that the final three words ``who owned him'' refer to a relationship between the man and dog. However, we may not examine the structure of the sentence, as it was regarded as unnecessary. The ``him'' in this context has an unclear referent without examining previously discussed entities.
+Let us first examine the issues with a purely semantic analysis of a sentence. Consider ``The dog ran to the man who owned him.'' Each word can easily be defined, but the meaning of the sentence becomes extremely unclear. In this situation, it is clear that the final three words ``who owned him'' refer to a relationship between the man and dog. However, we may not examine the structure of the sentence, as it was regarded as unnecessary. The ``him'' in this context has an unclear referent without examining previously discussed entities. \label{issues}
 
 \begin{center}
 \begin{figure}[H]
@@ -161,9 +161,9 @@ Let us first examine the issues with a purely semantic analysis of a sentence. C
 
 Even disregarding this issue, a hypothetical system using this methodology would be completely powerless to even attempt to understand a sentence containing a word it did not already have the definition of. The system, assuming parsing completed, would return a description of each word other than the unknown. Parsing refers to the analysis of a string by conversion to variables in the language in order to test its conformity. A string parsed successfully is in the language given, while one in which the parsing fails is not. Without understanding the meaning of this region, the meaning of the sentence becomes unintelligible. This system can also never attempt to determine potential meaning, as relationships between words are completely ignored.
 
-With some issues of purely semantic analysis discussed, let us now move on to the issues facing a purely syntactic analysis. First, consider the possible shapes of every sentence in English. When we understand the meaning of words in a sentence, it is trivial to see the difference between two sentences of the same length and structure, say ``Timothy ran to his crying father'' and ``Sparky bit at the panicking neighbor''. By seeing how each component comes together, we can easily match sentences to their derivation from a CFG. However, by purely examining syntax, we cannot see the part-of-speech of the component words. What we are left doing is taking an $n$-word sentence, and applying to it the structure of every possible $n$-word archetype.
+With some issues of purely semantic analysis discussed, let us now move on to the issues facing a purely syntactic analysis. First, consider the possible shapes of every sentence in English. When we understand the meaning of words in a sentence, it is trivial to see the difference between two sentences of the same length and structure, say ``Timothy ran to his crying father'' and ``Sparky bit at the panicking neighbor''. By seeing how each component comes together, we can easily match sentences to their derivation from a CFG. However, by purely examining syntax, we cannot check the part-of-speech of the component words. What we are left doing is taking an $n$-word sentence, and applying to it the structure of every possible $n$-word archetype.
 
-The introduction of syntactic analysis brings ambiguity into our parser as well. Ambiguity is the scenario when a single string can be parsed in two different ways. Consider a sentence such as ``The man gave a dollar to his friend who was wearing his hat.'' In this sentence, it is not clear who the ``his'' refers to -- we could parse it such that the friend is wearing the man's hat while receiving a dollar, or the man is giving a dollar to a friend, who is in a hat he owns. When the meaning of a word is known to the parser, ambiguity can often be resolved. As natural language is full of ambiguity, this is not always true, but understanding the meaning can resolve situations such as ``The man walked down the road wearing a hat''.
+The introduction of syntactic analysis brings ambiguity into our parser as well. Ambiguity is the scenario when a single string can be parsed in two different ways. Consider a sentence such as ``The man gave a dollar to his friend who was wearing his hat.'' In this sentence, it is not clear who the ``his'' refers to -- we could parse it such that the friend is wearing the man's hat while receiving a dollar, or the man is giving a dollar to a friend, who is in a hat he owns. When the meaning of a word is known to the parser, ambiguity can often be resolved. As natural language is full of ambiguity, this is not always true, but understanding the meaning can resolve situations such as ``The man walked down the road wearing a hat.''
 
 \begin{figure}[!ht]
 \centering
@@ -191,7 +191,7 @@ Primarily, natural language processing relies on syntax and semantics to determi
 
 Some pieces of general knowledge like this are possible for a NLP system to pick up. If we consider a digital assistant which has access to the location data of users, when queried ``Who is the president?'' the assistant can assume that the user is asking for the president of the nation they reside in. Previously, we saw SHRDLU, a system which created its own world to work in. As SHRDLU knew everything about the world, it was possible to refer to objects such as ``the blue one,'' assuming there was only a single blue object.
 
-One piece of pragmatic information which NLP systems are currently oblivious to is tone of voice. As humans, we are able to interpret changes in voice, whether as an indicator of sarcasm or a marking of a change in mood which could change the meaning of the sentence. This is a very difficult problem to solve with computing, consider using a text based communication service with a friend. You believe that they are acting a little odd, so ask them if they are okay. They respond ``I'm fine.'' Were you face to face with the person, you could use body language or vocal cues to determine if the statement was an accurate representation of their emotional state, or if it was a social nicety so as not to worry you. Without this, we have a sentence of only two words which could take, at minimum, two different meanings.
+One piece of pragmatic information which NLP systems are currently oblivious to is tone of voice. As humans, we are able to interpret changes in voice, whether as an indicator of sarcasm or a marking of a change in mood which could change the meaning of the sentence. This is a very difficult problem to solve with computing. Consider using a text-based communication service with a friend. You believe that they are acting a little odd, so ask them if they are okay. They respond ``I'm fine.'' Were you face to face with the person, you could use body language or vocal cues to determine if the statement was an accurate representation of their emotional state, or if it was a social nicety so as not to worry you. Without this, we have a sentence of only two words which could take, at minimum, two different meanings.
 
 Of course, we do not expect to have friendly conversations with our computers, so this may seem a moot point. However, a good NLP system should make conversation easy, and with easy conversation comes slipping into habits which one uses in real life. Maintaining clarity is important with a NLP system, to ensure understanding on the ends of both the user and the system.
 

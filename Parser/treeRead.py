@@ -7,97 +7,114 @@ def children(tree, parent_start_index):
     #children, and have away to start mid-tree
     parenCount = 0
     childList = []
+    child = ''
     #Guarantees a successful start by beginning at the start
     #of a part of speech. As this seeks forwards, the parent tag
     #will not be included in the resulting child string
-    treePos = tree.find('(', parent_start_index)
-    while(parenCount!=-1):
+    treePos = parent_start_index
+    while(parenCount>=0 and (treePos+1)<len(tree)):
+        child = ''
         #We have a problem if we hit a close parens before an open!
         #means either the end of a section of children or a poor start
         #but we eliminate poor start above
-        while(tree[treePos]!='('):
-            #We've hit the end of the section so leave
+        while(tree[treePos]!='(' and (treePos+1)<len(tree)):
             if(tree[treePos]==')'):
-                parenCount -= 1
+                parenCount= -1
             treePos+=1
-        #Child is set with an open parens for use in recursive searchings
-        child='('
-        treePos+=1
         parenCount=1
-        #Bookkeeping to know if we are within a branch
-        while(parenCount != 0):
+        child+='('
+        treePos+=1
+        while(parenCount>0 and (treePos+1)<len(tree)):
+#            print(treePos)
+#            print(tree[treePos])
+
+            child+=tree[treePos]
             if(tree[treePos]=='('):
                 parenCount+=1
             if(tree[treePos]==')'):
-                parencount-=1
-            child+=tree[treePos]
+                parenCount-=1
+#            print(parenCount,'\n')
             treePos+=1
-        #append a close parens to child for use in further runs
-        #maybe an arbitrary open should follow?
-        child+=')'
         childList.append(child)
+
     #new index is returned for use in a later function
     #will be removed if no longer necessary due to changes
+    child+=')'
+    childList.append(child)
     return childList, treePos+parent_start_index
 
 #Grabs a word from a pos tag block by cycling through non close parens or space characters
-def word(element):
-    pos = 0
-    i=0
+def word(element, posTarget, shift=0):
+    pos=''
+    i=element.find(posTarget,shift)
     while(element[i]!=' '):
         i+=1
+    i+=1
     while(element[i]!=')'):
         pos+=element[i]
         i+=1
-    return element
+    return pos, i+shift
 
-#Should take a pos tagged segment and find the
-#desired children of it as words. Should allow modularity
-#regarding multiargument statements
-def findPartOfSpeech(lst, tag):
-    position = -1
-    wordList = []
-    while(True):
-        parenCount = 1
-        position = lst.find(tag,position+1)
-        if(position==-1):
-            break
-        desiredWord = word(lst[position:])
-        wordList.append(desiredWord)
-    return wordList
+#Courtesy of StackOverflow user Pratik Deoghare
+def find_all(a_str, sub):
+    start = 0
+    locList = []
+    while True:
+        start = a_str.find(sub, start)
+        if start == -1: return locList
+        locList.append(start)
+        start += len(sub) # use start += 1 to find overlapping matches
+    return locList
 
-#Change the following functions to use findPartOfSpeech
-#should make them simpler and more modular.
+def check_not(a_str, stopVal):
+    if(a_str.find('not',0,stopVal)!=-1):
+        return True
+    else:
+        return False
 
 #Used when NP breaks down to NP and PP, function will be in the NP
 #and will be something like 'equals', while the two variables will
 #be in the PP
-def NP_PP(lst):
-    function = word(lst[0])
-    tree = children(lst[1], 0)
-    variable_location = children(tree[1], 0)
-    variable1 = word(variable_location[0])
-    variable2 = word(variable_location[2])
+def NP_PP(lst, j):
+    function = word(lst[j],'NN')[0]
+    variable_location = find_all(lst[j+1],'NN')
+    variable1 = word(lst[j+1],'NN')[0]
+    variable2 = word(lst[j+1],'NN',shift=variable_location[1])[0]
+    print(lst[j])
+    if(check_not(lst[j],word(lst[j+1],'NN')[1])):
+        function='~'+function
     clause = [function, variable1, variable2]
     return clause
 
 #Used when NP breaks down to NP and VP, finds variable in first NP then
 #gets the rest from the VP
-def NP_VP(lst):
-    variable1 = word(lst[0])
-    tree = children(lst[1], 0)
-    variable_location = children(tree[1], 0)
-    function = word(variable_location[0])
-    variable2 = word(variable_location[1])
+def NP_VP(lst, j):
+    variable1 = word(lst[j],'NN')[0]
+    tree = children(children(lst[j+1], 0)[0][1],0)[0] 
+    #print(tree)
+    variable_location = find_all(lst[j+1],'NN')
+    function = word(tree[0],'NN')[0]
+    #print(function)
+    variable2 = word(tree[1],'NN',shift=variable_location[1])[0]
+    #print(lst[j+1])
+    if(check_not(lst[j+1],word(tree[1],'NN')[1])):
+        function='~'+function 
     clause = [function, variable1, variable2]
     return clause 
 
 #We know where the NP ends here, so get the children of its sibling
-def NN(tree, lst, endPos):
-    variable1 = word(lst[0])
-    sibling = children(tree, endPos)
-    NP = children(VP[1])
-    function = word(children(children(NP)[0])[2])
-    variable2 = word(children(children(NP)[1])[1])
+def NN(lst, j):
+    variable1 = word(lst[j],0)[0]
+    VP = children(lst[j+1], 0)
+    NP = children(VP[0][1], 0)
+    function = word(VP[0][0],'VBZ')[0]
+    if(VP[0][1].find('CD')!=-1):
+        valType = 'NN'
+    else:
+        valType = 'CD'
+    variable2 = word(VP[0][1],valType)[0]
+    print(lst[j+1])
+    if(check_not(lst[j+1],word(VP[0][1],valType)[1])):
+        function='~'+function 
     clause = [function, variable1, variable2]
     return clause

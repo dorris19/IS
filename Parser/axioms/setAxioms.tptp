@@ -1,6 +1,6 @@
 fof(extensionality, axiom,((
-	(member(A,X))
-	& (member(A,Y))
+	(element(A,X))
+	& (element(A,Y))
 	=> X = Y))).
 
 fof(transitive, axiom,((
@@ -12,15 +12,15 @@ fof(transitive, axiom,((
 fof(subsetDef, axiom,((
 
 	(subset(X, Y))
-	& (member(A, X))
-	=> member(A, Y)))).
+	& (element(A, X))
+	=> element(A, Y)))).
 
 fof(extensionality, axiom,((
 	(X = Y)
-	& member(B, Y)
+	& element(B, Y)
 	=>
-	member(B, X)))).
+	element(B, X)))).
 
 fof(regularity, axiom,((
-	member(X, Y)
+	element(X, Y)
 	=> ~(X = Y)))).

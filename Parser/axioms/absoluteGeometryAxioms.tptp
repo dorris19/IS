@@ -1,0 +1,15 @@
+fof(euclid1, axiom, ((
+	points(A,B)
+	=> segment(A,B)))).
+
+fof(euclid2, axiom, ((
+	segment(A,B)
+	=> line(A,B)))).
+
+fof(euclid3, axiom, ((
+	segment(C,R)
+	=> circle(C,R)))).
+
+fof(euclid4, axiom, ((
+	right_angles(A,B)
+	=> equals(A,B)))).

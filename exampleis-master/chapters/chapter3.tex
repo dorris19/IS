@@ -5,20 +5,106 @@
 
 To use the software created during this project, the user must have an installation of Python 3, as well as the following packages:
 \begin{itemize}
-\item Requests
-\item nltk
+\item requests
+\item NLTK
 \end{itemize}
 
-The user will also need to run the Stanford CoreNLP server, which can be obtained from https://github.com/stanfordnlp/CoreNLP, as well as the Vampire theorem prover, available at https://github.com/vprover/vampire. Vampire is to built on the release version, using the included documentation to do so. The CoreNLP server need merely to be decompressed by the user, and then within the directory the command
-
+The user will also need to run the Stanford CoreNLP server, which can be obtained from \url{https://github.com/stanfordnlp/CoreNLP}, as well as the Vampire theorem prover, available at \url{https://github.com/vprover/vampire}. Vampire is to built on the release version, using the included documentation to do so. The CoreNLP server need merely to be decompressed by the user, and then within the directory the command
 \begin{verbatim}
 java -mx4g -cp "*"
 edu.stanford.nlp.pipeline.StanfordCoreNLPServer
 -port 9000 -timeout 15000
 \end{verbatim}
-
 which will set a timeout of 15000 milliseconds for processing of any statement sent to it.
+
+\section{treeRead}
+
+In order to use the data output by the CoreNLP server, a simple API was created which allows for all of the necessary information for conversion from English to TPTP format. The bulk of the module is within the \texttt{children() } function.
+
+The \texttt{children() } function implements what is essentially a Lisp parser for the Stanford tree. After being provided with a tree to parse and a starting index, the children of the given tree are returned. As the number of children can be any value of one or greater, the function determines where children end by keeping track of parentheses, adding a child to a list of children whenever the count of parentheses returns to zero. After all children are accounted for, the function returns both this list and the final position within the tree. Currently, this final position is not used due to alterations in other functions since its creation.
+
+The functions \texttt{word() }, \texttt{find\_all() }, and \texttt{check\_not() } provide utility for the functions which follow. As the name implies, \texttt{word() } returns the word associated with a given part of speech tag. In order to allow for different words with the same tag to be found, there is an optional parameter \texttt{shift}, which changes the location at which the search for the part of speech tag begins. A second value is also returned by \texttt{word() }, which gives the final index within the tree which was visited.
+
+The function \texttt{find\_all() } performs a search of the given tree for a provided string. Upon finding an instance of the string, the index it begins at is added to a list, and the search is run once more from the position immediately following the discovered string. Finally, \texttt{check\_not() } determines if, prior to the final variable which has been found, the word ``not'' was present. If so, a tilde (\~) is added to the front of the function, indicating that that claim is not fulfilled.
+
+\subsection{Noun Phrase Breakdown Functions}
+
+The final three functions are \texttt{NP\_PP()}, \texttt{NP\_VP()}, and \texttt{NN()}, creatively named based on how the original noun phrase (NP) they come from is constructed. \texttt{NP\_PP()} is called when a noun phrase and prepositional phrase (PP) are the children of a noun phrase. It first locates an operator term which will be present as a child of the noun phrase, such as ``equal'' or ``element''. Following this, the child noun phrase's sibling, the prepositional phrase, is searched for two nouns (NN), each of which are the variables which the function acts upon. For example, the prepositional phrase could contain the sets $X$ and $Y$, which the operator from before could inform us indicates that $X$ is a \textit{subset} of $Y$.
+
+\texttt{NP\_VP()} is executed when the noun phrase produces a noun phrase and verb phrase (VP). The noun phrase is searched for a variable, while the verb phrase is searched for two nouns, one of which is a function and the other of which is a variable.
+
+Finally, \texttt{NN()} executes only when the noun phrase has a single child which is a noun. In this instance, said noun will be a variable. To determine the function and other variable, the sibling of the noun phrase is determined which will be a verb phrase containing the remaining variable(s) and function. In this case, it is possible that rather than a noun, a number (cardinal number, CD) will be a variable. This is checked for by determining if the tag ``CD'' is present in the verb phrase; if it is, then said tag is used to find a variable, while if it is not, the standard ``NN'' tag is used.
 
 \section{How to Use the Program}
 
-To run the program, simply place the Vampire executable in the same directory as the program. Then, run the main python file and provide a statement to test when prompted. The sentence will then be processed and converted to TPTP format behind the scenes, returning the output from Vampire when running the input claim with the proper domain of axioms. It is important to remember here that a refutation returned by Vampire indicates a true conjecture, while any other output means no contradiction was found between the negated conjecture and provided axioms.
+To run the program, simply place the Vampire executable in the same directory as the program. Then, run the main Python file and provide a statement to test when prompted. The sentence will then be processed and converted to TPTP format behind the scenes, returning the output from Vampire when running the input claim with the proper domain of axioms. It is important to remember here that a refutation returned by Vampire indicates a true conjecture, while any other output means no contradiction was found between the negated conjecture and provided axioms.
+
+\subsection{Proper Language Formatting}
+
+To allow for accurate processing of input, certain limitations exist on the natural language portion. The first and most basic change, is a requirement to separate each claim with a comma. This means that, rather than stating ``$X$ is less than $Y$ and $Y$ is less than $Z$'', input will be of the form ``$X$ is less than $Y$, and $Y$ is less than $Z$''. This is necessary not due to the implementation of the translator between trees and TPTP format, but rather due to occassional confusion during sentence parsing. Without clear separation by the comma, it is often the case that the ``and'' assigns a relationship between what is meant to be a new independent clause and the previous clause. By simply including the comma, this issue is almost always avoided.
+
+A second alteration to the language required for using the program is an elimination of words like ``it'' which allow for indirect, non-explicit reference. This is more than just an elimination of words in this case, it is a change to some usual ways of speech. Consider the statment ``There was riot in the market, which caused it to shut down.'' This includes the aforementioned ``it'' but also uses ``which'' to avoid repetition of ``the riot.'' To put a statement like this into our program, though obviously this statement is rather light in mathematical reference, one would input ``There was a riot in the market, the riot caused the market to shutdown.'' This would be a rather awkward manner of speech, but it allows for much more clarity than indirect reference does. 
+
+This change will be defended with one further example, as it is unfair to say it is a weakness of the system. Consider a statement like ``When Joe shook Tom's hand, he was completely unaware that he would die within the year.'' In this context, which is grammatically correct English, it is quite difficult to determine to who the ``he'' applies to in each situation. Were there to simply be a change to reusing nouns in this situation, we would easily see that Joe was unaware that Tom would be dying.
+
+Another limitation on word choice is the naming of variables. While it is acceptable to name a variable after any noun or most capitalized characters, the names ``A'' and ``I'' are reserved. When these characters are used, they are identified as different parts of speech than other variable names, so cause unreliable functionality.
+
+Language is also limited, currently, by positioning of operator statements, those which translate as meaningful functions. These operators \textit{must} not come after the two objects they are acting on. A statement such as ``$B$ and $C$ are not equal'' would thus be incorrect, as the language should have been ``$B$ does not equal $C$''.
+
+The remaining changes relate to vocabulary choice for mathematical terms and directionality of statements. Consider the example of some element $X$ which is in a set $L$. While typically it does not matter if we say ``$X$ is in $L$,'' ``$X$ is an element of $L$,'' ``$L$ has an element $X$,'' and so on, it matters to the program due to the way axioms are defined and claims are constructed during translation. The translator always assumes that the set comes after the element, so the third statement from before, ``$L$ has an element $X$'', would actually translate as an element $L$ in the set $X$. The other change to this language is similar to the removal of ``it'' and other indirect vocabulary -- the membership operator is ``element'' rather than ``in'', so the term ``element'' must be used to describe the relationship.
+
+Usage is also limited due to Vampire being a first-order theorem prover. Due to this, it is not possible to call a function on a variable, meaning statements such as ``The sum of $X$ and $Y$ equals $Z$'' are unable to be run. This is, of course, a major limitation. At this time, there does not appear to be a resolution to this problem, greatly reducing the functionality of the system for some domains, namely any dealing with arithmetic. This does not affect functionality with questions of membership or comparisons as long as they may be phrased in such a way as to avoid said conflict.
+
+In Table \ref{Formatting}, inappropriate input sentences are shown alongside the same query input properly.
+
+\begin{table}[h!]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+\multicolumn{1}{c}{Incorrect Formatting}                                                                                            & \multicolumn{1}{c}{Correct Formatting}                                                                                          \\
+ & \\
+\begin{tabular}[c]{@{}l@{}}``$X$ is less than $Y$ which is less\\ than $Z$ so $X$ is less than $Z$''\end{tabular}                   & \begin{tabular}[c]{@{}l@{}}``$X$ is less than $Y$, and $Y$ is less\\ than $Z$, thus $X$ is less than $Z$'\end{tabular}              \\
+ & \\
+\begin{tabular}[c]{@{}l@{}}``If a set $A$ has an element $B$ and $B$ is\\ not in $C$, then $C$ and $A$ are not equal''\end{tabular} & \begin{tabular}[c]{@{}l@{}}``$B$ is an element of $D$, and $B$ is not\\ an element of $C$, so $C$ does not equal $D$''\end{tabular} \\
+ & \\
+``The following values are not equal: $a$, $b$, $c$''                                                                               & \begin{tabular}[c]{@{}l@{}}``$B$ does not equal $C$, and $C$ does not equal $D$,\\ and $B$ does not equal $D$''\end{tabular}        \\
+\end{tabular}%
+}
+\caption{Examples of proper and improper formatting.}
+\label{Formatting}
+\end{table}
+\subsection{Transitional TPTP File and Vampire}
+
+Following the parsing of the input claim, the program produces a TPTP format file containing all axioms along with the generated conjecture. Axioms and conjectures within TPTP take the following form:
+
+\texttt{fof(subsetDef, \textit{axiom},((}
+
+\texttt{(subset(X, Y))}
+
+\texttt{\& (element(A, X))}
+
+\texttt{=> element(A, Y)))).}
+
+\noindent
+where \textit{axiom} is used for an axiom, and \textit{conjecture} for a conjecture.
+
+Once this file has been created, Vampire is run on it. The program then outputs the results of the test, displaying either the successful run which details whether or not the conjecture was counter-satisfiable, or returning an error. Under typical runs, prior to the termination of the program the transitional file is deleted, but it is possible to execute the program in such a way as to leave the file for viewing. This is of course useful for determining why some input fails to execute or returns a questionable result, but it can also be convenient for seeing how these files are structured for execution.
+
+Should a user desire to use the program for their work but find themselves needing axioms which have not been provided, they can easily add TPTP format files to the \texttt{axioms} directory, which contains all the axioms used by the program.
+
+\subsection{Axioms}
+
+Included with the software are three complete axiom sets along with a mostly implemented fourth set. The axiom sets are:
+\begin{itemize}
+	\item Set theory
+	\item Algebra
+	\item Absolute geometry
+	\item Geometry (Incomplete)
+\end{itemize}
+
+Absolute geometry refers to Euclidean geometry without the parallel postulate, which states that, should two straight lines be intersected by another, the side on which the sum of the interior angles created by these intersections is less than $180^{\circ}$ will be the side on which the two lines will intersect \cite{absolute}. Geometry in these context refers to the geometry defined by Hilbert's Axioms of Geometry \cite{Hilbert}.
+
+Through examination of the files, a user can get an idea of how a new set of axioms would be created, both through examination of the format of each claim and the overall structure of the file.
+
+To use additional axioms, a user need only create the file and put it within the \texttt{axioms} directory. All work of creating a master axiom file is performed by the program. This master file contains all axioms from within the directory, combined into a single file. For this reason, a user may not place their conjecture within their axiom file should they want to use it with the program.
+
+Only TPTP formatted files are appended, so any other files, such as notes or work-in-progress axioms, may exist within the directory as long as they are saved with a different file extension.

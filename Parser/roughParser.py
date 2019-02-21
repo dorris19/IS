@@ -6,16 +6,16 @@ def vampDecorator(str1, str2, str3):
 
 #Currently unused
 #Takes all variables and places them into a 'for all' TPTP definition block
-def forAllDecorator(lst): 
-    presenceDict={}
-    keyCount = 0
+def forAllDecorator(lst):
+    presence_dict = {}
+    key_count = 0
     for i in range(len(lst)-1):
-        if(len(lst[i]) < 2 and lst[i] not in presenceDict):
-            presenceDict[lst[i]]=1
+        if(len(lst[i]) < 2 and lst[i] not in presence_dict):
+            presence_dict[lst[i]] = 1
     string = '! ['
-    for i in presenceDict.keys():
-        keyCount+=1
-        if(len(presenceDict.keys())==keyCount):
+    for i in presence_dict.keys():
+        key_count += 1
+        if(len(presence_dict.keys())==key_count):
             string+=i+']:\n'
         else:
             string+=i+', '

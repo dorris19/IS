@@ -32,16 +32,16 @@ fof(incidence6, axiom,((
 	line(D)
 	& plane(E)
 	& on_line(A,B,D)
-	& on_line(L,M)
+	& on_line(L,M,D)
 	& on_plane(A,B,X,E)
 	=> on_plane(L,M,X,E)))).
 
-
+#D and F existential here
 fof(incidence7, axiom,((
 	plane(A)
 	& plane(B)
-	& on_plane(C, D, E)
-	& on_plane(C, F, G)
+	& on_plane(C, D, E, A)
+	& on_plane(C, F, G, B)
 	=> equals(D, F)))).
 
 fof(order1, axiom,((

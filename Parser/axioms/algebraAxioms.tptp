@@ -1,37 +1,60 @@
 fof(reflexive, axiom, ((
-	equals(X, X))).
+	![X:$int]:
+	X = X))).
 
 fof(symmetric, axiom, ((
-	equals(X, Y)
-	=> equals(Y, X)))).
+	![X:$int,Y:$int]:(
+	X = Y
+	=> Y = X)))).
 
 fof(transitive, axiom, ((
-	equals(A, B)
-	& equals(B, C)
-	=> equals(A, C)))).
+	![A:$int,B:$int,C:$int]:(
+	A = B
+	& B = C
+	=> A = C)))).
 
-fof(additive, axiom, ((
-	equals(A, B)
-	& equals(C, D)
-	=> equals(sum(A, C), sum(B, D))))).
+fof(substitution_add, axiom, ((	
+	![A:$int,B:$int,C:$int,D:$int]:(
+	A = B
+	& C = D
+	& E = $sum(A,C)
+	& F = $sum(B,D)
+	=> E = F)))).
 
-fof(multiplicative, axiom, ((
-	equals(A, B)
-	& equals(C, D)
-	=> equals(product(A, C), product(B,D))))).
+fof(substitution_mult, axiom, ((
+	! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
+	(A = B
+	& C = D
+	& E = $product(A,C)
+	& F = $product(B,D)
+	=> E = F)))).
 
 fof(multIdentity, axiom, ((
-	product(_1,X)=X))).	
+	![X:$int]:(
+	?[_1:$int]:(
+	X = $product(_1,X)))))).	
 
 fof(addIdentity, axiom, ((
-	sum(_0,X)=X))).
+	![X:$int]:(
+	?[_0:$int]:(
+	X = $sum(_0,X)))))).	
+
 
 fof(addSymm, axiom, ((
+	![X:$int,Y:$int]:(
 	sum(X, Y)
-	=> sum(Y, X)))).
+	=> sum(Y, X))))).
 
 fof(multSymm, axiom, ((
-	product(X, Y)
-	=> product(Y, X)))).
+	![X:$int,Y:$int]:(
+	$product(X, Y)
+	=> $product(Y, X))))).
 
+%additive inverses
 
+%Cancellation - AC = BC => A = B as long as C != 0
+
+%If using any sort of quantifier, parens for everything!!
+fof(test, conjecture, ((
+	! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
+	((A = C & B = D & E = $product(A,B) & F = $product(C,D) => E = F))))).
