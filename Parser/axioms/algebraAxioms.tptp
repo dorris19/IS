@@ -73,6 +73,14 @@ fof(expansion, axiom, ((
 	& D = $difference(X,Y)
 	=> $difference(A,B) = $product(C,D))))).
 
+
+%fof(evenness, axiom, ((
+%	![A:$int,B:$int,C:$int,D:$int,X:$int]:(
+%	A = $product(A,C)
+%	& B = $sum(C,C)
+%	& D = $product(B,X)
+%	=> even(D))))).
+
 %additive inverses
 
 %Cancellation - AC = BC => A = B as long as C != 0
@@ -81,6 +89,8 @@ fof(expansion, axiom, ((
 %fof(test, conjecture, ((
 %	! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
 %	((A = C & B = D & E = $product(A,B) & F = $product(C,D) => E = F))))).
-fof(test, conjecture, ((
-	![W:$int,X:$int,Y:$int,Z:$int]:(
-	$product($product(X,Y),$product(W,Z)) = $product($product(W,$product(X,Y)),Z))))).
+%fof(test, conjecture, ((
+%	![W:$int,X:$int,Y:$int,Z:$int]:(
+%	$product($product(X,Y),$product(W,Z)) = $product($product(W,$product(X,Y)),Z))))).
+
+
