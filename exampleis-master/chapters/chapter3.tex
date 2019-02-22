@@ -31,6 +31,7 @@ The function \texttt{find\_all() } performs a search of the given tree for a pro
 
 The final three functions are \texttt{NP\_PP()}, \texttt{NP\_VP()}, and \texttt{NN()}, creatively named based on how the original noun phrase (NP) they come from is constructed. \texttt{NP\_PP()} is called when a noun phrase and prepositional phrase (PP) are the children of a noun phrase. It first locates an operator term which will be present as a child of the noun phrase, such as ``equal'' or ``element''. Following this, the child noun phrase's sibling, the prepositional phrase, is searched for two nouns (NN), each of which are the variables which the function acts upon. For example, the prepositional phrase could contain the sets $X$ and $Y$, which the operator from before could inform us indicates that $X$ is a \textit{subset} of $Y$.
 
+\label{npvp}
 \texttt{NP\_VP()} is executed when the noun phrase produces a noun phrase and verb phrase (VP). The noun phrase is searched for a variable, while the verb phrase is searched for two nouns, one of which is a function and the other of which is a variable.
 
 Finally, \texttt{NN()} executes only when the noun phrase has a single child which is a noun. In this instance, said noun will be a variable. To determine the function and other variable, the sibling of the noun phrase is determined which will be a verb phrase containing the remaining variable(s) and function. In this case, it is possible that rather than a noun, a number (cardinal number, CD) will be a variable. This is checked for by determining if the tag ``CD'' is present in the verb phrase; if it is, then said tag is used to find a variable, while if it is not, the standard ``NN'' tag is used.
@@ -74,7 +75,7 @@ In Table \ref{Formatting}, inappropriate input sentences are shown alongside the
 \end{table}
 \subsection{Transitional TPTP File and Vampire}
 
-Following the parsing of the input claim, the program produces a TPTP format file containing all axioms along with the generated conjecture. Axioms and conjectures within TPTP take the following form:
+Following the parsing of the input claim, the program produces a TPTP format file containing selected axioms along with the generated conjecture. Axioms and conjectures within TPTP take the following form:
 
 \texttt{fof(subsetDef, \textit{axiom},((}
 
@@ -108,3 +109,7 @@ Through examination of the files, a user can get an idea of how a new set of axi
 To use additional axioms, a user need only create the file and put it within the \texttt{axioms} directory. All work of creating a master axiom file is performed by the program. This master file contains all axioms from within the directory, combined into a single file. For this reason, a user may not place their conjecture within their axiom file should they want to use it with the program.
 
 Only TPTP formatted files are appended, so any other files, such as notes or work-in-progress axioms, may exist within the directory as long as they are saved with a different file extension.
+
+The software checks for user determined words within the constructed list of claims to determine which axiom file to use as its base. While initial plans were for all axioms to be formed into a single file at runtime, it was found that some errors arose as a result of this. The first issue, which was solved, was a difference in parsing between the statements ``X equals Y'' and ``X is a subset of Y,'' both of which contain their information in a format which the \texttt{NP\_VP()} function, found in section \ref{npvp},would read. In the subset claim, all pertinent information, $X$, $Y$, and ``subset'' are nouns, while in the other case ``equals'' is a verb. Thus, the information retrieved must be changed, in one case grabbing only nouns while the other retrieves both nouns and a verb.
+
+The second issue was finding that, when running with too long of an axiom file (over 100 lines) all statements would simply be returned as true. This may have been due to some conflict between phrasing of certain axioms, but rather than change what was working, the axioms have instead been kept separate when evaluating conjectures. As end users do not see a difference during use, the change was considered to be a non-issue.

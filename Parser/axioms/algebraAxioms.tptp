@@ -13,8 +13,14 @@ fof(transitive, axiom, ((
 	& B = C
 	=> A = C)))).
 
+fof(antiTransitivity, axiom, ((
+	![A:$int,B:$int,C:$int]:(
+	A = B
+	& B != C
+	=> A != C)))).
+
 fof(substitution_add, axiom, ((	
-	![A:$int,B:$int,C:$int,D:$int]:(
+	![A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:(
 	A = B
 	& C = D
 	& E = $sum(A,C)
@@ -39,22 +45,42 @@ fof(addIdentity, axiom, ((
 	?[_0:$int]:(
 	X = $sum(_0,X)))))).	
 
-
 fof(addSymm, axiom, ((
 	![X:$int,Y:$int]:(
-	sum(X, Y)
-	=> sum(Y, X))))).
+	$sum(X, Y) = $sum(Y, X))))).
 
 fof(multSymm, axiom, ((
 	![X:$int,Y:$int]:(
-	$product(X, Y)
-	=> $product(Y, X))))).
+	$product(X, Y) = $product(Y, X))))).
+
+fof(parensMulti, axiom, ((
+	![W:$int,X:$int,Y:$int,Z:$int]:(
+	$product($product(X,Y),$product(W,Z)) = $product(W,$product(X,$product(Y,Z))))))).
+
+fof(addMulti, axiom, ((
+	![W:$int,X:$int,Y:$int,Z:$int]:(
+	$sum($sum(X,Y),$sum(W,Z)) = $sum(W,$sum(X,$sum(Y,Z))))))).
+
+%fof(power, axiom, ((
+%	![X:$int]:(
+%	sqr(X) = $product(X,X))))).
+
+fof(expansion, axiom, ((
+	! [A:$int, B:$int, C:$int, D:$int, X:$int,Y:$int]:(
+	A = $product(X,X)
+	& B = $product(Y,Y)
+	& C = $difference(X,Y)
+	& D = $difference(X,Y)
+	=> $difference(A,B) = $product(C,D))))).
 
 %additive inverses
 
 %Cancellation - AC = BC => A = B as long as C != 0
 
 %If using any sort of quantifier, parens for everything!!
+%fof(test, conjecture, ((
+%	! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
+%	((A = C & B = D & E = $product(A,B) & F = $product(C,D) => E = F))))).
 fof(test, conjecture, ((
-	! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
-	((A = C & B = D & E = $product(A,B) & F = $product(C,D) => E = F))))).
+	![W:$int,X:$int,Y:$int,Z:$int]:(
+	$product($product(X,Y),$product(W,Z)) = $product($product(W,$product(X,Y)),Z))))).

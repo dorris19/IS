@@ -1,18 +1,19 @@
 import subprocess
+import glob
 from treeRead import *
 
   #Takes a list of strings, and creates a conjecture named thm1 to insert in a TPTP file
   #for Vampire to read
-def vampFileFormat(lst):
+def vampFileFormat(lst, string):
     initString='fof(thm1,conjecture,((\n'
-
+    initString+=string+'('
     for i in range(len(lst)-1):
         initString+='('+lst[i]+')'
         if(i < len(lst)-2):
             initString+='\n&'
         else:
             initString+='\n'
-    initString+='=>'+lst[-1]+'))).'
+    initString+='=>'+lst[-1]+')))).'
     return initString
 
 #Simple function which converts three strings to a string in TPTP form
@@ -61,28 +62,60 @@ for i in sLocations:
                     print(statement)
 print(statementList)
 claimList=[]
+forAllList=[]
 for i in statementList:
-    claim = vampDecorator(i[0],i[1],i[2])
+    if i[1] not in forAllList:
+        forAllList.append(i[1])
+    if i[2] not in forAllList:
+        forAllList.append(i[2])
+    if i[0] == '=' or i[0] == '!=':
+        claim = i[1] + ' ' + i[0] + ' ' + i[2]
+    else:
+        claim = vampDecorator(i[0],i[1],i[2])
     claimList.append(claim)
-convertClaims = vampFileFormat(claimList)
-while('sum' in convertClaims or 'product' in convertClaims):
-    holder1 = ''
-    holder2 = ''
-    split = convertClaims.find('equals')
-    loc = split + len('equals(')
-    while(convertClaims[loc]!=','):
-        holder1+=convertClaims[loc]
-        loc+=1
-    loc+=2
-    while(convertClaims[loc]!=')'):
-        holder2+=convertClaims[loc]
-        loc+=1
-    convertClaims = convertClaims[:split] + holder1 + ' = ' + holder2 + convertClaims[split+len(holder1)+len(holder2)+10]
-
+forAllString = '!['
+for i in forAllList:
+    forAllString += i + ':$int'
+    if forAllList.index(i) < len(forAllList) - 1:
+        forAllString+=', '
+forAllString+=']: \n'
+print(forAllString)
+present = 0
+for i in claimList:
+    if '$sum' in i or '$product' in i or '=' in i:
+        present = 1
+if present == 1:
+    convertClaims = vampFileFormat(claimList, forAllString)
+else:
+    convertClaims = vampFileFormat(claimList, '')
+#while('sum' in convertClaims or 'product' in convertClaims):
+#    holder1 = ''
+#    holder2 = ''
+#    split = convertClaims.find('equals')
+#    loc = split + len('equals(')
+#    while(convertClaims[loc]!=','):
+#        holder1+=convertClaims[loc]
+#        loc+=1
+#    loc+=2
+#    while(convertClaims[loc]!=')'):
+#        holder2+=convertClaims[loc]
+#        loc+=1
+#    convertClaims = convertClaims[:split] + holder1 + ' = ' + holder2 + convertClaims[split+len(holder1)+len(holder2)+10]
 print(convertClaims)
 
 vampFile = open('vampRead.tptp', 'a')
-axioms = open('axioms/setAxioms.tptp', 'r')
+if 'element' in convertClaims or 'set' in convertClaims:
+    axioms = open('axioms/setAxioms.tptp', 'r')
+elif 'sum' in convertClaims or 'product' in convertClaims or '=' in convertClaims:
+    axioms = open('axioms/algebraAxioms.tptp', 'r')
+else:
+    axioms = open('axioms/absoluteGeometryAxioms.tptp', 'r')
+#axiomFiles = glob.glob("axioms/*.tptp")
+#print(axiomFiles)
+#for i in axiomFiles:
+#    axioms = open(i, 'r')
+#    for line in axioms:
+#        vampFile.write(line)
 for line in axioms:
     vampFile.write(line)
 axioms.close()
