@@ -25,7 +25,7 @@ The \texttt{children() } function implements what is essentially a Lisp parser f
 
 The functions \texttt{word()}, \texttt{find\_all()}, and \texttt{check\_not()} provide utility for the functions which follow. As the name implies, \texttt{word()} returns the word associated with a given part of speech tag. In order to allow for different words with the same tag to be found, there is an optional parameter \texttt{shift}, which changes the location at which the search for the part of speech tag begins. A second value is also returned by \texttt{word()}, which gives the final index within the tree which was visited.
 
-The function \texttt{find\_all()} performs a search of the given tree for a provided string. Upon finding an instance of the string, the index it begins at is added to a list, and the search is run once more from the position immediately following the discovered string. Finally, \texttt{check\_not()} determines if, prior to the final variable which has been found, the word ``not'' was present. If so, a tilde (\sim) is added to the front of the function, indicating that that claim is not fulfilled.
+The function \texttt{find\_all()} performs a search of the given tree for a provided string. Upon finding an instance of the string, the index it begins at is added to a list, and the search is run once more from the position immediately following the discovered string. Finally, \texttt{check\_not()} determines if, prior to the final variable which has been found, the word ``not'' was present. If so, a tilde ($\sim$) is added to the front of the function, indicating that that claim is not fulfilled.
 
 \subsection{Noun Phrase Breakdown Functions}
 
@@ -104,11 +104,11 @@ Included with the software are three complete axiom sets along with a mostly imp
 
 \subsubsection{Set Theory}
 
-The ``set theory'' axioms which are contained in the \texttt{axioms} directory are based on the axioms of Zermelo-Fraenkel set theory \cite{setTheory}. This axiomatic system was chosen as it is the basis of the ``set theory'' that would be most familar to a user without knowledge of more advanced mathematical ideas.
+The ``set theory'' axioms which are contained in the \texttt{axioms} directory are based on the axioms of Zermelo-Fraenkel set theory \cite{zermelo}. This axiomatic system was chosen as it is the basis of the ``set theory'' that would be most familar to a user without knowledge of more advanced mathematical ideas.
 
 Zermelo-Fraenkel (ZF) set theory was described in the early 1900s as a way to axiomatize set theory without falling into traps earlier axiomatizations did, such as Russel's paradox. This paradox asks one to consider the set $S$, which contains all sets that are not members of themselves. Based on the definition of that set, we would expect to see $S$ within $S$, as $S$ did not contain itself. However, now $S$ does contain itself, so we should not allow $S$ in $S$. But once it has been removed, it once again lacks itself so belongs in the set.
 
-To solve this problem, Zermelo described the axiom of Separation, or \textit{Aussonderungsaxiom}: \[\forall A \exists B: \forall x (x \in B \equiv (x \in A \and \phi)) \text{\cite{stanford}.}\]
+To solve this problem, Zermelo described the axiom of Separation, or \textit{Aussonderungsaxiom}: \[\forall A \exists B: \forall x (x \in B \equiv (x \in A \and \phi)) \text{\cite{separation}.}\]
 
 What this axiom states is that given any set $A$, there exists a set $B$ such that given any set $x$, $x$ will be a member of $B$ if and only if $x$ is in $A$ and a certain formula $\phi$ holds for $x$. An example of a formula would be $x$ is even, meaning our set $B$ contains all even numbers while $A$ could be any set. Because of this, the description of a set would be written \[{x \in z: \phi(x)},\] rather than \[{x:\phi(x)}.\]
 
@@ -124,7 +124,7 @@ Through changing these axioms to remove the use of the above functions, a future
 
 \subsubsection{Absolute Geometry}
 
-Absolute geometry refers to non-Euclidean geometry -- Euclid's axioms without the parallel postulate. The parallel postulate states that, should two straight lines be intersected by another, the side on which the sum of the interior angles created by these intersections is less than $180^{\circ}$ will be the side on which the two lines will intersect \cite{absolute}. Geometry in this context refers to the geometry defined by Hilbert's Axioms of Geometry \cite{Hilbert}.
+Absolute geometry refers to non-Euclidean geometry -- Euclid's axioms without the parallel postulate. The parallel postulate states that, should two straight lines be intersected by another, the side on which the sum of the interior angles created by these intersections is less than $180^{\circ}$ will be the side on which the two lines will intersect \cite{absolute}. Geometry in this context refers to the geometry defined by Hilbert's Axioms of Geometry \cite{geometry}.
 
 The remaining axioms are rather simple:
 \begin{enumerate}

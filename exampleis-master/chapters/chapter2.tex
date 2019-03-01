@@ -37,7 +37,7 @@ This worry of decidability relates to mathematics through G\"odel's incompletene
 If a formal system is consistent, it cannot be complete.
 \end{theorem}
 \begin{theorem}
-	The consistency of axioms cannot be proven within their own system \cite{Godel}.
+	The consistency of axioms cannot be proven within their own system \cite{godel}.
 \end{theorem}
 
 While both of these theorems are important, we will be focusing on Theorem~2. This matters to our work as problems which cannot be proven will never halt. Further, we now see that simply providing a series of axioms is not enough to ensure that the resulting system is consistent.
@@ -197,4 +197,4 @@ Vampire is a first order theorem prover which started development in the late 19
 
 First, Vampire takes the conjecture given by the user and negates it. For example, if it had been given a statement of the form $p \text{ and } q \text{ implies } r$, it would convert it to $\neg p \text{ and } \neg q \text{ and } \neg r$ before performing further analysis. Following this, Vampire then uses the provided axioms to attempt to find a contradiction. In the event that a contradiction is found, the original claim will be true. If in the time Vampire is given to run no contradiction can be found, it is not necessarily the case that the original claim is false. Vampire may also find an example satisfying the negated claim and the axioms, and will output that the axioms and the negated conjecture are satisifiable, in which case the original claim was false.
 
-Over the past two decades, Vampire has won many awards at the CADE ATP System Competition's top division, winning first in 1999 and then every year from 2001--2010 \cite{VampireAwards}.
+Over the past two decades, Vampire has won many awards at the CADE ATP System Competition's top division, winning first in 1999 and then every year from 2001--2010 \cite{cade}.
