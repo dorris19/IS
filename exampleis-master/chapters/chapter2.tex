@@ -46,6 +46,42 @@ Knowing this about incompleteness and decidability, we now examine the language 
 
 As first order logic produces systems which cannot be proven fully based on their axioms, we give a program a set of axioms which may or may not be able to prove our claim, and this program may or may not ever halt. With this in mind, we can see why a system could not simply be allowed to work undisturbed for years to verify a claim. While a theorem prover will be able to become more efficient over time, there will always be problems which cannot be proven just from the axioms for a system.
 
+\pagebreak
+
+\subsubsection{Implementing Simple Claims in First Order Logic}
+
+While first order logic is powerful, it is quite verbose. This verbosity is due to the need to perform steps one at a time. For example, \[X^2-Y^2 = (X-Y)(X+Y)\] is a simple statement in standard discussion, but to state this in first order logic looks like this:
+
+\begin{lstlisting}
+fof(expansion, axiom, ((
+          ! [A:$int, B:$int, C:$int, D:$int, X:$int,Y:$int]:(
+          A = $product(X,X)
+          & B = $product(Y,Y)
+          & C = $sum(X,Y)     
+          & D = $difference(X,Y)
+          => $difference(A,B) = $product(C,D))))).
+\end{lstlisting}
+
+A second example of this is the substitution axiom in algebra. This axiom states that, given $A = B$ and $C = D$, the sum or product of $A$ and $C$ will be equivalent to the sum or product of $B$ and $D$. In language, this is not very difficult to state in just one sentence. In first order logic, though, this forms two separate axioms, one for addition and one for multiplication, as well as requiring several steps before we are able to claim equivalence.
+
+\begin{lstlisting}
+  fof(substitution_mult, axiom, ((
+          ! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
+          (A = B
+          & C = D
+          & E = $product(A,C)
+          & F = $product(B,D)
+          => E = F)))).
+
+  fof(substitution_add, axiom, (( 
+          ![A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:(
+          A = B
+          & C = D
+          & E = $sum(A,C)
+          & F = $sum(B,D)
+          => E = F)))).
+\end{lstlisting}
+
 \section{Automated Proving Theory}
 
 Before going into the theory and methodology of modern theorem provers, we will first describe what these provers are not. Proof assistants are a type of theorem prover which analyze input from a user, whether that be a potential next step in a proof which the computer will investigate or the next step the user wishes to take which the computer determines the validity of. These systems, though useful, require a much greater amount of interaction than was intended in this project. In our case, the only interaction the user should be allowed is providing the program with axioms and a conjecture to prove. This allowed for a user to be unsure how a proof needs to progress while still being able to see a result.

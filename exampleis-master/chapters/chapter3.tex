@@ -23,9 +23,9 @@ In order to use the data output by the CoreNLP server, a simple API was created 
 
 The \texttt{children() } function implements what is essentially a Lisp parser for the Stanford tree. After being provided with a tree to parse and a starting index, the children of the given tree are returned. As the number of children can be any value of one or greater, the function determines where children end by keeping track of parentheses, adding a child to a list of children whenever the count of parentheses returns to zero. After all children are accounted for, the function returns both this list and the final position within the tree. Currently, this final position is not used due to alterations in other functions since its creation.
 
-The functions \texttt{word() }, \texttt{find\_all() }, and \texttt{check\_not() } provide utility for the functions which follow. As the name implies, \texttt{word() } returns the word associated with a given part of speech tag. In order to allow for different words with the same tag to be found, there is an optional parameter \texttt{shift}, which changes the location at which the search for the part of speech tag begins. A second value is also returned by \texttt{word() }, which gives the final index within the tree which was visited.
+The functions \texttt{word()}, \texttt{find\_all()}, and \texttt{check\_not()} provide utility for the functions which follow. As the name implies, \texttt{word()} returns the word associated with a given part of speech tag. In order to allow for different words with the same tag to be found, there is an optional parameter \texttt{shift}, which changes the location at which the search for the part of speech tag begins. A second value is also returned by \texttt{word()}, which gives the final index within the tree which was visited.
 
-The function \texttt{find\_all() } performs a search of the given tree for a provided string. Upon finding an instance of the string, the index it begins at is added to a list, and the search is run once more from the position immediately following the discovered string. Finally, \texttt{check\_not() } determines if, prior to the final variable which has been found, the word ``not'' was present. If so, a tilde (\~) is added to the front of the function, indicating that that claim is not fulfilled.
+The function \texttt{find\_all()} performs a search of the given tree for a provided string. Upon finding an instance of the string, the index it begins at is added to a list, and the search is run once more from the position immediately following the discovered string. Finally, \texttt{check\_not()} determines if, prior to the final variable which has been found, the word ``not'' was present. If so, a tilde (\sim) is added to the front of the function, indicating that that claim is not fulfilled.
 
 \subsection{Noun Phrase Breakdown Functions}
 
@@ -56,7 +56,7 @@ The remaining changes relate to vocabulary choice for mathematical terms and dir
 
 Usage is also limited due to Vampire being a first-order theorem prover. Due to this, it is not possible to call a function on a variable, meaning statements such as ``The sum of $X$ and $Y$ equals $Z$'' are unable to be run. This is, of course, a major limitation. At this time, there does not appear to be a resolution to this problem, greatly reducing the functionality of the system for some domains, namely any dealing with arithmetic. This does not affect functionality with questions of membership or comparisons as long as they may be phrased in such a way as to avoid said conflict.
 
-In Table \ref{Formatting}, inappropriate input sentences are shown alongside the same query input properly.
+In Table \ref{Formatting}, inappropriate input sentences are shown alongside the same query written properly.
 
 \begin{table}[h!]
 \resizebox{\textwidth}{!}{%
@@ -102,14 +102,69 @@ Included with the software are three complete axiom sets along with a mostly imp
 	\item Geometry (Incomplete)
 \end{itemize}
 
-Absolute geometry refers to Euclidean geometry without the parallel postulate, which states that, should two straight lines be intersected by another, the side on which the sum of the interior angles created by these intersections is less than $180^{\circ}$ will be the side on which the two lines will intersect \cite{absolute}. Geometry in these context refers to the geometry defined by Hilbert's Axioms of Geometry \cite{Hilbert}.
+\subsubsection{Set Theory}
 
-Through examination of the files, a user can get an idea of how a new set of axioms would be created, both through examination of the format of each claim and the overall structure of the file.
+The ``set theory'' axioms which are contained in the \texttt{axioms} directory are based on the axioms of Zermelo-Fraenkel set theory \cite{setTheory}. This axiomatic system was chosen as it is the basis of the ``set theory'' that would be most familar to a user without knowledge of more advanced mathematical ideas.
+
+Zermelo-Fraenkel (ZF) set theory was described in the early 1900s as a way to axiomatize set theory without falling into traps earlier axiomatizations did, such as Russel's paradox. This paradox asks one to consider the set $S$, which contains all sets that are not members of themselves. Based on the definition of that set, we would expect to see $S$ within $S$, as $S$ did not contain itself. However, now $S$ does contain itself, so we should not allow $S$ in $S$. But once it has been removed, it once again lacks itself so belongs in the set.
+
+To solve this problem, Zermelo described the axiom of Separation, or \textit{Aussonderungsaxiom}: \[\forall A \exists B: \forall x (x \in B \equiv (x \in A \and \phi)) \text{\cite{stanford}.}\]
+
+What this axiom states is that given any set $A$, there exists a set $B$ such that given any set $x$, $x$ will be a member of $B$ if and only if $x$ is in $A$ and a certain formula $\phi$ holds for $x$. An example of a formula would be $x$ is even, meaning our set $B$ contains all even numbers while $A$ could be any set. Because of this, the description of a set would be written \[{x \in z: \phi(x)},\] rather than \[{x:\phi(x)}.\]
+
+While this does not appear to resolve the issue raised by Russel's paradox, it actually invalidates it. Russel's paradox is of the form \[{x: x \notin x},\] which is not valid in our language. We can rephrase this to \[{x \in x: x \notin x},\] which is the most accurate way of stating the paradox in the language of ZF set theory, and reveals very clearly that the paradox makes little sense in this language.
+
+Whle ZF set theory provides an effective understanding of sets, it is also, conveniently, a relatively short axiomatization.
+
+\subsubsection{Algebra}
+
+Algebra is a specific case of what is known as a field, so the axioms used here are the set of field axioms which describe algebraic relations. A field is described by the triple $(F,+,\cdot)$, where $F$ is some set and $(+$, $\cdot)$ are binary operators on $F$. For an operator to be on $F$ means that, when acting on elements of $F$, the only possible result is another element of $F$. Field axioms include associativity of addition and multiplication, existence of identities and inverses, distributive laws, and a distinction between the additive and multiplicative identities. Because algebra is just a type of field, where $+$ is addition and $\cdot$ multiplication, and $F$ the complex numbers, all of these claims apply to it just as they would to algebra. For this reason, one could opt to describe this set of axioms as field axioms rather than algebraic axioms, but due to the use of the \texttt{\$sum()}, \texttt{\$difference()}, and \texttt{\$product()} operators, only algebra is described within this set of axioms.
+
+Through changing these axioms to remove the use of the above functions, a future user could easily adopt this set of axioms for use with any arbitrary field. To completely convert this, the user would also be required to alter a few lines of code from the parser which change any ``sum'' or ``product'' found within the text to ``\$sum'' and ``\$product,'' respectively. Doing so would ensure that no errors occurred as a result of translation from tree to TPTP as a result of this assumption that was made here to enable smooth operation for the user.
+
+\subsubsection{Absolute Geometry}
+
+Absolute geometry refers to non-Euclidean geometry -- Euclid's axioms without the parallel postulate. The parallel postulate states that, should two straight lines be intersected by another, the side on which the sum of the interior angles created by these intersections is less than $180^{\circ}$ will be the side on which the two lines will intersect \cite{absolute}. Geometry in this context refers to the geometry defined by Hilbert's Axioms of Geometry \cite{Hilbert}.
+
+The remaining axioms are rather simple:
+\begin{enumerate}
+	\item It is possible to form a line segment by connecting two points.
+	\item To produce a line, we may extend a line segment.
+	\item A circle may be described by its center and its radius.
+	\item All right angles are equivalent.
+\end{enumerate}
+
+While very simple, absolute geometry stil is relatively powerful in terms of proving ability. The majority of the conjectures which Euclid proves in his work \textit{Elements} may be proven without the use of the parallel postulate. Non-Euclidean geometry, systems of geometry which are formed by rejecting one or more of the claims of Euclid, are researched and many can be proven to be just as consistent as Euclidean geometry. One example of non-Euclidean geometry is elliptic geometry, which is geometry occuring on a sphere, such as the Earth. In this system, given a line $l$ and a point $A$ not on $l$, any line through $A$ will eventually intersect with $l$, i.e., it is not possible to create two parallel lines in this geometry.
+
+\subsubsection{Geometry}
+
+This file was meant to contain a description of Hilbert's axioms in first order form. These axioms are some of the most familar for geometry, being described by Hilbert in 1899 while still being one of the main axiomatizations of Euclidean geometry. Hilbert defines geometry using three basic terms:
+\begin{itemize}
+	\item point,
+	\item line,
+	\item plane.
+\end{itemize}
+
+\noindent
+In addition to these terms, Hilbert defines three basic relations which are possible:
+\begin{itemize}
+	\item \textit{betweenness}, which describes the relationship between three points,
+	\item \textit{containment}, which associates points with lines, points with planes, and lines with planes,
+	\item and \textit{congruence}, which describes equivalence between line segments or between angles.
+\end{itemize}
+
+By using relations of betweenness and containment, it is possible to describe line segments -- a segement $AB$ is the area of some line $C$ which two points $A$ and $B$ lie on, where any point on $AB$ is between points $A$ and $B$. A triangle is a series of three line segments with shared endpoints, and an angle can be described as the space between two lines before or after an intersection.
+
+Hilbert's axioms consist of a total of twenty claims, so already are clearly more complicated than the axioms of absolute geometry. They discuss angles, parallel lines, continuity, and several other subjects. The file which contains these axioms is not possible to use with the parser, as many of the relations require many variables to be input. At this time, however, the parser assumes that anything input consists of a function and two varables, so an ``incorrect'' number of variables causes the parser to return a faulty conjecture in the best case, and an error in the worst.
+
+\subsubsection{Creating and Using Additional Axioms}
+
+While we do not include instructions on producing new axioms, a user can easily examine the included files to see many of the techniques which are used. The user is thus able to get an idea of how a new set of axioms would be created, both through examination of each claim's format and the file's overall structure.
 
 To use additional axioms, a user need only create the file and put it within the \texttt{axioms} directory. All work of creating a master axiom file is performed by the program. This master file contains all axioms from within the directory, combined into a single file. For this reason, a user may not place their conjecture within their axiom file should they want to use it with the program.
 
 Only TPTP formatted files are appended, so any other files, such as notes or work-in-progress axioms, may exist within the directory as long as they are saved with a different file extension.
 
-The software checks for user determined words within the constructed list of claims to determine which axiom file to use as its base. While initial plans were for all axioms to be formed into a single file at runtime, it was found that some errors arose as a result of this. The first issue, which was solved, was a difference in parsing between the statements ``X equals Y'' and ``X is a subset of Y,'' both of which contain their information in a format which the \texttt{NP\_VP()} function, found in section \ref{npvp},would read. In the subset claim, all pertinent information, $X$, $Y$, and ``subset'' are nouns, while in the other case ``equals'' is a verb. Thus, the information retrieved must be changed, in one case grabbing only nouns while the other retrieves both nouns and a verb.
+The software checks for user determined words within the constructed list of claims to determine which axiom file to use as its base. While initial plans were for all axioms to be formed into a single file at runtime, some errors arose as a result of this. The first issue, which was solved, was a difference in parsing between the statements ``X equals Y'' and ``X is a subset of Y,'' both of which contain their information in a format which the \texttt{NP\_VP()} function, found in section \ref{npvp}, would read. In the subset claim, all pertinent information, $X$, $Y$, and ``subset'' are nouns, while in the other case ``equals'' is a verb. Thus, the information retrieved must be changed, in one case grabbing only nouns while the other retrieves both nouns and a verb.
 
 The second issue was finding that, when running with too long of an axiom file (over 100 lines) all statements would simply be returned as true. This may have been due to some conflict between phrasing of certain axioms, but rather than change what was working, the axioms have instead been kept separate when evaluating conjectures. As end users do not see a difference during use, the change was considered to be a non-issue.

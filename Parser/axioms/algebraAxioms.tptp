@@ -69,7 +69,7 @@ fof(expansion, axiom, ((
 	! [A:$int, B:$int, C:$int, D:$int, X:$int,Y:$int]:(
 	A = $product(X,X)
 	& B = $product(Y,Y)
-	& C = $difference(X,Y)
+	& C = $sum(X,Y)
 	& D = $difference(X,Y)
 	=> $difference(A,B) = $product(C,D))))).
 
