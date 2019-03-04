@@ -11,25 +11,26 @@ fof(subRelation, axiom,((
 	& subset(Y,X)
 	=> equals(Y,X))))).
 
+%should probably just go away
+fof(subOtherwise, axiom,((
+	subset(X,Y)
+	=> ~subset(Y,X)))).
+
 fof(transitive, axiom,((
-	![X,Y,Z]:(
 	(subset(X, Y))
 	& (subset(Y, Z))
-	=> subset(X,Z))))).
+	=> subset(X,Z)))).
 
 fof(subsetDef, axiom,((
-	![A,X,Y]:(
 	(subset(X, Y))
 	& (element(A, X))
-	=> element(A, Y))))).
+	=> element(A, Y)))).
 
 fof(extensionality2, axiom,((
-	![X,Y,B]:(
-	equals(X,Y)
+	(X = Y)
 	& element(B, Y)
-	=> element(B, X))))).
+	=> element(B, X)))).
 
 fof(regularity, axiom,((
-	![X,Y]:(
 	element(X, Y)
-	=> ~equals(X,Y))))).
+	=> X != Y))).

@@ -1,0 +1,96 @@
+fof(reflexive, axiom, ((
+	![X:$i]:
+	X = X))).
+
+fof(symmetric, axiom, ((
+	![X:$i,Y:$i]:(
+	X = Y
+	=> Y = X)))).
+
+fof(transitive, axiom, ((
+	![A:$i,B:$i,C:$i]:(
+	A = B
+	& B = C
+	=> A = C)))).
+
+fof(antiTransitivity, axiom, ((
+	![A:$i,B:$i,C:$i]:(
+	A = B
+	& B != C
+	=> A != C)))).
+
+fof(substitution_add, axiom, ((	
+	![A:$i,B:$i,C:$i,D:$i,E:$i,F:$i]:(
+	A = B
+	& C = D
+	& E = sum(A,C)
+	& F = sum(B,D)
+	=> E = F)))).
+
+fof(substitution_mult, axiom, ((
+	! [A:$i,B:$i,C:$i,D:$i,E:$i,F:$i]:
+	(A = B
+	& C = D
+	& E = product(A,C)
+	& F = product(B,D)
+	=> E = F)))).
+
+fof(multIdentity, axiom, ((
+	?[_1:$i]:(
+	![X:$i]:(
+	X = product(_1,X)))))).	
+
+fof(addIdentity, axiom, ((
+	?[_0:$i]:(
+	![X:$i]:(
+	X = sum(_0,X)))))).	
+
+fof(addSymm, axiom, ((
+	![X:$i,Y:$i]:(
+	sum(X, Y) = sum(Y, X))))).
+
+fof(multSymm, axiom, ((
+	![X:$i,Y:$i]:(
+	product(X, Y) = product(Y, X))))).
+
+fof(parensMulti, axiom, ((
+	![W:$i,X:$i,Y:$i,Z:$i]:(
+	product(product(X,Y),product(W,Z)) = product(W,product(X,product(Y,Z))))))).
+
+fof(addMulti, axiom, ((
+	![W:$i,X:$i,Y:$i,Z:$i]:(
+	sum(sum(X,Y),sum(W,Z)) = sum(W,sum(X,sum(Y,Z))))))).
+
+%fof(power, axiom, ((
+%	![X:$i]:(
+%	sqr(X) = product(X,X))))).
+
+%fof(expansion, conjecture, ((
+%	! [A:$i, B:$i, C:$i, D:$i, X:$i,Y:$i]:(
+%	A = product(X,X)
+%	& B = product(Y,Y)
+%	& C = sum(X,Y)
+%	& D = difference(X,Y)
+%	=> difference(A,B) = product(C,D))))).
+
+
+%fof(evenness, axiom, ((
+%	![A:$i,B:$i,C:$i,D:$i,X:$i]:(
+%	A = product(A,C)
+%	& B = sum(C,C)
+%	& D = product(B,X)
+%	=> even(D))))).
+
+%additive inverses
+
+%Cancellation - AC = BC => A = B as long as C != 0
+
+%If using any sort of quantifier, parens for everything!!
+fof(test, conjecture, ((
+	! [A:$i,B:$i,C:$i,D:$i,E:$i,F:$i]:
+	((A = C & B = D & E = product(A,B) & F = product(C,D) => E = F))))).
+%fof(test, conjecture, ((
+%	![W:$i,X:$i,Y:$i,Z:$i]:(
+%	product(product(X,Y),product(W,Z)) = product(product(W,product(X,Y)),Z))))).
+
+

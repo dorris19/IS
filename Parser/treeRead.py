@@ -91,7 +91,7 @@ def NP_PP(lst, j):
 def NP_VP(lst, j):
     variable1 = word(lst[j],'NN')[0]
     tree = children(children(lst[j+1], 0)[0][1],0)[0] 
-    #print(tree)
+    print(tree) 
     variable_location = find_all(lst[j+1],'NN')
     function = word(tree[0],'NN')[0]
     #print(function)

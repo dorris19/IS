@@ -1,3 +1,6 @@
+%Should create a incidence relation (point and line), single parameter on point
+
+%If i can do a uniqueness quantifier, then the last 1/3 of the shown could be avoided
 fof(euclid1, axiom, ((
 	points(A,B)
 	=> segment(A,B)))).

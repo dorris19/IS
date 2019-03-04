@@ -26,8 +26,6 @@ def vampDecorator(str1, str2, str3):
 PassArg = input('Please enter the claim you wish to test:\n')
 output = str(subprocess.run(["python", "stanfordParse.py", PassArg], capture_output=True).stdout, 'UTF-8')
 #New part to change product and sum
-output = output.replace('product', '$product')
-output = output.replace('sum', '$sum')
 baseTree = children(output,0)[0][0]
 print(baseTree)
 sLocations = find_all(baseTree,'S')
@@ -68,21 +66,20 @@ for i in statementList:
         forAllList.append(i[1])
     if i[2] not in forAllList:
         forAllList.append(i[2])
-    if i[0] == '=' or i[0] == '!=':
-        claim = i[1] + ' ' + i[0] + ' ' + i[2]
-    else:
-        claim = vampDecorator(i[0],i[1],i[2])
+    #if i[0] == '=' or i[0] == '!=':
+    #    claim = i[1] + ' ' + i[0] + ' ' + i[2]
+    claim = vampDecorator(i[0],i[1],i[2])
     claimList.append(claim)
 forAllString = '!['
 for i in forAllList:
-    forAllString += i + ':$int'
+    forAllString += i + ':$i'
     if forAllList.index(i) < len(forAllList) - 1:
         forAllString+=', '
 forAllString+=']: \n'
 print(forAllString)
 present = 0
 for i in claimList:
-    if '$sum' in i or '$product' in i or '=' in i:
+    if 'sum' in i or 'product' in i:
         present = 1
 if present == 1:
     convertClaims = vampFileFormat(claimList, forAllString)

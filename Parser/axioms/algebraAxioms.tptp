@@ -1,84 +1,80 @@
 fof(reflexive, axiom, ((
-	![X:$int]:
-	X = X))).
+	![X:$i]:
+	equals(X,X)))).
 
 fof(symmetric, axiom, ((
-	![X:$int,Y:$int]:(
-	X = Y
-	=> Y = X)))).
+	![X:$i,Y:$i]:(
+	equals(X,Y)
+	=> equals(Y,X))))).
 
 fof(transitive, axiom, ((
-	![A:$int,B:$int,C:$int]:(
-	A = B
-	& B = C
-	=> A = C)))).
+	![A:$i,B:$i,C:$i]:(
+	equals(A,B)
+	& equals(B,C)
+	=> equals(A,C))))).
 
 fof(antiTransitivity, axiom, ((
-	![A:$int,B:$int,C:$int]:(
-	A = B
-	& B != C
-	=> A != C)))).
+	![A:$i,B:$i,C:$i]:(
+	equals(A,B)
+	& ~equals(B,C)
+	=> ~equals(A,C))))).
 
-fof(substitution_add, axiom, ((	
-	![A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:(
-	A = B
-	& C = D
-	& E = $sum(A,C)
-	& F = $sum(B,D)
-	=> E = F)))).
+fof(substitution_multi, axiom, ((	
+	![A:$i,B:$i,C:$i,D:$i,E:$i,F:$i]:(
+	equals(A,B)
+	& equals(C,D)
+	=> equals(product(A,C),product(B,D)))))).
 
-fof(substitution_mult, axiom, ((
-	! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
-	(A = B
-	& C = D
-	& E = $product(A,C)
-	& F = $product(B,D)
-	=> E = F)))).
+fof(substitution_add, axiom, ((
+	! [A:$i,B:$i,C:$i,D:$i,E:$i,F:$i]:
+	(equals(A,B)
+	& equals(C,D)
+	=> equals(sum(A,C),sum(B,D)))))).
 
 fof(multIdentity, axiom, ((
-	![X:$int]:(
-	?[_1:$int]:(
-	X = $product(_1,X)))))).	
+	?[_1:$i]:(
+	![X:$i]:(
+	equals(X,product(_1,X))))))).	
 
 fof(addIdentity, axiom, ((
-	![X:$int]:(
-	?[_0:$int]:(
-	X = $sum(_0,X)))))).	
+	?[_0:$i]:(
+	![X:$i]:(
+	equals(X,sum(_0,X))))))).	
 
 fof(addSymm, axiom, ((
-	![X:$int,Y:$int]:(
-	$sum(X, Y) = $sum(Y, X))))).
+	![X:$i,Y:$i]:(
+	equals(sum(X, Y),sum(Y, X)))))).
 
 fof(multSymm, axiom, ((
-	![X:$int,Y:$int]:(
-	$product(X, Y) = $product(Y, X))))).
+	![X:$i,Y:$i]:(
+	equals(product(X, Y),product(Y, X)))))).
 
 fof(parensMulti, axiom, ((
-	![W:$int,X:$int,Y:$int,Z:$int]:(
-	$product($product(X,Y),$product(W,Z)) = $product(W,$product(X,$product(Y,Z))))))).
+	![Z:$i,X:$i,Y:$i]:(
+	equals(product(product(X,Y),Z),product(X,product(Y,Z))))))).
 
 fof(addMulti, axiom, ((
-	![W:$int,X:$int,Y:$int,Z:$int]:(
-	$sum($sum(X,Y),$sum(W,Z)) = $sum(W,$sum(X,$sum(Y,Z))))))).
+	![Z:$i,X:$i,Y:$i]:(
+	equals(sum(sum(X,Y),Z),sum(X,sum(Y,Z))))))).
 
 %fof(power, axiom, ((
-%	![X:$int]:(
-%	sqr(X) = $product(X,X))))).
+%	![X:$i]:(
+%	sqr(X) = product(X,X))))).
 
-fof(expansion, axiom, ((
-	! [A:$int, B:$int, C:$int, D:$int, X:$int,Y:$int]:(
-	A = $product(X,X)
-	& B = $product(Y,Y)
-	& C = $sum(X,Y)
-	& D = $difference(X,Y)
-	=> $difference(A,B) = $product(C,D))))).
+%fof(expansion, conjecture, ((
+%	! [A:$i, B:$i, C:$i, D:$i, X:$i,Y:$i]:(
+%	equals(A,product(X,X))
+%	& equals(B,product(Y,Y))
+%	& equals(C,sum(X,Y))
+%	& equals(D,difference(X,Y))
+%	=> equals(difference(A,B),product(C,D)))))).
 
 
 %fof(evenness, axiom, ((
-%	![A:$int,B:$int,C:$int,D:$int,X:$int]:(
-%	A = $product(A,C)
-%	& B = $sum(C,C)
-%	& D = $product(B,X)
+%	![A:$i,B:$i,C:$i,D:$i,X:$i]:(
+%	A = product(A,C)
+%	& B = sum(C,C)
+%	& D = product(B,X)
 %	=> even(D))))).
 
 %additive inverses
@@ -87,10 +83,12 @@ fof(expansion, axiom, ((
 
 %If using any sort of quantifier, parens for everything!!
 %fof(test, conjecture, ((
-%	! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
-%	((A = C & B = D & E = $product(A,B) & F = $product(C,D) => E = F))))).
-%fof(test, conjecture, ((
-%	![W:$int,X:$int,Y:$int,Z:$int]:(
-%	$product($product(X,Y),$product(W,Z)) = $product($product(W,$product(X,Y)),Z))))).
+%	! [A:$i,B:$i,C:$i,D:$i]:
+%	((equals(A,C)
+%	& equals(B,D)
+%	=> equals(product(A,B),product(C,D))))))).
+fof(test, conjecture, ((
+	![W:$i,X:$i,Y:$i,Z:$i]:(
+	equals(product(product(X,Y),product(W,Z)),product(product(W,product(X,Y)),Z)))))).
 
 
