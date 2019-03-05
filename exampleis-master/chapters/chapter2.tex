@@ -3,24 +3,26 @@
 
 \section{Historical Development}
 
-While the main additions to mathematics from computational development previously came from automation of basic operational calculations, new potentials arose in the 1950s. With artificial intelligence beginning to be developed, the first attempts were made to automate reasoning, and mathematical understanding along with it.
+The obvious use of computers, computation, was quickly adapted by researchers, but new potentials arose in the 1950s. With artificial intelligence beginning to be developed, the first attempts were made to automate reasoning, and mathematical understanding along with it.
 
 At the turn of the 20$^{\text{th}}$ century, David Hilbert posed 23 problems which he hoped would be solved within the next 100 years. Of particular interest to us is his second problem, which asks for a proof of the consistency of arithmetic -- that it is not possible to prove both a statement and its negation within arithmetic. This was resolved in 1931 with the publishing of Kurt G\"odel's two incompleteness theorems, which we discuss in Section \ref{incompleteness}. In short, G\"odel proved that it is impossible to prove or disprove the consistency of arithmetic, unless arithmetic is inconsistent \cite{godel}.
 
-In 1908, French mathematician Henri Poincar\'e stated that, were formalism of mathematical proof to gain further traction ``one could imagine a machine where one would put in axioms at one end while getting theorems at the other end.'' This was not an idea Poincar\'e was happy with however, with many mathematicians in this period finding the idea of removing the intuition of the mathematician from proving to be disturbing.
+In 1908, French mathematician Henri Poincar\'e stated that, were formalism of mathematical proof to gain further traction, ``one could imagine a machine where one would put in axioms at one end while getting theorems at the other end.'' This was not an idea Poincar\'e was happy with, however, with many mathematicians in this period finding the idea of removing the intuition of the mathematician from proving to be disturbing.
 
-This mechanical idea became most clear in 1937, with Turing's description of the Turing machine, which he used to determine if mathematics is decidable (see \ref{turingMachine}). He determined mathematics to be undecidable, but nonetheless started mathematics down the path of automated theorem proving. Following years of development primarily on automating arithmetic, automated theorem proving began to appear as a question in computing with early attempts to create artificial intelligence \cite{history}.
+This mechanical idea became most clear in 1937, with Turing's description of the Turing machine, which he used to determine if mathematics is decidable (see \ref{turingMachine}). He determined mathematics to be undecidable, but nonetheless he started mathematics down the path of automated theorem proving. Following years of development primarily on automating arithmetic, automated theorem proving began to appear as a question in computing with early attempts to create artificial intelligence \cite{history}.
 
 Allen Newell and Herbert Simon met at the Rand Corporation in 1952. Simon held a PhD in political science, focusing on thought processes, and was intrigued by the idea of using computers to simulate human problem solving. Newell, on the other hand, wanted to use computers to play chess games. In 1955, the two decided to work together, but they decided that building a chess playing AI was far too difficult. So they picked what they saw as a much easier task -- building an automated theorem prover.
 
-Newell and Simon went on to create the Logic Theory Machine, based on the propositional calculus described in Russell and Whitehad's \textit{Principia}. Propositional calculus is logic which entirely relates to truth and falsity of statements and argument flow, meaning it is significantly simpler than first order logic, which we will describe in the next section. The machine proved the majority of the theorems discussed in \textit{Principia}, even finding a simpler proof than the authors in one case, but this was refused publishing by the \textit{Journal of Symbolic Logic}, as the Logic Theory Machine was considered a co-author. Though an impressive first attempt, Newell and Simon's machine was capable of only very short proofs, as it made no attempts to choose the proper path and instead took every option available to it.
+Newell and Simon went on to create the Logic Theory Machine, based on the propositional calculus described in Russell and Whitehad's \textit{Principia Mathematica}. Propositional calculus is logic which entirely relates to truth and falsity of statements and argument flow, meaning it is significantly simpler than first order logic, which we will describe in the next section. The machine proved the majority of the theorems discussed in \textit{Principia Mathematica}, even finding a simpler proof than the authors in one case, but this was refused publishing by the \textit{Journal of Symbolic Logic}, as the Logic Theory Machine was considered a co-author. Though an impressive first attempt, Newell and Simon's machine was capable of only very short proofs, as it made no attempts to choose the proper path and instead took every option available to it.
 
-This early work into automated theorem proving divided academia into two camps -- the logicists and proceduralists. Logicists argued for a system using purely logic based inferences, and were also known as ``neats'' as they did not want the actual details of problems dirtying the logic. Rather than work from an understanding of the input material, a logicist's prover would look only at the underlying predicate logic. If the logic was deemed valid, the claim would be considered to be verified. The proceduralists, or ``scruffies,'' instead believed that knowledge should be considered procedural, rather than axiomatic. The example given by one such proceduralist was that of checking to see if it was safe to cross the road. This, like a proof, will return a truth value. However, it does not seem correct to use the logicist's method in this case. A better understanding of the task is to check each direction, and if no car is seen, consider the road safe to cross. As the proceduralist states, the logicist would be left attempting to prove that no car was coming using logic, rather than this procedure \cite{history}!
+This early work into automated theorem proving divided academia into two camps -- the logicists and proceduralists. Logicists argued for a system using purely logic-based inferences and were also known as ``neats'' as they did not want the actual details of problems dirtying the logic. Rather than work from an understanding of the input material, a logicist's prover would look only at the underlying predicate logic. If the logic was deemed valid, the claim would be considered to be verified. The proceduralists, or ``scruffies,'' instead believed that knowledge should be considered procedural, rather than axiomatic. The example given by one such proceduralist was that of checking to see if it was safe to cross the road. This, like a proof, will return a truth value. However, it does not seem correct to use the logicist's method in this case. A better understanding of the task is to check each direction, and if no car is seen, consider the road safe to cross. As the proceduralist states, the logicist would be left attempting to prove that no car was coming using logic, rather than this procedure \cite{history}!
 
 \section{Decidability, Incompleteness, and First Order Logic}
 \subsection{Decidability}\label{turingMachine}
-In order to understand automated theorem proving (ATP) and some of the difficulties faced by it, we will first discuss decidability. Decidability, as the name implies, describes the ability of a claim to be proven. Note that this is not describing the truth value that would be returned after being proven -- it describes if the question can even be proven. 
-Decidability features heavily in computational theory. Problems can be loosely divided into two categories, decidable and undecidable. While further distinctions exist, we will not focus on them here. It is important to note that a problem may take billions of years to solve, but it remains decidable -- at the end of the time period, a truth value will be returned for the claim. Undecidable claims can be given unlimited computing power and unlimited time, but will still be unable to return a truth value.
+
+In order to understand automated theorem proving (ATP) and some of the difficulties faced by it, we will first discuss decidability. Decidability, as the name implies, describes the ability of a claim to be proven. Note that this is not describing the truth value that would be returned after being proven -- it describes if the question can even be resolved logically. 
+
+Decidability features heavily in computational theory. Problems can be loosely divided into two categories, decidable and undecidable. While further distinctions exist, we will not focus on them here. It is important to note that a problem may take billions of years to solve, but it remains decidable -- at the end of the time period, a truth value will be returned for the claim. Undecidable claims can be given unlimited computing power and unlimited time, but they will still be unable to return a truth value.
 
 The typical example of an undecidable problem is what is known as the halting problem. This problem seeks to create a program which, when passed another program as input, will determine if the input program will ever cease execution (halt). While this program may seem possible to create, it is not.
 
@@ -34,24 +36,27 @@ Let us consider a program \textit{h} which determines if a program passed to it 
 \subsection{Incompleteness and First Order Logic}\label{incompleteness}
 This worry of decidability relates to mathematics through G\"odel's incompleteness theorems:
 \begin{theorem}
-If a formal system is consistent, it cannot be complete.
+	\cite{godel} If a formal system is consistent, it cannot be complete.
 \end{theorem}
 \begin{theorem}
-	The consistency of axioms cannot be proven within their own system \cite{godel}.
+	\cite{godel} If a system is consistent and sufficiently powerful, then the consistency of that system's axioms cannot be proven within the system.
 \end{theorem}
+
+\noindent
+Completeness refers to the characteristic of a system such that, for any statement in that system's language, the statement or its negation is provable from those axioms. Consistency is a characteristic of a system where a statement and its negation cannot both be true in the system.
 
 While both of these theorems are important, we will be focusing on Theorem~2. This matters to our work as problems which cannot be proven will never halt. Further, we now see that simply providing a series of axioms is not enough to ensure that the resulting system is consistent.
 
-Knowing this about incompleteness and decidability, we now examine the language of automated theorem provers -- first order logic. First order logic is a system used in linguistics, mathematics, computer science, and philosophy in order to logically describe claims and statements. For example, rather than state ``The person reading this sentence understands English'' we instead state ``There exists X such that X is reading sentence Y and X understands English''. The ``first'' indicates that the statements made utilize variables, such as X in the previous sentence, but functions are not used as arguments. First order logic dictates the axiomatization of mathematics. This project uses first order logic axioms for each of the question domains, such as set theory or algebraic arithmetic, in order to define the systems concisely.
+Knowing this about incompleteness and decidability, we now examine the language of automated theorem provers -- first order logic. First order logic is a system used in mathematics, computer science, and philosophy in order to logically describe claims and statements. For example, rather than state ``The person reading this sentence understands English'' we instead state ``There exists X such that X is reading sentence Y and X understands English.'' The ``first'' indicates that the statements made utilize variables, such as X in the previous sentence, but functions are not used as arguments. First order logic dictates the axiomatization of mathematics. This project uses first order logic axioms for each of the question domains, such as set theory or algebraic arithmetic, in order to define the systems concisely.
 
-As first order logic produces systems which cannot be proven fully based on their axioms, we give a program a set of axioms which may or may not be able to prove our claim, and this program may or may not ever halt. With this in mind, we can see why a system could not simply be allowed to work undisturbed for years to verify a claim. While a theorem prover will be able to become more efficient over time, there will always be problems which cannot be proven just from the axioms for a system.
+As first order logic produces systems which cannot be proven fully based on their axioms, we give a program a set of axioms which may or may not be able to prove our claim, and this program may or may not ever halt. With this in mind, we can see why a system could not simply be allowed to work undisturbed for years to verify a claim. While a theorem prover will be able to become more efficient over time, there will always be problems which cannot be proven just from the axioms of a sufficiently powerful system.
 
-\pagebreak
-
-\subsubsection{Implementing Simple Claims in First Order Logic}
+\subsubsection{Implementing Simple Claims in First Order Logic and TPTP}
 
 While first order logic is powerful, it is quite verbose. This verbosity is due to the need to perform steps one at a time. For example, \[X^2-Y^2 = (X-Y)(X+Y)\] is a simple statement in standard discussion, but to state this in first order logic looks like this:
-
+\[\forall X \forall Y X^2-Y^2 = (X-Y)(X+Y) \]
+\noindent
+Which is only slightly longer than the conversational way. However, should we desire to put this in an automated theorem prover in Thousands of Proofs for Thousands of Provers (TPTP) format, it rapidly expands.
 \begin{lstlisting}
 fof(expansion, axiom, ((
           ! [A:$int, B:$int, C:$int, D:$int, X:$int,Y:$int]:(
@@ -62,32 +67,31 @@ fof(expansion, axiom, ((
           => $difference(A,B) = $product(C,D))))).
 \end{lstlisting}
 
-A second example of this is the substitution axiom in algebra. This axiom states that, given $A = B$ and $C = D$, the sum or product of $A$ and $C$ will be equivalent to the sum or product of $B$ and $D$. In language, this is not very difficult to state in just one sentence. In first order logic, though, this forms two separate axioms, one for addition and one for multiplication, as well as requiring several steps before we are able to claim equivalence.
+A second example of this is the substitution axiom in algebra. This axiom states that, given $A = B$, the sum or product of $A$ and $C$ will be equivalent to the sum or product of $B$ and $C$. In language, this is not very difficult to state in just one sentence. In first order logic, though, this forms two separate axioms, one for addition and one for multiplication, as well as requiring several steps before we are able to claim equivalence. We will present this much like the previous example, following the generic symbolic first-order form with the TPTP implementation.
+
+\[\forall A \forall B \forall C: A = B \rightarrow AC = BC\]
 
 \begin{lstlisting}
-  fof(substitution_mult, axiom, ((
-          ! [A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:
-          (A = B
-          & C = D
-          & E = $product(A,C)
-          & F = $product(B,D)
-          => E = F)))).
+fof(substitution_multi, axiom, ((       
+	![A:$i,B:$i,C:$i]:(               
+	equals(A,B)  
+	=> equals(product(A,C),product(B,C)))))).
+ \end{lstlisting} 
 
-  fof(substitution_add, axiom, (( 
-          ![A:$int,B:$int,C:$int,D:$int,E:$int,F:$int]:(
-          A = B
-          & C = D
-          & E = $sum(A,C)
-          & F = $sum(B,D)
-          => E = F)))).
+\[\forall A \forall B \forall C: A = B \rightarrow A+C = B+C\]
+\begin{lstlisting}
+fof(substitution_add, axiom, ((
+	![A:$i,B:$i,C:$i]:               
+	(equals(A,B)
+	=> equals(sum(A,C),sum(B,C)))))).
 \end{lstlisting}
 
 \section{Automated Proving Theory}
 
-Before going into the theory and methodology of modern theorem provers, we will first describe what these provers are not. Proof assistants are a type of theorem prover which analyze input from a user, whether that be a potential next step in a proof which the computer will investigate or the next step the user wishes to take which the computer determines the validity of. These systems, though useful, require a much greater amount of interaction than was intended in this project. In our case, the only interaction the user should be allowed is providing the program with axioms and a conjecture to prove. This allowed for a user to be unsure how a proof needs to progress while still being able to see a result.
+Before going into the theory and methodology of modern theorem provers, we will first describe what these provers are not. Proof assistants are a type of theorem prover which analyze input from a user, whether that be a potential next step in a proof which the computer will investigate or the next step the user wishes to take which the computer determines the validity of. These systems, though useful, require a much greater amount of interaction than was intended in this project. In our case, the only interaction the user should be allowed is providing the program with axioms and a conjecture to prove. This allows for a user to be unsure how a proof needs to progress while still being able to see a result.
 
 \subsection{Herbrand Universe}
-The basic theory of automated proving begins with Herbrand and the Herbrand universe of S. Rather than seeking to prove that a claim is unsatisfiable in every universe, Herbrand devised a universe in which the negation of a conjecture being unsatisfiable meant that it would be so in all universes. By doing this, rather than having infinitely many universes to test a claim and thus never being able to absolutely prove a claim, the universes requiring testing dropped to just one. In this context, a universe refers to an arbitrary set of objects and functions \cite{gelfond1988stable}.
+The basic theory of automated proving begins with Herbrand and the Herbrand universe of S. Rather than seeking to prove that a claim is unsatisfiable in every universe, Herbrand devises a universe in which the negation of a conjecture being unsatisfiable means that it would be so in all universes. By doing this, rather than having infinitely many universes to test a claim and thus never being able to absolutely prove a claim, the universes requiring testing drop to just one. In this context, a universe refers to an arbitrary set of objects and functions \cite{gelfond1988stable}.
 
 \begin{definition}
 
@@ -108,9 +112,9 @@ First, the claim to be proven is negated. Then, we must have the axioms and this
 
 \subsubsection{The Resolution Rule}
 
-The resolution rule is a single inference rule which produces a single clause from two clauses which contain at least some complementary literals. The term ``complementary'' is used here to indicate that the two literals are the negation of one another, for example, $c$ and $~c$. The clause which results contains all literals from each of the component clauses which did not contain a complement in the other clause. This resulting clause is known as the resolvent. 
+The resolution rule is a single inference rule which produces a single clause from two clauses which contain at least some complementary literals. The term ``complementary'' is used here to indicate that the two literals are the negation of one another, for example, $c$ and $\neg c$. The clause which results contains all literals from each of the component clauses which did not contain a complement in the other clause. This resulting clause is known as the resolvent. 
 
-The resolution rule is applied until no new clauses may be created through its application. This results in one of two scenarios -- either the production of the empty clause, or one or more clauses which are not complementary. In the event that the empty clause is produced, the negation provided is unsatisfiable, and thus, the claim that is being tested must follow from the axioms. If the empty clause is not the only result, the negation has not been shown to be unsatisfiable, so the original conjecture is invalid.
+The resolution rule is applied until no new clauses may be created through its application. This results in one of two scenarios -- either the production of the empty clause, or one or more clauses which are not complementary. In the event that the empty clause is produced, the negation provided is unsatisfiable, and thus, the claim that is being tested must follow from the axioms. If the empty clause is not the only result, the negation has not been shown to be unsatisfiable, so the original conjecture is not proved valid.
 
 \subsubsection{The Resolution Technique}
 
@@ -127,7 +131,7 @@ When used in conjunction with a search algorithm, the resolution rule produces a
 	\item When it is no longer possible to apply the resolution rule:
 		\begin{enumerate}
 			\item The empty clause is derived, and thus the negation of our conjecture is a contradiction. This indicates that the original conjecture was valid.
-			\item The empty clause cannot be derived, and thus the negation of our conjecture has not been shown to be false. This indicates that the original conjecture is incorrect.
+			\item The empty clause cannot be derived, and thus the negation of our conjecture has not been shown to be false. As the negation of our conjecture is valid within our consistent set of axioms, it cannot be the case that the original claim is true. Were it to be true, we would not have a consistent system.
 		\end{enumerate}
 \end{enumerate}
 
@@ -139,7 +143,7 @@ While primarily based on logical resolution, elements of ordering based equality
 
 \subsubsection{Knuth-Bendix Completion Algorithm}
 
-The Knuth-Bendix Completion Algorithm is what is known as a semi-decision algorithm, which transforms a set of equations into a confluent term rewriting system. Semi-decision indicates that the algorithm may or may not halt, depending on the input. Confluent refers to a property of systems where, if some element $x$ yields $y$ and $z$, then at some later point in derivation $y$ and $z$ will yield the same value $w$. As we previously stated that superposition is based on an unfailing algorithm, we ignore discussion of non-halting results here.
+The Knuth-Bendix Completion Algorithm is what is known as a semi-decision algorithm, which transforms a set of equations into a confluent term rewriting system. Semi-decision indicates that the algorithm may or may not halt, depending on the input. Confluent refers to a property of systems where, if some element $x$ yields $y$ and $z$, then at some later point in derivation, $y$ and $z$ will yield the same value $w$. As we previously stated that superposition is based on an unfailing algorithm, we ignore discussion of non-halting results here.
 
 By rewriting equations in terms of a confluent term system, a translated result is essentially solved for the given domain. A description of the algorithm, and an example of how it functions, follows. Descriptions of new terms will be within the example, as explanations of the terms are very unclear without seeing them in action.
 
@@ -169,7 +173,7 @@ By rewriting equations in terms of a confluent term system, a translated result 
 		\setcounter{enumi}{4}
 		\item $xyxyx \rightarrow y^2$
 	\end{enumerate}
-	Reduction 3 is obsoleted by reductions 4 and 5, and thus is removed from our list of reduction rules. An ``obsolete'' rule is one which may be manipulated to produce other rules in the system through overlapping. We desire all reduction rules to be in the least general form which can be produced by the application of overlapping rules.
+	Reduction 3 is obsoleted by reductions 4 and 5, and thus is removed from our list of reduction rules. An ``obsolete'' rule is one which may be manipulated to produce other rules in the system through overlapping. When this algorithm is completed, we aim to have reductions which are unable to be overlapped with any other remaining reductions.
 
 	Now, we can consider the strings $x^3yxyx$ and $xyxyx^3$ with an overlapping of reductions 1 and 5, resulting in
 	\begin{enumerate}
@@ -189,12 +193,12 @@ By rewriting equations in terms of a confluent term system, a translated result 
 
 \end{example}
 
-Through the use of this algorithm, a prover is able to produce its own theorems which are as computationally simple as possible, allowing for less usage of memory along with more clear paths to follow. As prover's are multithreaded, eliminating confluence helps to minimize the number of threads performing different operations to produce the very same results.
+Through the use of this algorithm, a prover is able to produce its own theorems which are as computationally simple as possible, allowing for less usage of memory along with more clear paths to follow. As the provers are multithreaded, eliminating confluence helps to minimize the number of threads performing different operations to produce the very same results.
 
 \section{Vampire}
 
 Vampire is a first order theorem prover which started development in the late 1990s at the University of Manchester. The system takes input in \textit{Thousands of Problems for Thousands of Provers} (TPTP) format, with the user providing a file which contains axioms based on the domain of the problem, as well as a single conjecture at the end of the file.
 
-First, Vampire takes the conjecture given by the user and negates it. For example, if it had been given a statement of the form $p \text{ and } q \text{ implies } r$, it would convert it to $\neg p \text{ and } \neg q \text{ and } \neg r$ before performing further analysis. Following this, Vampire then uses the provided axioms to attempt to find a contradiction. In the event that a contradiction is found, the original claim will be true. If in the time Vampire is given to run no contradiction can be found, it is not necessarily the case that the original claim is false. Vampire may also find an example satisfying the negated claim and the axioms, and will output that the axioms and the negated conjecture are satisifiable, in which case the original claim was false.
+First, Vampire takes the conjecture given by the user and negates it. For example, if it had been given a statement of the form $p \text{ and } q \text{ implies } r$, it would convert it to $p \text{ and } q \text{ and } \neg r$ before performing further analysis. Following this, Vampire then uses the provided axioms to attempt to find a contradiction. In the event that a contradiction is found, the original claim is true. If in the time Vampire is given to run, no contradiction can be found, it is not necessarily the case that the original claim is false. Vampire may also find an example satisfying the negated claim and the axioms, and will output that the axioms and the negated conjecture are satisifiable, in which case the original claim was false.
 
-Over the past two decades, Vampire has won many awards at the CADE ATP System Competition's top division, winning first in 1999 and then every year from 2001--2010 \cite{cade}.
+Over the past two decades, Vampire has won many awards at the CADE ATP System Competition's top division \cite{cade}, winning first in 1999 and then every year from 2001--2010.

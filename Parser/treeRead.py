@@ -88,19 +88,38 @@ def NP_PP(lst, j):
 
 #Used when NP breaks down to NP and VP, finds variable in first NP then
 #gets the rest from the VP
-def NP_VP(lst, j):
+def NP_VP(lst, j): 
     variable1 = word(lst[j],'NN')[0]
+    #print(variable1)
+    print(lst)
     tree = children(children(lst[j+1], 0)[0][1],0)[0] 
     print(tree) 
     variable_location = find_all(lst[j+1],'NN')
+    #print(variable_location)
     function = word(tree[0],'NN')[0]
     #print(function)
-    variable2 = word(tree[1],'NN',shift=variable_location[1])[0]
-    #print(lst[j+1])
+    variable2 = word(tree[1],'NN',shift=variable_location[0]+1)[0]
+    #print(variable2)
     if(check_not(lst[j+1],word(tree[1],'NN')[1])):
         function='~'+function 
-    clause = [function, variable1, variable2]
+    clause = [function, variable1, variable2] 
+    if 'VBZ' in variable2:
+        print("hi!")
+        variable1 = word(lst[j],'NN')[0]
+        #print(variable1)
+        tree = children(children(lst[j+1], 0)[0][1],0)[0] 
+        print(tree) 
+        variable_location = find_all(lst[j+1],'NN')
+        #print(variable_location)
+        function = word(tree[0],'VBZ',shift=len('VBZ'))[0]
+        #print(function)
+        variable2 = word(tree[1],'NN',shift=variable_location[0])[0]
+        #print(variable2)
+        if(check_not(lst[j+1],word(tree[1],'NN')[1])):
+            function='~'+function 
+        clause = [function, variable1, variable2]
     return clause 
+
 
 #We know where the NP ends here, so get the children of its sibling
 def NN(lst, j):

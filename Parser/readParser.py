@@ -79,12 +79,14 @@ forAllString+=']: \n'
 print(forAllString)
 present = 0
 for i in claimList:
-    if 'sum' in i or 'product' in i:
+    if 'set' not in i and 'element' not in i:
         present = 1
 if present == 1:
     convertClaims = vampFileFormat(claimList, forAllString)
 else:
     convertClaims = vampFileFormat(claimList, '')
+convertClaims = convertClaims.replace('is', 'equals')
+convertClaims = convertClaims.replace('does', 'equals')
 #while('sum' in convertClaims or 'product' in convertClaims):
 #    holder1 = ''
 #    holder2 = ''
@@ -103,10 +105,11 @@ print(convertClaims)
 vampFile = open('vampRead.tptp', 'a')
 if 'element' in convertClaims or 'set' in convertClaims:
     axioms = open('axioms/setAxioms.tptp', 'r')
-elif 'sum' in convertClaims or 'product' in convertClaims or '=' in convertClaims:
-    axioms = open('axioms/algebraAxioms.tptp', 'r')
+#elif 'sum' in convertClaims or 'product' in convertClaims:
 else:
-    axioms = open('axioms/absoluteGeometryAxioms.tptp', 'r')
+    axioms = open('axioms/algebraAxioms.tptp', 'r')
+#else:
+#    axioms = open('axioms/absoluteGeometryAxioms.tptp', 'r')
 #axiomFiles = glob.glob("axioms/*.tptp")
 #print(axiomFiles)
 #for i in axiomFiles:

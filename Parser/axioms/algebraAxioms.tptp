@@ -20,16 +20,14 @@ fof(antiTransitivity, axiom, ((
 	=> ~equals(A,C))))).
 
 fof(substitution_multi, axiom, ((	
-	![A:$i,B:$i,C:$i,D:$i,E:$i,F:$i]:(
+	![A:$i,B:$i,C:$i]:(
 	equals(A,B)
-	& equals(C,D)
-	=> equals(product(A,C),product(B,D)))))).
+	=> equals(product(A,C),product(B,C)))))).
 
 fof(substitution_add, axiom, ((
-	! [A:$i,B:$i,C:$i,D:$i,E:$i,F:$i]:
+	! [A:$i,B:$i,C:$i]:
 	(equals(A,B)
-	& equals(C,D)
-	=> equals(sum(A,C),sum(B,D)))))).
+	=> equals(sum(A,C),sum(B,C)))))).
 
 fof(multIdentity, axiom, ((
 	?[_1:$i]:(
@@ -87,8 +85,8 @@ fof(addMulti, axiom, ((
 %	((equals(A,C)
 %	& equals(B,D)
 %	=> equals(product(A,B),product(C,D))))))).
-fof(test, conjecture, ((
-	![W:$i,X:$i,Y:$i,Z:$i]:(
-	equals(product(product(X,Y),product(W,Z)),product(product(W,product(X,Y)),Z)))))).
+%fof(test, conjecture, ((
+%	![W:$i,X:$i,Y:$i,Z:$i]:(
+%	equals(product(product(X,Y),product(W,Z)),product(product(W,product(X,Y)),Z)))))).
 
 

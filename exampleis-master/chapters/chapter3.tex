@@ -9,27 +9,27 @@ To use the software created during this project, the user must have an installat
 \item NLTK
 \end{itemize}
 
-The user will also need to run the Stanford CoreNLP server, which can be obtained from \url{https://github.com/stanfordnlp/CoreNLP}, as well as the Vampire theorem prover, available at \url{https://github.com/vprover/vampire}. Vampire is to built on the release version, using the included documentation to do so. The CoreNLP server need merely to be decompressed by the user, and then within the directory the command
+The user will also need to run the Stanford CoreNLP server, which can be obtained from \url{https://github.com/stanfordnlp/CoreNLP}, as well as the Vampire theorem prover, available at \url{https://github.com/vprover/vampire}. Vampire is to built on the release version, using the included documentation to do so. The CoreNLP server needs merely to be decompressed by the user, and then within the directory the command
 \begin{verbatim}
 java -mx4g -cp "*"
 edu.stanford.nlp.pipeline.StanfordCoreNLPServer
 -port 9000 -timeout 15000
 \end{verbatim}
-which will set a timeout of 15000 milliseconds for processing of any statement sent to it.
+should be run, which will set a timeout of 15000 milliseconds for processing of any statement sent to it.
 
 \section{treeRead}
 
 In order to use the data output by the CoreNLP server, a simple API was created which allows for all of the necessary information for conversion from English to TPTP format. The bulk of the module is within the \texttt{children() } function.
 
-The \texttt{children() } function implements what is essentially a Lisp parser for the Stanford tree. After being provided with a tree to parse and a starting index, the children of the given tree are returned. As the number of children can be any value of one or greater, the function determines where children end by keeping track of parentheses, adding a child to a list of children whenever the count of parentheses returns to zero. After all children are accounted for, the function returns both this list and the final position within the tree. Currently, this final position is not used due to alterations in other functions since its creation.
+The \texttt{children()} function converts the tree produced by the CoreNLP server into a Lisp-style syntax. After being provided with a tree to parse and a starting index, the children of the given tree are returned. As the number of children can be any value of one or greater, the function determines where children end by keeping track of the parentheses which indicate the start or end of parts of speech, adding a child to a list of children whenever the count of parentheses returns to zero. After all children are accounted for, the function returns both this list and the final position within the tree. Currently, this final position is not used, due to alterations in other functions since its creation.
 
-The functions \texttt{word()}, \texttt{find\_all()}, and \texttt{check\_not()} provide utility for the functions which follow. As the name implies, \texttt{word()} returns the word associated with a given part of speech tag. In order to allow for different words with the same tag to be found, there is an optional parameter \texttt{shift}, which changes the location at which the search for the part of speech tag begins. A second value is also returned by \texttt{word()}, which gives the final index within the tree which was visited.
+The functions \texttt{word()}, \texttt{find\_all()}, and \texttt{check\_not()} provide utility for the functions which follow. As the name implies, \texttt{word()} returns the word associated with a given part of speech tag. In order to allow for different words with the same tag to be found, there is an optional parameter \texttt{shift}, which changes the location at which the search for the part of speech tag begins. A second value is also returned by \texttt{word()}, which gives the final index within the tree that was visited.
 
 The function \texttt{find\_all()} performs a search of the given tree for a provided string. Upon finding an instance of the string, the index it begins at is added to a list, and the search is run once more from the position immediately following the discovered string. Finally, \texttt{check\_not()} determines if, prior to the final variable which has been found, the word ``not'' was present. If so, a tilde ($\sim$) is added to the front of the function, indicating that that claim is not fulfilled.
 
 \subsection{Noun Phrase Breakdown Functions}
 
-The final three functions are \texttt{NP\_PP()}, \texttt{NP\_VP()}, and \texttt{NN()}, creatively named based on how the original noun phrase (NP) they come from is constructed. \texttt{NP\_PP()} is called when a noun phrase and prepositional phrase (PP) are the children of a noun phrase. It first locates an operator term which will be present as a child of the noun phrase, such as ``equal'' or ``element''. Following this, the child noun phrase's sibling, the prepositional phrase, is searched for two nouns (NN), each of which are the variables which the function acts upon. For example, the prepositional phrase could contain the sets $X$ and $Y$, which the operator from before could inform us indicates that $X$ is a \textit{subset} of $Y$.
+The final three functions are \texttt{NP\_PP()}, \texttt{NP\_VP()}, and \texttt{NN()}, creatively named based on how the original noun phrase (NP) they come from is constructed. \texttt{NP\_PP()} is called when a noun phrase and prepositional phrase (PP) are the children of a noun phrase. It first locates an operator term which will be present as a child of the noun phrase, such as ``equal'' or ``element''. Following this, the child noun phrase's sibling, the prepositional phrase, is searched for two nouns (NN), which are the variables which the function acts upon. For example, the prepositional phrase could contain the sets $X$ and $Y$, which the operator from before could inform us indicates that $X$ is a \textit{subset} of $Y$.
 
 \label{npvp}
 \texttt{NP\_VP()} is executed when the noun phrase produces a noun phrase and verb phrase (VP). The noun phrase is searched for a variable, while the verb phrase is searched for two nouns, one of which is a function and the other of which is a variable.
@@ -44,17 +44,17 @@ To run the program, simply place the Vampire executable in the same directory as
 
 To allow for accurate processing of input, certain limitations exist on the natural language portion. The first and most basic change, is a requirement to separate each claim with a comma. This means that, rather than stating ``$X$ is less than $Y$ and $Y$ is less than $Z$'', input will be of the form ``$X$ is less than $Y$, and $Y$ is less than $Z$''. This is necessary not due to the implementation of the translator between trees and TPTP format, but rather due to occassional confusion during sentence parsing. Without clear separation by the comma, it is often the case that the ``and'' assigns a relationship between what is meant to be a new independent clause and the previous clause. By simply including the comma, this issue is almost always avoided.
 
-A second alteration to the language required for using the program is an elimination of words like ``it'' which allow for indirect, non-explicit reference. This is more than just an elimination of words in this case, it is a change to some usual ways of speech. Consider the statment ``There was riot in the market, which caused it to shut down.'' This includes the aforementioned ``it'' but also uses ``which'' to avoid repetition of ``the riot.'' To put a statement like this into our program, though obviously this statement is rather light in mathematical reference, one would input ``There was a riot in the market, the riot caused the market to shutdown.'' This would be a rather awkward manner of speech, but it allows for much more clarity than indirect reference does. 
+A second alteration to the language required for using the program is an elimination of words like ``it'' which allow for indirect, non-explicit reference. This is more than just an elimination of words in this case, it is a change to some usual ways of speech. Consider the statment, ``There was riot in the market, which caused it to shut down.'' This includes the aforementioned ``it'' but also uses ``which'' to avoid repetition of ``the riot.'' To put a statement like this into our program, though obviously this statement is rather light in mathematical reference, one would input ``There was a riot in the market, the riot caused the market to shut down.'' This would be a rather awkward manner of speech, but it allows for much more clarity than indirect reference does. 
 
-This change will be defended with one further example, as it is unfair to say it is a weakness of the system. Consider a statement like ``When Joe shook Tom's hand, he was completely unaware that he would die within the year.'' In this context, which is grammatically correct English, it is quite difficult to determine to who the ``he'' applies to in each situation. Were there to simply be a change to reusing nouns in this situation, we would easily see that Joe was unaware that Tom would be dying.
+This change will be defended with one further example, as it is unfair to say it is a weakness of the system. Consider a statement like, ``When Joe shook Tom's hand, he was completely unaware that he would die within the year.'' In this context, which is grammatically correct English, it is quite difficult to determine to who the ``he'' applies to in each situation. Were there to simply be a change to reusing nouns in this situation, we would easily see that Joe was unaware that Tom would be dying.
 
-Another limitation on word choice is the naming of variables. While it is acceptable to name a variable after any noun or most capitalized characters, the names ``A'' and ``I'' are reserved. When these characters are used, they are identified as different parts of speech than other variable names, so cause unreliable functionality.
+Another limitation on word choice is the naming of variables. While it is acceptable to name a variable after any noun or most capitalized characters, the names ``A'' and ``I'' are reserved. When these characters are used, they are identified as different parts of speech than other variable names, so they cause unreliable functionality.
 
 Language is also limited, currently, by positioning of operator statements, those which translate as meaningful functions. These operators \textit{must} not come after the two objects they are acting on. A statement such as ``$B$ and $C$ are not equal'' would thus be incorrect, as the language should have been ``$B$ does not equal $C$''.
 
 The remaining changes relate to vocabulary choice for mathematical terms and directionality of statements. Consider the example of some element $X$ which is in a set $L$. While typically it does not matter if we say ``$X$ is in $L$,'' ``$X$ is an element of $L$,'' ``$L$ has an element $X$,'' and so on, it matters to the program due to the way axioms are defined and claims are constructed during translation. The translator always assumes that the set comes after the element, so the third statement from before, ``$L$ has an element $X$'', would actually translate as an element $L$ in the set $X$. The other change to this language is similar to the removal of ``it'' and other indirect vocabulary -- the membership operator is ``element'' rather than ``in'', so the term ``element'' must be used to describe the relationship.
 
-Usage is also limited due to Vampire being a first-order theorem prover. Due to this, it is not possible to call a function on a variable, meaning statements such as ``The sum of $X$ and $Y$ equals $Z$'' are unable to be run. This is, of course, a major limitation. At this time, there does not appear to be a resolution to this problem, greatly reducing the functionality of the system for some domains, namely any dealing with arithmetic. This does not affect functionality with questions of membership or comparisons as long as they may be phrased in such a way as to avoid said conflict.
+Usage is also limited due to Vampire being a first-order theorem prover. Due to this, it is not possible to call a function on a variable, meaning statements such as ``The sum of $X$ and $Y$ equals $Z$'' are unable to be run. This is, of course, a major limitation. At this time, there does not appear to be a resolution to this problem, greatly reducing the functionality of the system for some domains, namely any dealing with arithmetic. This does not affect functionality with questions of membership or comparisons, as long as they may be phrased in such a way as to avoid said conflict.
 
 In Table \ref{Formatting}, inappropriate input sentences are shown alongside the same query written properly.
 
@@ -70,20 +70,20 @@ In Table \ref{Formatting}, inappropriate input sentences are shown alongside the
 ``The following values are not equal: $a$, $b$, $c$''                                                                               & \begin{tabular}[c]{@{}l@{}}``$B$ does not equal $C$, and $C$ does not equal $D$,\\ and $B$ does not equal $D$''\end{tabular}        \\
 \end{tabular}%
 }
-\caption{Examples of proper and improper formatting.}
+\caption{Examples of proper and improper formatting}
 \label{Formatting}
 \end{table}
 \subsection{Transitional TPTP File and Vampire}
 
 Following the parsing of the input claim, the program produces a TPTP format file containing selected axioms along with the generated conjecture. Axioms and conjectures within TPTP take the following form:
 
-\texttt{fof(subsetDef, \textit{axiom},((}
-
-\texttt{(subset(X, Y))}
-
-\texttt{\& (element(A, X))}
-
-\texttt{=> element(A, Y)))).}
+\begin{lstlisting}
+fof(subsetDef, axiom,((
+	![X,Y,A]:(
+	(subset(X, Y))
+	& (element(A, X))
+	=> element(A, Y))))).
+\end{lstlisting}
 
 \noindent
 where \textit{axiom} is used for an axiom, and \textit{conjecture} for a conjecture.
@@ -104,15 +104,15 @@ Included with the software are three complete axiom sets along with a mostly imp
 
 \subsubsection{Set Theory}
 
-The ``set theory'' axioms which are contained in the \texttt{axioms} directory are based on the axioms of Zermelo-Fraenkel set theory \cite{zermelo}. This axiomatic system was chosen as it is the basis of the ``set theory'' that would be most familar to a user without knowledge of more advanced mathematical ideas.
+The set theory axioms which are contained in the \texttt{axioms} directory are based on the axioms of Zermelo-Fraenkel set theory \cite{zermelo}. This axiomatic system was chosen as it is the basis of the set theory that would be most familar to a user without knowledge of more advanced mathematical ideas.
 
-Zermelo-Fraenkel (ZF) set theory was described in the early 1900s as a way to axiomatize set theory without falling into traps earlier axiomatizations did, such as Russel's paradox. This paradox asks one to consider the set $S$, which contains all sets that are not members of themselves. Based on the definition of that set, we would expect to see $S$ within $S$, as $S$ did not contain itself. However, now $S$ does contain itself, so we should not allow $S$ in $S$. But once it has been removed, it once again lacks itself so belongs in the set.
+Zermelo-Fraenkel (ZF) set theory was described in the early 1900s as a way to axiomatize set theory without falling into traps earlier axiomatizations did, such as Russell's paradox. This paradox asks one to consider the set $S$, which contains all sets that are not members of themselves. Based on the definition of that set, we would expect to see $S$ within $S$, as $S$ did not contain itself. However, now $S$ does contain itself, so we should not allow $S$ in $S$. But once it has been removed, it once again lacks itself so belongs in the set.
 
-To solve this problem, Zermelo described the axiom of Separation, or \textit{Aussonderungsaxiom}: \[\forall A \exists B: \forall x (x \in B \equiv (x \in A \and \phi)) \text{\cite{separation}.}\]
-
+To solve this problem, Zermelo described the axiom of Separation, or \textit{Aussonderungsaxiom} \cite{separation}: \[\forall A \exists B: \forall x (x \in B \equiv (x \in A \and \phi))\]
+\noindent
 What this axiom states is that given any set $A$, there exists a set $B$ such that given any set $x$, $x$ will be a member of $B$ if and only if $x$ is in $A$ and a certain formula $\phi$ holds for $x$. An example of a formula would be $x$ is even, meaning our set $B$ contains all even numbers while $A$ could be any set. Because of this, the description of a set would be written \[{x \in z: \phi(x)},\] rather than \[{x:\phi(x)}.\]
 
-While this does not appear to resolve the issue raised by Russel's paradox, it actually invalidates it. Russel's paradox is of the form \[{x: x \notin x},\] which is not valid in our language. We can rephrase this to \[{x \in x: x \notin x},\] which is the most accurate way of stating the paradox in the language of ZF set theory, and reveals very clearly that the paradox makes little sense in this language.
+While this does not appear to resolve the issue raised by Russell's paradox, it actually invalidates it. Russell's paradox is of the form \[{x: x \notin x},\] which is not valid in our language. We can rephrase this to \[{x \in x: x \notin x},\] which is the most accurate way of stating the paradox in the language of ZF set theory, and reveals very clearly that the paradox makes little sense in this language.
 
 Whle ZF set theory provides an effective understanding of sets, it is also, conveniently, a relatively short axiomatization.
 
@@ -124,9 +124,7 @@ Through changing these axioms to remove the use of the above functions, a future
 
 \subsubsection{Absolute Geometry}
 
-Absolute geometry refers to non-Euclidean geometry -- Euclid's axioms without the parallel postulate. The parallel postulate states that, should two straight lines be intersected by another, the side on which the sum of the interior angles created by these intersections is less than $180^{\circ}$ will be the side on which the two lines will intersect \cite{absolute}. Geometry in this context refers to the geometry defined by Hilbert's Axioms of Geometry \cite{geometry}.
-
-The remaining axioms are rather simple:
+Absolute geometry refers to non-Euclidean geometry -- Euclid's axioms without the parallel postulate. The parallel postulate states that, should two straight lines be intersected by another, the side on which the sum of the interior angles created by these intersections is less than $180^{\circ}$ will be the side on which the two lines will intersect \cite{absolute}. The remaining axioms are rather simple:
 \begin{enumerate}
 	\item It is possible to form a line segment by connecting two points.
 	\item To produce a line, we may extend a line segment.
@@ -134,28 +132,24 @@ The remaining axioms are rather simple:
 	\item All right angles are equivalent.
 \end{enumerate}
 
-While very simple, absolute geometry stil is relatively powerful in terms of proving ability. The majority of the conjectures which Euclid proves in his work \textit{Elements} may be proven without the use of the parallel postulate. Non-Euclidean geometry, systems of geometry which are formed by rejecting one or more of the claims of Euclid, are researched and many can be proven to be just as consistent as Euclidean geometry. One example of non-Euclidean geometry is elliptic geometry, which is geometry occuring on a sphere, such as the Earth. In this system, given a line $l$ and a point $A$ not on $l$, any line through $A$ will eventually intersect with $l$, i.e., it is not possible to create two parallel lines in this geometry.
+While very simple, absolute geometry still is relatively powerful in terms of proving ability. The majority of the conjectures which Euclid proves in his work \textit{Elements} may be proven without the use of the parallel postulate. Non-Euclidean geometry, systems of geometry which are formed by rejecting one or more of the claims of Euclid, are researched and many can be proven to be just as consistent as Euclidean geometry. One example of non-Euclidean geometry is elliptic geometry, which is geometry occuring on a sphere, such as the Earth. In this system, given a line $l$ and a point $A$ not on $l$, any line through $A$ will eventually intersect with $l$, i.e., it is not possible to create two parallel lines in this geometry.
 
 \subsubsection{Geometry}
 
-This file was meant to contain a description of Hilbert's axioms in first order form. These axioms are some of the most familar for geometry, being described by Hilbert in 1899 while still being one of the main axiomatizations of Euclidean geometry. Hilbert defines geometry using three basic terms:
-\begin{itemize}
-	\item point,
-	\item line,
-	\item plane.
-\end{itemize}
+This file was meant to contain a description of Hilbert's axioms \cite{geometry} in first order form. These axioms are some of the most familar for geometry, being described by Hilbert in 1899 while still being one of the main axiomatizations of Euclidean geometry. Hilbert defines geometry using three basic terms: point, line, and plane.
+
 
 \noindent
 In addition to these terms, Hilbert defines three basic relations which are possible:
-\begin{itemize}
-	\item \textit{betweenness}, which describes the relationship between three points,
-	\item \textit{containment}, which associates points with lines, points with planes, and lines with planes,
-	\item and \textit{congruence}, which describes equivalence between line segments or between angles.
-\end{itemize}
+\begin{description}
+	\item[betweenness] Describes the relationship between three points
+	\item[containment] Associates points with lines, points with planes, and lines with planes
+	\item[congruence] Describes equivalence between line segments or between angles
+	\end{description}
 
 By using relations of betweenness and containment, it is possible to describe line segments -- a segement $AB$ is the area of some line $C$ which two points $A$ and $B$ lie on, where any point on $AB$ is between points $A$ and $B$. A triangle is a series of three line segments with shared endpoints, and an angle can be described as the space between two lines before or after an intersection.
 
-Hilbert's axioms consist of a total of twenty claims, so already are clearly more complicated than the axioms of absolute geometry. They discuss angles, parallel lines, continuity, and several other subjects. The file which contains these axioms is not possible to use with the parser, as many of the relations require many variables to be input. At this time, however, the parser assumes that anything input consists of a function and two varables, so an ``incorrect'' number of variables causes the parser to return a faulty conjecture in the best case, and an error in the worst.
+Hilbert's axioms consist of a total of twenty claims, so already they are clearly more complicated than the axioms of absolute geometry. They discuss angles, parallel lines, continuity, and several other subjects. The file which contains these axioms is not possible to use with the parser, as many of the relations require many variables to be input. At this time, however, the parser assumes that anything input consists of a function and two varables, so an ``incorrect'' number of variables causes the parser to return a faulty conjecture in the best case, and an error in the worst.
 
 \subsubsection{Creating and Using Additional Axioms}
 
