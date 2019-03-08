@@ -27,9 +27,9 @@ PassArg = input('Please enter the claim you wish to test:\n')
 output = str(subprocess.run(["python", "stanfordParse.py", PassArg], capture_output=True).stdout, 'UTF-8')
 #New part to change product and sum
 baseTree = children(output,0)[0][0]
-print(baseTree)
+#print(baseTree)
 sLocations = find_all(baseTree,'S')
-print(sLocations)
+#print(sLocations)
 statementList = []
 for i in sLocations:
     treeForNN = children(baseTree, i)[0]
@@ -49,16 +49,16 @@ for i in sLocations:
                 if(type(treeForNN[1])==None):
                     statement = NN(treeForNN, j)
                     statementList.append(statement)
-                    print(statement)
+                    #print(statement)
                 elif(treeForNN[1][1]+treeForNN[1][2]=='PP'):
                     statement = NP_PP(treeForNN, j)
                     statementList.append(statement)
-                    print(statement)
+                    #print(statement)
                 elif(treeForNN[1][1]+treeForNN[1][2]=='VP'):
                     statement = NP_VP(treeForNN, j)
                     statementList.append(statement)
-                    print(statement)
-print(statementList)
+                    #print(statement)
+#print(statementList)
 claimList=[]
 forAllList=[]
 for i in statementList:
@@ -76,7 +76,7 @@ for i in forAllList:
     if forAllList.index(i) < len(forAllList) - 1:
         forAllString+=', '
 forAllString+=']: \n'
-print(forAllString)
+#print(forAllString)
 present = 0
 for i in claimList:
     if 'set' not in i and 'element' not in i:
@@ -101,6 +101,20 @@ convertClaims = convertClaims.replace('does', 'equals')
 #        loc+=1
 #    convertClaims = convertClaims[:split] + holder1 + ' = ' + holder2 + convertClaims[split+len(holder1)+len(holder2)+10]
 print(convertClaims)
+confirm = input("Does this look right? Y/N\n").lower()
+if confirm == "y":
+    pass
+else:
+    while(confirm != "y"):
+        wrongClaims = convertClaims.split('\n')
+        wrongLine = int(input("Which line looks wrong? Enter its number, where 0 is the top line:\n"))
+        print(wrongClaims[wrongLine])
+        wrongClaims[wrongLine] = input("That's how it looks right now. Input it properly, and we'll show you the new conjecture\n")+'\n'
+        convertClaims = ''
+        for i in wrongClaims:
+            convertClaims+=i+'\n'
+        print(convertClaims)
+        confirm = input("Is everything right now? Y/N\n").lower()
 
 vampFile = open('vampRead.tptp', 'a')
 if 'element' in convertClaims or 'set' in convertClaims:

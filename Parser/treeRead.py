@@ -80,7 +80,7 @@ def NP_PP(lst, j):
     variable_location = find_all(lst[j+1],'NN')
     variable1 = word(lst[j+1],'NN')[0]
     variable2 = word(lst[j+1],'NN',shift=variable_location[1])[0]
-    print(lst[j])
+    #print(lst[j])
     if(check_not(lst[j],word(lst[j+1],'NN')[1])):
         function='~'+function
     clause = [function, variable1, variable2]
@@ -91,9 +91,9 @@ def NP_PP(lst, j):
 def NP_VP(lst, j): 
     variable1 = word(lst[j],'NN')[0]
     #print(variable1)
-    print(lst)
+    #print(lst)
     tree = children(children(lst[j+1], 0)[0][1],0)[0] 
-    print(tree) 
+    #print(tree) 
     variable_location = find_all(lst[j+1],'NN')
     #print(variable_location)
     function = word(tree[0],'NN')[0]
@@ -104,11 +104,11 @@ def NP_VP(lst, j):
         function='~'+function 
     clause = [function, variable1, variable2] 
     if 'VBZ' in variable2:
-        print("hi!")
+        #print("hi!")
         variable1 = word(lst[j],'NN')[0]
         #print(variable1)
         tree = children(children(lst[j+1], 0)[0][1],0)[0] 
-        print(tree) 
+        #print(tree) 
         variable_location = find_all(lst[j+1],'NN')
         #print(variable_location)
         function = word(tree[0],'VBZ',shift=len('VBZ'))[0]
@@ -132,7 +132,7 @@ def NN(lst, j):
     else:
         valType = 'CD'
     variable2 = word(VP[0][1],valType)[0]
-    print(lst[j+1])
+    #print(lst[j+1])
     if(check_not(lst[j+1],word(VP[0][1],valType)[1])):
         function='~'+function 
     clause = [function, variable1, variable2]

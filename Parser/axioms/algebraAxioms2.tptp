@@ -13,9 +13,6 @@ fof(transitive, axiom, ((
 	& equals(B,C))
 	=> equals(A,C))))).
 
-fof(distributive, axiom, ((
-	![X:$i, Y:$i, Z:$i]:(
-	equals(product(X,sum(Y,Z)),sum(product(X,Y),product(X,Z))))))).
 
 %fof(antiTransitivity, axiom, ((
 %	![A:$i,B:$i,C:$i]:(
@@ -38,21 +35,10 @@ fof(multIdentity, axiom, ((
 	![X:$i]:(
 	equals(X,product(_1,X))))))).	
 
-fof(nonzero, axiom, ((
-	![X:$i]:(
-	zero(X)
-	<=> (![Y:$i]:(equals(Y,sum(X,Y)))))))).
-
-fof(nonone, axiom, ((
-	![X:$i]:(
-	one(X)
-	<=> (![Y:$i]:(equals(Y,product(X,Y)))))))).
-
-
 fof(addIdentity, axiom, ((
 	?[_0:$i]:(
-	zero(_0))))).
-	%equals(X,sum(_0,X))))))).	
+	![X:$i]:(
+	equals(X,sum(_0,X))))))).	
 
 fof(addSymm, axiom, ((
 	![X:$i,Y:$i]:(
@@ -66,7 +52,7 @@ fof(parensMulti, axiom, ((
 	![Z:$i,X:$i,Y:$i]:(
 	equals(product(product(X,Y),Z),product(X,product(Y,Z))))))).
 
-fof(parensAdd, axiom, ((
+fof(addMulti, axiom, ((
 	![Z:$i,X:$i,Y:$i]:(
 	equals(sum(sum(X,Y),Z),sum(X,sum(Y,Z))))))).
 
@@ -109,32 +95,21 @@ fof(addInverse, axiom, ((
 %	![W:$i,X:$i,Y:$i,Z:$i]:(
 %	equals(product(product(X,Y),product(W,Z)),product(product(W,product(X,Y)),Z)))))).
 
-
-
 fof(cancellation, axiom, ((
 	![A:$i,B:$i,C:$i,D:$i,E:$i]:(
 	(equals(D,product(A,C))
 	& equals(E,product(B,C))
 	& equals(D,E)
-	& ~zero(C))
+	& (?[X:$i]:(~equals(X,sum(C,X)))))
 	=> (equals(A,B)))))).
 
-%fof(noZeroDivisors, conjecture, ((
-%	![X:$i,Y:$i,Z:$i]:((((
-%	equals(Z, product(X,Y))))
-%	& ~zero(X)
-%	& ~zero(Y))
-%	=> ~zero(Z))))).
+fof(noZeroDivisors, conjecture, ((
+	![X:$i,Y:$i,_0:$i,W:$i]:((((
+	![Z:$i]:(
+	equals(Z, sum(Z,_0))))
+	& ~equals(X,_0)
+	& ~equals(_0,Y)
+	& equals(W,product(X,Y)))
+	=> ~equals(W,_0)))))).
 
 
-fof(zeroX, conjecture, ((
-	![X:$i, Y:$i]:(
-	~zero(X)
-	& equals(product(X,Y),X)
-	=> (zero(Y) | one(Y)))))).
-
-%fof(unique, conjecture, ((
-%	![X:$i, Y:$i]:(
-%	(zero(X)
-%	& zero(Y))
-%	=> equals(X,Y))))).
